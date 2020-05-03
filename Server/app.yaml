@@ -1,0 +1,26 @@
+runtime : php
+env : flex
+
+runtime_config:
+  document_root: public
+
+skip_files:
+    -.env
+
+env_variables:
+  APP_LOG: errorlog
+  APP_DEBUG: true
+  APP_KEY: base64:vsvfrlrJXqJMgAaN+i6FXdtMyI7X13HlB04jE9U+Gk4=
+  STORAGE_DIR: /tmp
+  CACHE_DRIVER: database
+  SESSION_DRIVER: database
+  DB_CONNECTION: mysql
+  DB_HOST: localhost
+  DB_PORT: 3306
+  DB_DATABASE: laravel
+  DB_USERNAME: laravel
+  DB_PASSWORD: laravel
+  DB_SOCKET: "/cloudsql/my-project-9710670624:asia-east1:tutorial"
+
+beta_settings:
+  cloud_sql_instances: "my-project-9710670624:asia-east1:tutorial"
