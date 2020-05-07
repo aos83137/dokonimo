@@ -42,14 +42,7 @@ export default class GeoScreen extends React.Component {
 
         if(!firebase.apps.length){
             firebase.initializeApp({
-                apiKey: "AIzaSyDaeJwtorHi3g-ytqU9bn5cjFhKO-2kbIE",
-                authDomain: "maptest3-b3603.firebaseapp.com",
-                databaseURL: "https://maptest3-b3603.firebaseio.com",
-                projectId: "maptest3-b3603",
-                storageBucket: "maptest3-b3603.appspot.com",
-                messagingSenderId: "676243801867",
-                appId: "1:676243801867:web:9a0db9a23c16846b04c40e",
-                measurementId: "G-Y8XG5Y6V1D"
+       
             });
         }
         
