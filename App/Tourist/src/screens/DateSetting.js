@@ -3,6 +3,8 @@ import {Text ,View,StyleSheet, Image, Alert, Dimensions, TouchableHighlight} fro
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import  colors from '../styles/colors'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -14,10 +16,10 @@ const DateSetting = (props)=>{
     const [isCheckoutDatePickerVisible, setCheckOutDatePickerVisibility] = useState(false);
     const [checkIn, setCheckIn] = useState(props.route.params?.checkIn ? props.route.params?.checkIn:new Date());
     const [checkOut, setcheckOut] = useState(props.route.params?.checkOut ? props.route.params?.checkOut :new Date());
-    
-    // useEffect(()=>{
-    // bagCnt = route.params?.bagCnt;
-    // })
+    const [keeper_id, setKeeper_id] = useState(props.route.params?.keeper_id);
+    const [keeper, setKeeper] = useState(props.route.params?.keeper);
+    const whereScreen = props.route.params?.whereScreen;
+    const coord = props.route.params?.coord;
 
     const showDatePicker = (check) => {
         if(check === 'checkIn'){
@@ -61,6 +63,33 @@ const DateSetting = (props)=>{
         if(min<10) min = '0' + min;
         return  '' + month + '.' + day + '. ' + ampm + ' ' + hour+':'+min;
     }
+
+    let button;
+    if(whereScreen === 'date'){
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="검색" 
+            onPress={()=>{props.navigation.navigate('Home',{
+                    checkIn,
+                    checkOut,
+                    bagCnt,
+                    carrCnt,
+                })
+            }}/>
+    }else if(whereScreen==='info'){
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="예약 내역 확인" 
+            onPress={()=>{props.navigation.navigate('Reservation',{
+                    checkIn,
+                    checkOut,
+                    bagCnt,
+                    carrCnt,
+                    keeper_id,
+                    coord,
+                    data:keeper,
+                    whereScreen:'reservation',
+                })
+            }}/>
+    }
+    // console.log(keeper_id);
+    
         return(
             <View style = {styles.container}> 
                 <View style={styles.backIcon}>
@@ -100,10 +129,10 @@ const DateSetting = (props)=>{
                 <View style={styles.luggageView}>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon2
-                                name = "calendar"
+                            <Icon4
+                                name = "bag-personal"
                                 color={colors.green01}
-                                size={24}
+                                size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>가방 사이즈</Text>
@@ -131,10 +160,10 @@ const DateSetting = (props)=>{
                     </View>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon2
-                                name = "shopping-bag"
+                            <Icon3
+                                name = "suitcase-rolling"
                                 color={colors.green01}
-                                size={24}
+                                size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>슈트케이스의 사이즈</Text>
@@ -162,14 +191,7 @@ const DateSetting = (props)=>{
                     </View>
                 </View>
                 <View style={styles.footer}>
-                    <Button buttonStyle={{backgroundColor:colors.green01}} title="검색" 
-                        onPress={()=>{props.navigation.navigate('Home',{
-                                checkIn,
-                                checkOut,
-                                bagCnt,
-                                carrCnt,
-                            })
-                    }}/>
+                    {button}
                 </View>
             </View>
         );

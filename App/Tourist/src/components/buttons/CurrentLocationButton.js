@@ -6,6 +6,7 @@ import {
     Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -18,8 +19,8 @@ export const CurrentLocationButton = function(props){
 
     return(
         <View style={[styles.container , {top: HEIGHT - bottom}]}>
-            <Icon 
-                name = 'my-location'
+            <Icon2 
+                name = 'user'
                 color = "#000000"
                 size = {25}
                 onPress={()=>{

@@ -6,20 +6,17 @@ import MapView, {Marker,PROVIDER_GOOGLE,Circle,Callout } from 'react-native-maps
 import Carousel from 'react-native-snap-carousel';
 import {SearchMenu} from '../components/menu/SearchMenu';
 import {CurrentLocationButton} from '../components/buttons/CurrentLocationButton';
+import SplashScreen from 'react-native-splash-screen';
 
+const URI = 'https://my-project-9710670624.df.r.appspot.com'
 export default class HomeScreen extends Component{
+    
+
     constructor(props){
         super(props);
+        let keeper;
         this.state = {
             error: null,
-            coordinates:[
-                { name : '1', latitude:35.8938, longitude:128.6245, image:require('../img/sushi.jpg')},
-                { name : '2', latitude:35.8970, longitude:128.6249, image:require('../img/sushi.jpg')},
-                { name : '3', latitude:35.8965,  longitude:128.6220, image:require('../img/sushi.jpg')},
-                { name : '4', latitude:35.8940, longitude:128.6219, image:require('../img/sushi.jpg')},
-                { name : '5', latitude:35.8943188, longitude:128.6238612, image:require('../img/sushi.jpg')},
-                
-            ],
             markers:[],
             // bagCnt : props.route.params.bacCnt,
             hiddenToggle:{
@@ -27,26 +24,24 @@ export default class HomeScreen extends Component{
             }
         };        
     }
-
+    //Test
     //componentDidMount : render가 호출된 후 실행되는 메서드
     componentDidMount() {
         // Instead of navigator.geolocation, just use Geolocation.
-
             Geolocation.getCurrentPosition(
                 (position) => {
                     let initialRegion = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
-                        latitudeDelta: 0.045,
-                        longitudeDelta: 0.045,
+                        latitudeDelta: 0.0084,
+                        longitudeDelta: 0.0084,
                     }
 
                     this.setState({
                         initialRegion,
                         error: null,
                     });
-                    console.log(JSON.stringify(position));
-                    
+                    // console.log(JSON.stringify(position));
                 },
                 (error) => {
                     // See error code charts below.
@@ -56,17 +51,38 @@ export default class HomeScreen extends Component{
                 { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
                 //정확도, 타임아웃, 최대 연령
             );
-            
+
+
+            fetch(URI+'/kstoreinfos',{
+                method:"get",
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                },
+            })
+            .then((response)=>response.json())
+            .then((responseJson)=>{         
+                // let keeper = responseJson.map(item=>{
+                //     return {name.}
+                // });   
+                // console.log(responseJson);
+                this.setState({
+                    keeper:responseJson
+                })
+                // this.setState(responseJson);           
+            }).catch((error)=>{
+                console.error(error);
+            });
+            SplashScreen.hide();
+            // this.watchLocation();
     }
 
     static getDerivedStateFromProps(props, state) {
         // Store prevId in state so we can compare when props change.
         // Clear out previously-loaded data (so we don't render stale stuff).
         if (props.id !== state.prevId) {
-          return {
-            externalData: null,
-            prevId: props.id,
-          };
+          return console.log('update');
+          ;
         }
         // No state update necessary
         return null;
@@ -78,6 +94,7 @@ export default class HomeScreen extends Component{
             longitude, 
             latitudeDelta, 
             longitudeDelta} = this.state.initialRegion
+        
         this._map.animateToRegion({
             latitude,
             longitude,
@@ -95,35 +112,35 @@ export default class HomeScreen extends Component{
         })
     }
 
-    //Alert 사용
-    showWelcomMesage = () =>{
-        Alert.alert(
-            //Header
-            'Welecome to San 대구',
-            //title
-            'The food is amazing',
-            //footer button
-            [
-                {
-                    text:'Cancel',
-                    style: 'cancel'
-                },
-                {
-                    text:'Ok'
-                }
-            ]
-        )
-    }
+    // //Alert 사용
+    // showWelcomMesage = () =>{
+    //     Alert.alert(
+    //         //Header
+    //         'Welecome to San 대구',
+    //         //title
+    //         'The food is amazing',
+    //         //footer button
+    //         [
+    //             {
+    //                 text:'Cancel',
+    //                 style: 'cancel'
+    //             },
+    //             {
+    //                 text:'Ok'
+    //             }
+    //         ]
+    //     )
+    // }
     //onSnapToItem의 콜백함수로 쓸 함수임
     onCarouselItemChange = (index) =>{
-        let location = this.state.coordinates[index];
+        let location = this.state.keeper[index];
         
         //Region이동
         this._map.animateToRegion({
-            latitude: location.latitude,
-            longitude: location.longitude,
-            latitudeDelta: 0.0115,
-            longitudeDelta: 0.0121,
+            latitude: location.keeper_store_latitude,
+            longitude: location.keeper_store_longtitude,
+            latitudeDelta: 0.0084,
+            longitudeDelta: 0.0084,
         });
 
         //showCallout() : 이 마커의 문구를 표시합니다
@@ -133,8 +150,8 @@ export default class HomeScreen extends Component{
     //marker눌렀을 때 이벤트
     onMarkerPressed = (location, index) => {
         this._map.animateToRegion({
-            latitude: location.latitude,
-            longitude: location.longitude,
+            latitude: location.keeper_store_latitude,
+            longitude: location.keeper_store_longtitude,
             latitudeDelta: 0.0115,
             longitudeDelta: 0.0121,
         })
@@ -144,31 +161,41 @@ export default class HomeScreen extends Component{
             hiddenToggle:{
                 display:'flex'
             }
-        })
+        });
     }
 
     //carousel의 아이템 뷰 설정 함수
-    renderCarouselItem = ({item}) => (
-        <TouchableHighlight onPress={()=>{
-            //네비갈때 데이터 던져주는걸로 구분하면 될듯함
-            this.props.navigation.navigate('KeeperInfo');
-        }}>
-            <View style={[styles.cardContainer,this.state.hiddenToggle]}>
-                    <Text style={styles.cardTitle}>{item.name}</Text>
-                    <Image style={styles.cardImage} source={item.image}/>
+    renderCarouselItem = ({item}) => {
+        return (
+            <TouchableHighlight onPress={()=>{
+                //네비갈때 데이터 던져주는걸로 구분하면 될듯함
+                this.props.navigation.navigate('KeeperInfo',{
+                    carrCnt:this.props.route.params?.carrCnt,
+                    bagCnt :this.props.route.params?.bagCnt,
+                    checkIn : this.props.route.params?.checkIn,
+                    checkOut : this.props.route.params?.checkOut,
+                    keeper: item.keeper_store_id,
+                    coord:{
+                        latitude:this.state.initialRegion.latitude,
+                        longitude:this.state.initialRegion.longitude,
+                    },
+                });
+            }}>
+                <View style={[styles.cardContainer,this.state.hiddenToggle]}>
+                        <Text style={styles.cardTitle}>{item.keeper_store_name}</Text>
+                        <Image style={styles.cardImage} source={{uri:item.keeper_store_imgurl}}/>
 
-            </View>
-        </TouchableHighlight>
-    )    
+                </View>
+            </TouchableHighlight>
+        );
+    }    
     
     render(){     
         const checkIn = this.props.route.params?.checkIn
         const checkOut = this.props.route.params?.checkOut
         const bagCnt = this.props.route.params?.bagCnt
         const carrCnt = this.props.route.params?.carrCnt
-        const inputData = this.props.route.params?.inputData.description
-
-        // console.log('render할때 값 : '+JSON.stringify(this.state.initialRegion));
+        const inputData = this.props.route.params?.inputData ? this.props.route.params?.inputData.description : '검색';
         
         return(
             <View style={styles.container}>
@@ -181,30 +208,35 @@ export default class HomeScreen extends Component{
                     ref={map=> {this._map = map}}
                     initialRegion={this.state.initialRegion}
                     showsUserLocation={true}
-                    showsMyLocationButton = {true}
-                    showsCompass = {true}
-                    rotateEnabled={false}
+                    onUserLocationChange={
+                        coordinate=>{
+                            // console.log('test');
+                            // console.log(coordinate.nativeEvent.coordinate.latitude);
+                            const {latitude,longitude}= coordinate.nativeEvent.coordinate
+                            this.setState({
+                                initialRegion:{
+                                    latitude,
+                                    longitude,
+                                    latitudeDelta: 0.045,
+                                    longitudeDelta: 0.045,
+                                }
+                            });
+                        }
+                    }
                     onPress = {this.clickMapHiddenMenu}
-                >   
-                    <Circle
-                        center={{ latitude: 35.8943188,
-                            longitude:128.6238612, }}
-                        radius={100}
-                        fillColor={'rgba(100,100,200,0.5)'}
-                    />
-                    
-                    {
-                        this.state.coordinates.map((marker, index)=>(
+                >
+                    {this.state.keeper?
+                        this.state.keeper.map((marker, index)=>(                            
                             <Marker
-                            key={marker.name}
-                            coordinate={{latitude:marker.latitude, longitude:marker.longitude}}
-                            title={marker.name}
+                            key={marker.keeper_store_name}
+                            coordinate={{latitude:marker.keeper_store_latitude, longitude:marker.keeper_store_longtitude}}
+                            title={marker.keeper_store_name}
                             ref={ref=> this.state.markers[index] = ref}
                             onPress = {() => this.onMarkerPressed(marker, index)}
+                            image={require('../img/tool.png')}
                             >
-                                
                             </Marker>
-                        ))
+                        )):null
                     }
                 </MapView>
 
@@ -218,6 +250,7 @@ export default class HomeScreen extends Component{
                             bagCnt,
                             checkIn,
                             checkOut,
+                            whereScreen:'date'
                         });}}
                         checkIn = {checkIn}
                         checkOut = {checkOut}
@@ -238,7 +271,7 @@ export default class HomeScreen extends Component{
                         <Carousel
                         //https://github.com/archriss/react-native-snap-carousel
                             ref={(c) => { this._carousel = c; }}
-                            data={this.state.coordinates}
+                            data={this.state.keeper}
                             renderItem={this.renderCarouselItem}
                             sliderWidth={Dimensions.get('window').width}
                             itemWidth={300}

@@ -45,7 +45,7 @@ export default class MainTabStack extends Component{
           function HomeIconWithBadge(props) {
             // React Context API, Redux, MobX 또는 이벤트 이미 터와 같은 다른 방법으로 badgeCount를 전달해야합니다.
             // console.log('여기는 props'+JSON.stringify(props));
-            return <IconWithBadge {...props} badgeCount={3} />;
+            return <IconWithBadge {...props} badgeCount={0} />;
           }
 
 
@@ -74,9 +74,7 @@ export default class MainTabStack extends Component{
                 inactiveTintColor: 'gray',
                 }}
             >
-                <MainTabStack.Screen name="Home" 
-                    component={HomeScreen}
-                    />
+                <MainTabStack.Screen name="Home" component={HomeScreen}/>
                 <MainTabStack.Screen name="Info" component={InfoScreen}/>
                 <MainTabStack.Screen name="Setting" component={SettingsScreen}/>
           </MainTabStack.Navigator>
