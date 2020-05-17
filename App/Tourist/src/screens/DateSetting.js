@@ -5,11 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
-<<<<<<< HEAD
 import Icon5 from 'react-native-vector-icons/Fontisto';
 
-=======
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
 import  colors from '../styles/colors'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -25,7 +22,6 @@ const DateSetting = (props)=>{
     const [keeper, setKeeper] = useState(props.route.params?.keeper);
     const whereScreen = props.route.params?.whereScreen;
     const coord = props.route.params?.coord;
-<<<<<<< HEAD
     const [visible, setVisible] = useState(false);
     const [carrVisible, setCarrVisible] = useState(false);
 
@@ -35,8 +31,6 @@ const DateSetting = (props)=>{
     const toggleCarrOverlay=()=>{
         setCarrVisible(!carrVisible);
     }
-=======
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
 
     const showDatePicker = (check) => {
         if(check === 'checkIn'){
@@ -161,13 +155,8 @@ const DateSetting = (props)=>{
                 <View style={styles.luggageView}>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-<<<<<<< HEAD
                             <Icon
                                 name = "card-travel"
-=======
-                            <Icon4
-                                name = "bag-personal"
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                 color={colors.green01}
                                 size={30}
                                 style={styles.icon}
@@ -204,13 +193,8 @@ const DateSetting = (props)=>{
                     </View>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-<<<<<<< HEAD
                             <Icon5
                                 name = "suitcase"
-=======
-                            <Icon3
-                                name = "suitcase-rolling"
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                 color={colors.green01}
                                 size={30}
                                 style={styles.icon}
