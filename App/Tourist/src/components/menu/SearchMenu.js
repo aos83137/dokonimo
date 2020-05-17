@@ -8,7 +8,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
+<<<<<<< HEAD
+import Icon4 from 'react-native-vector-icons/MaterialIcons';
+import Icon5 from 'react-native-vector-icons/Fontisto';
+=======
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
 
 
 const FS = 14;
@@ -66,14 +71,23 @@ export const SearchMenu = function(props){
                         </View>
                         <View style={styles.luggageView}>
                             <Icon4
+<<<<<<< HEAD
+                                name="card-travel"
+=======
                                 name="bag-personal"
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                 size={24}
                                 color={colors.green01}
                                 style={styles.icon}
                             />
                             <Text style={styles.titleText}> x{bagCnt}</Text>
+<<<<<<< HEAD
+                            <Icon5
+                                name="suitcase"
+=======
                             <Icon3
                                 name="suitcase-rolling"
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                 size={24}
                                 color={colors.green01}
                                 style={styles.icon}

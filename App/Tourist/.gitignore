@@ -58,4 +58,9 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
+<<<<<<< HEAD
 /.env
+node_modules
+=======
+/.env
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
