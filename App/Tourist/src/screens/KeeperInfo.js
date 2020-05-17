@@ -158,7 +158,11 @@ const KeeperInfo = (props)=>{
                                     <Text style={styles.subText}>오늘</Text>
                                 </View>
                                 <View>
+<<<<<<< HEAD
                                     <Text style={styles.subText}>{keeper.keeper_store_openinghours}</Text>
+=======
+                                    <Text>{keeper.keeper_store_openinghours}</Text>
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                 </View>
                             </View>
                             <View style={styles.inWrapViewLast}>
@@ -172,16 +176,24 @@ const KeeperInfo = (props)=>{
                                     <Text style={styles.subText}>수하물 개수 제한</Text>
                                 </View>
                                 <View>
+<<<<<<< HEAD
                                     <Text style={styles.subText}>
                                         가방 사이즈 x {keeper.keeper_store_bag_cnt}
                                     </Text>
                                     <Text style={styles.subText}>
+=======
+                                    <Text>
+                                        가방 사이즈 x {keeper.keeper_store_bag_cnt}
+                                    </Text>
+                                    <Text>
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                                         슈트케이스의 사이즈 x {keeper.keeper_store_bag_cnt}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                         <View style={styles.cardView}>
+<<<<<<< HEAD
                             <Text style = {styles.subTitle}>가게 정보</Text>
                             <View style={styles.inWrapView}>
                                 <View style={styles.elem}>
@@ -210,6 +222,16 @@ const KeeperInfo = (props)=>{
                                 <View>
                                     <Text style={styles.subText}>{keeper.keeper_store_address}</Text>
                                 </View>
+=======
+                            <Text>가게 정보</Text>
+                            <View style={styles.inWrapView}>
+                                <Text>전화기</Text>
+                                <Text>{keeper.keeper_store_tel}</Text>
+                            </View>
+                            <View style={styles.inWrapView}>
+                                <Text>위치</Text>
+                                <Text>{keeper.keeper_store_address}</Text>
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                             </View>
                             {/* <View style={styles.inWrapView}>
                                 <Text>홈페이지,링크</Text>
@@ -217,7 +239,11 @@ const KeeperInfo = (props)=>{
                             </View> */}
                         </View >
                         <View style={styles.cardView}>
+<<<<<<< HEAD
                             <Text style={styles.subTitle}>평가</Text>
+=======
+                            <Text>평가</Text>
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                             <FlatList
                                 data={comment}
                                 renderItem={({item})=>(<Item item={item} props={props}/>)}
@@ -252,6 +278,7 @@ const styles = StyleSheet.create({
     header:{
         padding:'2%',
         position:'absolute',
+<<<<<<< HEAD
     },
     subTitle:{
         fontWeight:'bold',
@@ -259,6 +286,8 @@ const styles = StyleSheet.create({
     },
     subText:{
         fontSize:16,
+=======
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
     },
     title:{
         width:'100%',
@@ -323,6 +352,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
     },
+<<<<<<< HEAD
     elem:{
         flexDirection:'row',
         alignItems:'center',    
@@ -330,6 +360,8 @@ const styles = StyleSheet.create({
     icon:{
         marginRight:5,
     },
+=======
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
 }
 );
 

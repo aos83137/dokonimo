@@ -112,6 +112,28 @@ export default class HomeScreen extends Component{
         })
     }
 
+<<<<<<< HEAD
+=======
+    // //Alert 사용
+    // showWelcomMesage = () =>{
+    //     Alert.alert(
+    //         //Header
+    //         'Welecome to San 대구',
+    //         //title
+    //         'The food is amazing',
+    //         //footer button
+    //         [
+    //             {
+    //                 text:'Cancel',
+    //                 style: 'cancel'
+    //             },
+    //             {
+    //                 text:'Ok'
+    //             }
+    //         ]
+    //     )
+    // }
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
     //onSnapToItem의 콜백함수로 쓸 함수임
     onCarouselItemChange = (index) =>{
         let location = this.state.keeper[index];
@@ -148,9 +170,13 @@ export default class HomeScreen extends Component{
     //carousel의 아이템 뷰 설정 함수
     renderCarouselItem = ({item}) => {
         return (
+<<<<<<< HEAD
             <TouchableOpacity 
                 style={styles.shadow}
                 onPress={()=>{
+=======
+            <TouchableHighlight onPress={()=>{
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                 //네비갈때 데이터 던져주는걸로 구분하면 될듯함
                 this.props.navigation.navigate('KeeperInfo',{
                     carrCnt:this.props.route.params?.carrCnt,
@@ -169,7 +195,11 @@ export default class HomeScreen extends Component{
                         <Image style={styles.cardImage} source={{uri:item.keeper_store_imgurl}}/>
 
                 </View>
+<<<<<<< HEAD
             </TouchableOpacity>
+=======
+            </TouchableHighlight>
+>>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
         );
     }    
     
