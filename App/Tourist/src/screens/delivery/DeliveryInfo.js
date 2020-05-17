@@ -14,19 +14,12 @@ const Delivery = (props)=>{
     const [load,setLoad] = useState(false);
     const [userCoords,setUserCoords] = useState(null);
     const [userId,setUserId] = useState(props.route.params?.userId);
-<<<<<<< HEAD
     const [distance, setDistance] = useState();
     const [time,setTime] = useState();
 
     // const [r_id, setR_id] = useState();
     const reservation = props.route.params?.reservation; //예약정보 받음
     const data = props.route.params?.data ? props.route.params?.data : '없디'; // 가게정보 받음
-=======
-    // const [r_id, setR_id] = useState();
-    const reservation = props.route.params?.reservation; //예약정보 받음
-    const data = props.route.params?.data ? props.route.params?.data : '없디'; // 가게정보 받음
-    console.log('reservation',reservation);
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
     
     const _storeData = async()=>{
         try{
@@ -49,7 +42,6 @@ const Delivery = (props)=>{
             }
             console.log('DeliveryInfo화면 - 현재 유저coord : ', userCoords);
             
-<<<<<<< HEAD
             fetch('https://api.mapbox.com/directions/v5/mapbox/walking/'
                 +userCoords.longitude+','+userCoords.latitude+';'+data.keeper_store_longtitude+','+data.keeper_store_latitude+'?geometries=geojson&access_token=pk.eyJ1IjoiamVvbnlvbmdzZW9rIiwiYSI6ImNrOXh4dGh0aTA1aXozbXBpdjNkeXM0OXYifQ.z_QRmRG_ZTKLTxHdUnLDiQ',{
                 method:"get",
@@ -76,19 +68,11 @@ const Delivery = (props)=>{
         },(e)=>{console.error(e);});
         _storeData()
 
-=======
-            setUserCoords(userCoords)
-        },(e)=>{console.error(e);});
-        _storeData()
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
         return ()=>{
             console.log("This will be logged on unmount");
         };
     },[props]);
-<<<<<<< HEAD
 
-=======
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
     const findDelivery=()=>{
         console.log('넣는다! :' + reservation.reservation_id);
         setLoad(true);
@@ -160,13 +144,8 @@ const Delivery = (props)=>{
                             {/* <Icon2 name='arrow-down' size={24}/> */}
                             <Text>목적지 : {data.keeper_store_name}</Text>
 
-<<<<<<< HEAD
                             <Text h5>운행거리 : {distance}</Text>
                             <Text>최종결제금액 : 1000¥</Text>
-=======
-                            <Text h5>운행거리 : 5km</Text>
-                            <Text>최종결제금액 : 2000¥</Text>
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                         </View>
                     </View>
                     <View style={styles.footer}>

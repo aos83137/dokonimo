@@ -159,11 +159,7 @@ const Reservation = (props)=>{
                     //Header
                     '결제 감사합니다.',
                     //title
-<<<<<<< HEAD
                     '예약이 완료 되었습니다.\n딜리버리 서비스를 사용 하시겠습니까?',
-=======
-                    '예약이 완료 되었습니다.',
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
                     //footer button
                     [
                         {
@@ -180,11 +176,7 @@ const Reservation = (props)=>{
                             text:'네. 사용할래요.',
                             onPress: ()=>{
                                 props.navigation.navigate('DeliveryInfo',{
-<<<<<<< HEAD
-                                    reservation,
-=======
-                                    reservation:responseJson.reverse()[0],
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
+                                    reservation:responseJson[0],
                                     data,
                                     userId,
                                 });

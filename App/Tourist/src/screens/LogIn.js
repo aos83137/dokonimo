@@ -3,10 +3,7 @@ import {PropTypes} from 'prop-types';
 //prop-types : 타입 확인 라이브러리
 import  Icon from 'react-native-vector-icons/FontAwesome';
 import {
-<<<<<<< HEAD
     Alert,
-=======
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
     View,
     Text,
     ScrollView ,
@@ -42,7 +39,6 @@ export default class LogIn extends Component {
             const userEmail = this.state.emailAddress;
             const userName = userEmail.split('@')[0];
             await AsyncStorage.setItem('userToken',userName)
-<<<<<<< HEAD
             Alert.alert(
                 //Header
                 '로그인',
@@ -61,12 +57,6 @@ export default class LogIn extends Component {
                 ]
             );
 
-=======
-            alert('로그인 완료');
-            this.props.navigation.navigate('Setting',{
-                'auth':true,
-            });
->>>>>>> 10b52aece0c4c59ff744ea3b38fe26d0543880fe
         }catch(e){
             console.error(e);
         }
