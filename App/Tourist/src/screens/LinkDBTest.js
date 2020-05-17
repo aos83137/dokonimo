@@ -4,8 +4,9 @@ import {  Button, View, Text,TextInput, Alert,StyleSheet ,TouchableOpacity, Flat
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Input } from 'react-native-elements';
-
-const url = '192.168.0.72';
+// http://192.168.0.2:8000/user
+// const url = '192.168.0.2:8000';
+const url = 'my-project-9710670624.df.r.appspot.com';
 const LinkDBTest = (props)=>{   
  
 //navi
@@ -21,12 +22,9 @@ const LinkDBTest = (props)=>{
         const [TextInputPhoneNumber, setTextInputPhoneNumber] = useState('Useless Placeholder');
 
         const InsertUser=()=>{
-            // console.log('TextInputName : '+TextInputName);
-            // console.log('TextInputEmail : ' +TextInputEmail);
-            // console.log('TextInputPhoneNumber : '+TextInputPhoneNumber);
-    
+            
             //fetch(url,콜백함수)
-            fetch('http://'+url+'/tr_reactnative/insert.php',{
+            fetch('http://'+url+'/user',{
                 method: 'POST',
                 headers:{
                     'Accept':'application/json',
@@ -37,7 +35,9 @@ const LinkDBTest = (props)=>{
                     email: TextInputEmail,
                     phone_number: TextInputPhoneNumber,
                 })
-            }).then((response)=> response.json())
+            }).then((response)=> {
+                return response.json()
+            })
             .then((responseJson)=>{
                 Alert.alert(responseJson);
             }).catch((error)=>{
@@ -79,7 +79,7 @@ const LinkDBTest = (props)=>{
         const [dataSource, setDataSource] = useState({})
 
         useEffect(()=>{
-            fetch('http://'+url+'/tr_reactnative/view_users.php')
+            fetch('http://'+url+'/user')
             .then((response)=>response.json())
             .then((responseJson)=>{
                 setIsLoding(false);
@@ -87,7 +87,7 @@ const LinkDBTest = (props)=>{
             }).catch((error)=>{
                 console.error(error);
         })
-        },{})
+        },[])
         // console.log('여기는 바깥! : '+ JSON.stringify(dataSource));
         
         
@@ -106,6 +106,10 @@ const LinkDBTest = (props)=>{
                 phone_number
             })
         }
+        console.log('test');
+        
+        console.log(dataSource[0]);
+        
         return(
             <View style={styles.containerDataUsers}>
                 <FlatList
@@ -150,21 +154,22 @@ const LinkDBTest = (props)=>{
         },[])
 
         const UpdateUsers= ()=>{
-            fetch('http://'+url+'/tr_reactnative/update.php',{
-                method: 'POST',
+            fetch('http://'+url+'/user/'+TextInputId,{
+                method: 'PATCH',
                 headers:{
                     'Accept':'application/json',
                     'Content-Type':'application/json',
                 },
                 body: JSON.stringify({
-                    id : TextInputId,
+                    //restfull하게 만들어서 body필요 없기 때문에 주석처리했음
+                    // id : TextInputId,
                     name:TextInputName,
                     email:TextInputEmail,
                     phone_number:TextInputPhoneNumber,
                 })
             }).then((response)=> response.json())
             .then((responseJson)=>{
-                Alert.alert(responseJson);
+                // Alert.alert(responseJson);
                 props.navigation.navigate('List');
             }).catch((error)=>{
                 console.error(error);
@@ -173,15 +178,16 @@ const LinkDBTest = (props)=>{
 
         // const ListViewItemSepartor
         const DeleteUsers = ()=>{
-            fetch('http://'+url+'/tr_reactnative/delete.php',{
-                method: 'POST',
+            fetch('http://'+url+'/user/'+TextInputId,{
+                method: 'DELETE',
                 headers:{
                     'Accept':'application/json',
                     'Content-Type':'application/json',
                 },
-                body: JSON.stringify({
-                    id : TextInputId,
-                })
+                //restfull하게 만들어서 body필요 없기 때문에 주석처리했음
+                // body: JSON.stringify({
+                //     id : TextInputId,
+                // })
             }).then((response)=> response.json())
             .then((responseJson)=>{
                 Alert.alert(responseJson);
@@ -190,6 +196,7 @@ const LinkDBTest = (props)=>{
                 console.error(error);
             });        
         }
+        
         return(
             <View style={styles.container}>
                 <TextInput

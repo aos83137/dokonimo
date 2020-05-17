@@ -7,6 +7,9 @@ import {
     TouchableHighlight,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Icon4 from 'react-native-vector-icons/MaterialIcons';
+import Icon5 from 'react-native-vector-icons/Fontisto';
 
 
 const FS = 14;
@@ -63,14 +66,14 @@ export const SearchMenu = function(props){
                             </Text>
                         </View>
                         <View style={styles.luggageView}>
-                            <Icon
-                                name="shopping-bag"
+                            <Icon4
+                                name="card-travel"
                                 size={24}
                                 color={colors.green01}
                                 style={styles.icon}
                             />
                             <Text style={styles.titleText}> x{bagCnt}</Text>
-                            <Icon
+                            <Icon5
                                 name="suitcase"
                                 size={24}
                                 color={colors.green01}

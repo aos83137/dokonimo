@@ -1,8 +1,12 @@
 import React , {useState, useEffect } from 'react';
-import {Text ,View,StyleSheet, Image, Alert, Dimensions, TouchableHighlight} from 'react-native';
-import { Button } from 'react-native-elements';
+import {Text ,View,StyleSheet, Image, Alert, Dimensions, TouchableHighlight,TouchableOpacity} from 'react-native';
+import { Button,Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon5 from 'react-native-vector-icons/Fontisto';
+
 import  colors from '../styles/colors'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -14,10 +18,19 @@ const DateSetting = (props)=>{
     const [isCheckoutDatePickerVisible, setCheckOutDatePickerVisibility] = useState(false);
     const [checkIn, setCheckIn] = useState(props.route.params?.checkIn ? props.route.params?.checkIn:new Date());
     const [checkOut, setcheckOut] = useState(props.route.params?.checkOut ? props.route.params?.checkOut :new Date());
-    
-    // useEffect(()=>{
-    // bagCnt = route.params?.bagCnt;
-    // })
+    const [keeper_id, setKeeper_id] = useState(props.route.params?.keeper_id);
+    const [keeper, setKeeper] = useState(props.route.params?.keeper);
+    const whereScreen = props.route.params?.whereScreen;
+    const coord = props.route.params?.coord;
+    const [visible, setVisible] = useState(false);
+    const [carrVisible, setCarrVisible] = useState(false);
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+      };
+    const toggleCarrOverlay=()=>{
+        setCarrVisible(!carrVisible);
+    }
 
     const showDatePicker = (check) => {
         if(check === 'checkIn'){
@@ -61,12 +74,54 @@ const DateSetting = (props)=>{
         if(min<10) min = '0' + min;
         return  '' + month + '.' + day + '. ' + ampm + ' ' + hour+':'+min;
     }
+
+    let button;
+    if(whereScreen === 'date'){
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="검색" 
+            onPress={()=>{props.navigation.navigate('Home',{
+                    checkIn,
+                    checkOut,
+                    bagCnt,
+                    carrCnt,
+                })
+            }}/>
+    }else if(whereScreen==='info'){
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="예약 내역 확인" 
+            onPress={()=>{props.navigation.navigate('Reservation',{
+                    checkIn,
+                    checkOut,
+                    bagCnt,
+                    carrCnt,
+                    keeper_id,
+                    coord,
+                    data:keeper,
+                    whereScreen:'reservation',
+                })
+            }}/>
+    }
+    // console.log(keeper_id);
+    
         return(
             <View style = {styles.container}> 
+                <Overlay isVisible={carrVisible} onBackdropPress={toggleCarrOverlay}>
+                    <View style = {styles.title}>
+                        <Text>수트케이스 사이즈</Text>    
+                        <Text>길이가 45cm 이상인 수하물</Text>    
+                    </View>
+                    <View>
+            
+                    </View>
+                    <View>
+                        <Button type="clear" title={'OK'}/>
+                    </View>
+                </Overlay>
+                <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <Text>Hello from Overlay!</Text>
+                </Overlay>
                 <View style={styles.backIcon}>
-                    <TouchableHighlight onPress={()=>{props.navigation.goBack()}}>
+                    <TouchableOpacity onPress={()=>{props.navigation.goBack()}}>
                         <Icon name='keyboard-arrow-left' size={24}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.dateView}>
                     <DateTimePickerModal
@@ -81,32 +136,39 @@ const DateSetting = (props)=>{
                         onConfirm={checkOutHandleConfirm}
                         onCancel={hideDatePicker}
                     />
-                    <TouchableHighlight onPress={()=>{showDatePicker('checkIn')}}>
+                    <TouchableOpacity onPress={()=>{showDatePicker('checkIn')}}>
                         <View>
                             <Text style={styles.checkText1}>체크인</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkIn)}</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <View>
                         <Icon name='keyboard-arrow-right' size={30}/>
                     </View>
-                    <TouchableHighlight onPress={()=>{showDatePicker('checkOut')}}>
+                    <TouchableOpacity onPress={()=>{showDatePicker('checkOut')}}>
                         <View>
                             <Text style={styles.checkText1}>체크아웃</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkOut)}</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.luggageView}>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon2
-                                name = "calendar"
+                            <Icon
+                                name = "card-travel"
                                 color={colors.green01}
-                                size={24}
+                                size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>가방 사이즈</Text>
+                            <TouchableOpacity
+                            onPress={toggleOverlay}>
+                                <Icon2
+                                    name="question-circle-o"
+                                    size = {20}
+                                />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonElem}>
                             <Button icon={
@@ -131,13 +193,21 @@ const DateSetting = (props)=>{
                     </View>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon2
-                                name = "shopping-bag"
+                            <Icon5
+                                name = "suitcase"
                                 color={colors.green01}
-                                size={24}
+                                size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>슈트케이스의 사이즈</Text>
+                            <TouchableOpacity
+                            onPress={toggleCarrOverlay}
+                            >
+                                <Icon2
+                                    name="question-circle-o"
+                                    size = {20}
+                                />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonElem}>
                             <Button icon={
@@ -162,14 +232,7 @@ const DateSetting = (props)=>{
                     </View>
                 </View>
                 <View style={styles.footer}>
-                    <Button buttonStyle={{backgroundColor:colors.green01}} title="검색" 
-                        onPress={()=>{props.navigation.navigate('Home',{
-                                checkIn,
-                                checkOut,
-                                bagCnt,
-                                carrCnt,
-                            })
-                    }}/>
+                    {button}
                 </View>
             </View>
         );
