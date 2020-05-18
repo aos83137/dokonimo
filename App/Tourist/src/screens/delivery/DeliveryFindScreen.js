@@ -84,9 +84,11 @@ export default class DeliveryFindScreen extends Component{
         database().ref('/users/'+this.state.userId)
         .on('value', snapshot => {
                 //data가 object이긴 한데 json처럼 값이 안나와서 정제 한번 해줌.
-                console.log(snapshot.val());
+                console.log(snapshot.val().state);
                 if(snapshot.val().state == 'take_luggage'){
                     this.takeLuggage();
+                    console.log('update status to in_delivery');
+                    
                 }
                 const newCoordinate ={
                     latitude:snapshot.val().delivery_latitude,
@@ -153,7 +155,7 @@ export default class DeliveryFindScreen extends Component{
     }
 
     takeLuggage(){
-        console.log('reservation:',this.state.reservation);
+        console.log('reservation id:',this.state.reservation.reservation_id);
         
         fetch('http://'+url+'/reservations/'+this.state.reservation.reservation_id,{
             method: 'PATCH',
@@ -166,27 +168,31 @@ export default class DeliveryFindScreen extends Component{
             })
         }).then((response)=>{
             return response.json()
-        }).catch((e)=>{console.error(e)
+        }).then((resJson)=>{
+            Alert.alert(
+                //header
+                '인계 완료했습니다.',
+                // title
+                'Info탭에서 실시간 짐의 위치를 확인할 수 있습니다.',
+                [
+                    {
+                        text:'홈으로...',
+                        onPress:()=>{
+                            database().ref('/delivery').update({state:'delivering'})
+                            .then(()=>{console.log('Data updated');
+                            });
+                            this.props.navigation.navigate('Info',{
+                                test:'test',
+                            });
+                        }
+                    },
+                ]
+            )
+            console.log('tlqkf',resJson);
+        })
+        .catch((e)=>{console.error(e)
         });
-        Alert.alert(
-            //header
-            '인계 완료했습니다.',
-            // title
-            'Info탭에서 실시간 짐의 위치를 확인할 수 있습니다.',
-            [
-                {
-                    text:'홈으로...',
-                    onPress:()=>{
-                        database().ref('/delivery').update({state:'delivering'})
-                        .then(()=>{console.log('Data updated');
-                        });
-                        this.props.navigation.navigate('Info',{
-                            test:'test',
-                        });
-                    }
-                },
-            ]
-        )
+
         this.deleteToken()
     }
 

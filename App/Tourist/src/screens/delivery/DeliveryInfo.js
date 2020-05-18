@@ -14,10 +14,12 @@ const Delivery = (props)=>{
     const [load,setLoad] = useState(false);
     const [userCoords,setUserCoords] = useState(null);
     const [userId,setUserId] = useState(props.route.params?.userId);
+    const [distance, setDistance] = useState();
+    const [time,setTime] = useState();
+
     // const [r_id, setR_id] = useState();
     const reservation = props.route.params?.reservation; //예약정보 받음
     const data = props.route.params?.data ? props.route.params?.data : '없디'; // 가게정보 받음
-    console.log('reservation',reservation);
     
     const _storeData = async()=>{
         try{
@@ -40,13 +42,37 @@ const Delivery = (props)=>{
             }
             console.log('DeliveryInfo화면 - 현재 유저coord : ', userCoords);
             
+            fetch('https://api.mapbox.com/directions/v5/mapbox/walking/'
+                +userCoords.longitude+','+userCoords.latitude+';'+data.keeper_store_longtitude+','+data.keeper_store_latitude+'?geometries=geojson&access_token=pk.eyJ1IjoiamVvbnlvbmdzZW9rIiwiYSI6ImNrOXh4dGh0aTA1aXozbXBpdjNkeXM0OXYifQ.z_QRmRG_ZTKLTxHdUnLDiQ',{
+                method:"get",
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                },
+            }).then((res)=>res.json())
+            .then((resJson)=>{
+                const distance = ''+Math.round(resJson.routes[0].distance)/1000+'km';
+                const speed = 20;
+                const time = Math.round((Math.round(resJson.routes[0].distance)/1000)/speed*60);
+                console.log('거리 : ',distance);
+                console.log('속력 : ',speed);
+                console.log('시간 : ', time);
+
+                setDistance(distance)
+                setTime(time);
+            })
+            .catch((e)=>{
+                console.error(e);
+            });
             setUserCoords(userCoords)
         },(e)=>{console.error(e);});
         _storeData()
+
         return ()=>{
             console.log("This will be logged on unmount");
         };
     },[props]);
+
     const findDelivery=()=>{
         console.log('넣는다! :' + reservation.reservation_id);
         setLoad(true);
@@ -118,8 +144,8 @@ const Delivery = (props)=>{
                             {/* <Icon2 name='arrow-down' size={24}/> */}
                             <Text>목적지 : {data.keeper_store_name}</Text>
 
-                            <Text h5>운행거리 : 5km</Text>
-                            <Text>최종결제금액 : 2000¥</Text>
+                            <Text h5>운행거리 : {distance}</Text>
+                            <Text>최종결제금액 : 1000¥</Text>
                         </View>
                     </View>
                     <View style={styles.footer}>

@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import {Text ,View, StyleSheet, Image, Alert, Dimensions,Button,TouchableHighlight} from 'react-native';
+import {Text ,View, StyleSheet, Image, Alert, Dimensions,Button,TouchableHighlight,TouchableOpacity} from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker,PROVIDER_GOOGLE,Circle,Callout } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
@@ -112,25 +112,6 @@ export default class HomeScreen extends Component{
         })
     }
 
-    // //Alert 사용
-    // showWelcomMesage = () =>{
-    //     Alert.alert(
-    //         //Header
-    //         'Welecome to San 대구',
-    //         //title
-    //         'The food is amazing',
-    //         //footer button
-    //         [
-    //             {
-    //                 text:'Cancel',
-    //                 style: 'cancel'
-    //             },
-    //             {
-    //                 text:'Ok'
-    //             }
-    //         ]
-    //     )
-    // }
     //onSnapToItem의 콜백함수로 쓸 함수임
     onCarouselItemChange = (index) =>{
         let location = this.state.keeper[index];
@@ -167,7 +148,9 @@ export default class HomeScreen extends Component{
     //carousel의 아이템 뷰 설정 함수
     renderCarouselItem = ({item}) => {
         return (
-            <TouchableHighlight onPress={()=>{
+            <TouchableOpacity 
+                style={styles.shadow}
+                onPress={()=>{
                 //네비갈때 데이터 던져주는걸로 구분하면 될듯함
                 this.props.navigation.navigate('KeeperInfo',{
                     carrCnt:this.props.route.params?.carrCnt,
@@ -186,7 +169,7 @@ export default class HomeScreen extends Component{
                         <Image style={styles.cardImage} source={{uri:item.keeper_store_imgurl}}/>
 
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         );
     }    
     
@@ -326,12 +309,18 @@ const styles = StyleSheet.create({
         bottom: 0,
         marginBottom: 48
     },
+    shadow:{
+        shadowColor:'#000000',
+        shadowOpacity: 1.0,
+        shadowRadius:5,
+        elevation: 7,  
+    },
     cardContainer:{
         backgroundColor: 'rgba(0,0,0,0.6)',
         height:200,
         width:300,
         padding:24,
-        borderRadius:24
+        borderRadius:24,
     },
     cardImage:{
         height:120,

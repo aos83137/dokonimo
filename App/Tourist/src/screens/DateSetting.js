@@ -1,10 +1,12 @@
 import React , {useState, useEffect } from 'react';
-import {Text ,View,StyleSheet, Image, Alert, Dimensions, TouchableHighlight} from 'react-native';
-import { Button } from 'react-native-elements';
+import {Text ,View,StyleSheet, Image, Alert, Dimensions, TouchableHighlight,TouchableOpacity} from 'react-native';
+import { Button,Overlay,Avatar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon5 from 'react-native-vector-icons/Fontisto';
+
 import  colors from '../styles/colors'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -20,6 +22,15 @@ const DateSetting = (props)=>{
     const [keeper, setKeeper] = useState(props.route.params?.keeper);
     const whereScreen = props.route.params?.whereScreen;
     const coord = props.route.params?.coord;
+    const [visible, setVisible] = useState(false);
+    const [carrVisible, setCarrVisible] = useState(false);
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+      };
+    const toggleCarrOverlay=()=>{
+        setCarrVisible(!carrVisible);
+    }
 
     const showDatePicker = (check) => {
         if(check === 'checkIn'){
@@ -92,10 +103,69 @@ const DateSetting = (props)=>{
     
         return(
             <View style = {styles.container}> 
+                <Overlay overlayStyle={styles.overlay} isVisible={carrVisible} onBackdropPress={toggleCarrOverlay}>
+                    <View style={styles.overlayStyle}>
+                        <View style = {styles.title}>
+                            <Text style={styles.checkText1}>수트케이스 사이즈</Text>    
+                            <Text style={styles.luggageText1}>길이가 45cm 이상인 수하물</Text>    
+                        </View>
+                        <View style={styles.elem}>
+                            <Avatar
+                                size="large"
+                                rounded
+                                containerStyle={styles.avatarStyle}
+                            />
+                            <Avatar
+                                size="large"
+                                rounded
+                                containerStyle={styles.avatarStyle}
+                            />
+                            <Avatar
+                                size="large"
+                                rounded
+                                containerStyle={styles.avatarStyle}
+                            />
+                        </View>
+                        <View style={styles.footer}>
+                            <Button type="clear" title={'OK'} onPress={toggleCarrOverlay}/>
+                        </View>
+                    </View>
+                </Overlay>
+                <Overlay overlayStyle={styles.overlay} isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <View style={styles.overlayStyle}>
+                        <View style = {styles.title}>
+                            <Text style={styles.checkText1}>가방 사이즈</Text>    
+                            <Text style={styles.luggageText1}>길이가 45cm 이하인 수하물</Text>    
+                        </View>
+                        <View style={styles.elem}>
+                            <Avatar
+                                size="large"
+                                rounded
+                                icon={{name: 'shopping-bag', type: 'font-awesome'}}
+                                containerStyle={styles.avatarStyle}
+                            />
+                            <Avatar
+                                size="large"
+                                rounded
+                                icon={{name: 'suitcase', type: 'font-awesome'}}
+                                containerStyle={styles.avatarStyle}
+                            />
+                            <Avatar
+                                size="large"
+                                rounded
+                                icon={{name: 'shopping-basket', type: 'font-awesome'}}
+                                containerStyle={styles.avatarStyle}
+                            />
+                        </View>
+                        <View style={styles.footer}>
+                            <Button type="clear" title={'OK'} onPress={toggleOverlay}/>
+                        </View>                
+                    </View>
+                </Overlay>
                 <View style={styles.backIcon}>
-                    <TouchableHighlight onPress={()=>{props.navigation.goBack()}}>
+                    <TouchableOpacity onPress={()=>{props.navigation.goBack()}}>
                         <Icon name='keyboard-arrow-left' size={24}/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.dateView}>
                     <DateTimePickerModal
@@ -110,32 +180,39 @@ const DateSetting = (props)=>{
                         onConfirm={checkOutHandleConfirm}
                         onCancel={hideDatePicker}
                     />
-                    <TouchableHighlight onPress={()=>{showDatePicker('checkIn')}}>
+                    <TouchableOpacity onPress={()=>{showDatePicker('checkIn')}}>
                         <View>
                             <Text style={styles.checkText1}>체크인</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkIn)}</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <View>
                         <Icon name='keyboard-arrow-right' size={30}/>
                     </View>
-                    <TouchableHighlight onPress={()=>{showDatePicker('checkOut')}}>
+                    <TouchableOpacity onPress={()=>{showDatePicker('checkOut')}}>
                         <View>
                             <Text style={styles.checkText1}>체크아웃</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkOut)}</Text>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.luggageView}>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon4
-                                name = "bag-personal"
+                            <Icon
+                                name = "card-travel"
                                 color={colors.green01}
                                 size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>가방 사이즈</Text>
+                            <TouchableOpacity
+                            onPress={toggleOverlay}>
+                                <Icon2
+                                    name="question-circle-o"
+                                    size = {20}
+                                />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonElem}>
                             <Button icon={
@@ -160,13 +237,21 @@ const DateSetting = (props)=>{
                     </View>
                     <View style={styles.luggageWrap}>
                         <View style={styles.elem}>
-                            <Icon3
-                                name = "suitcase-rolling"
+                            <Icon5
+                                name = "suitcase"
                                 color={colors.green01}
                                 size={30}
                                 style={styles.icon}
                             />
                             <Text style={styles.luggageText1}>슈트케이스의 사이즈</Text>
+                            <TouchableOpacity
+                            onPress={toggleCarrOverlay}
+                            >
+                                <Icon2
+                                    name="question-circle-o"
+                                    size = {20}
+                                />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.buttonElem}>
                             <Button icon={
@@ -217,6 +302,7 @@ const styles = StyleSheet.create({
     },
     checkText1:{
         fontSize:18,
+        fontWeight:'bold',
     },
     checkText2:{
         fontSize:24,
@@ -259,7 +345,22 @@ const styles = StyleSheet.create({
     footer:{
         width:'80%',
         marginTop:'10%',
-        
+    },
+    title:{
+        alignItems:'center',
+        marginBottom:'10%',
+    },
+    overlayStyle:{
+        alignItems:'center',
+        padding:20
+    },
+    overlay:{
+        width:'75%',
+        height:'40%',
+    },
+    avatarStyle:{
+        marginLeft:10,
+        marginRight:10,
     },
 });
 

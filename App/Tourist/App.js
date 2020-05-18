@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import DeliveryRealtime from './src/screens/delivery/DeliveryRealtime';
 import SignUp from './src/screens/SignUp.js';
-
+import Credit from './src/screens/Credit.js';
 
 export async function request_location_runtime_permission() {
   // 옐로우 박스 지울때 밑에꺼 주석풀기
@@ -116,6 +116,7 @@ export default class App extends Component{
             <RootStack.Screen name="LogIn" component={LogIn}/>
             <RootStack.Screen name="SignUp" component={SignUp}/>
             <RootStack.Screen name="DeliveryRealtime" component={DeliveryRealtime}/>
+            <RootStack.Screen name="Credit" component={Credit}/>
           </RootStack.Navigator>
         </NavigationContainer>
       );

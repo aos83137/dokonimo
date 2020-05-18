@@ -94,16 +94,24 @@ export default class SettingsScreen extends Component{
             </View>
         }else{
             authLoginView=
-            <TouchableHighlight onPress={
-                ()=>{
-                    this.removeValue();                                
-                }
-            }>
-                <View style={styles.content}>
-                    <Text style={styles.text}>로그아웃</Text>
-                    <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
-                </View>
-            </TouchableHighlight>
+            <>
+                <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Credit')}}>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>결제 정보</Text>
+                        <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={
+                    ()=>{
+                        this.removeValue();                                
+                    }
+                }>
+                    <View style={styles.content}>
+                        <Text style={styles.text}>로그아웃</Text>
+                        <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
+                    </View>
+                </TouchableHighlight>
+            </>
         }
         
         return(

@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon4 from 'react-native-vector-icons/MaterialIcons';
+import Icon5 from 'react-native-vector-icons/Fontisto';
 
 
 const FS = 14;
@@ -66,14 +67,14 @@ export const SearchMenu = function(props){
                         </View>
                         <View style={styles.luggageView}>
                             <Icon4
-                                name="bag-personal"
+                                name="card-travel"
                                 size={24}
                                 color={colors.green01}
                                 style={styles.icon}
                             />
                             <Text style={styles.titleText}> x{bagCnt}</Text>
-                            <Icon3
-                                name="suitcase-rolling"
+                            <Icon5
+                                name="suitcase"
                                 size={24}
                                 color={colors.green01}
                                 style={styles.icon}

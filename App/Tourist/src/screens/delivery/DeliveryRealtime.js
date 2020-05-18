@@ -176,8 +176,8 @@ export default class DeliveryFindScreen extends Component{
     //유저+ 딜리버리 중앙위치
     zoomOut(){
         const userRegion ={
-            latitude: this.state.initialRegion.latitude,
-            longitude:this.state.initialRegion.longitude,
+            latitude: this.state.dInit.latitude,
+            longitude:this.state.dInit.longitude,
         }
         const storeRegion = this.state.storeRegion
         const zoomOutLat = (userRegion.latitude + storeRegion.latitude)/2;
