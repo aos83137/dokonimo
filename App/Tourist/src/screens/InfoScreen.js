@@ -62,7 +62,17 @@ const InfoScreen = (props)=>{
     const [keepers, setKeepers] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const stateTest = props.route.params?.stateTest;
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
+    const onRelease = ()=> {
+        // offsetY must be less than the refreshing height
+        // to trigger refresh
+          setIsRefreshing(true);
+          setTimeout(() => {
+            setIsRefreshing(false);
+          }, 3000);
+      }
+    
     useEffect(()=>{
         fetch(URI+'/reservations',{
             method:"get",
@@ -97,7 +107,29 @@ const InfoScreen = (props)=>{
         return ()=>{
             console.log('삭제됨 info');
         }
-    },[props])
+    },[props]);
+
+    const handleRefresh = ()=>{    
+        console.log('refresh start');
+        
+        setIsRefreshing(true);
+        fetch(URI+'/reservations',{
+            method:"get",
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+            },
+        })
+        .then((response)=>response.json())
+        .then((responseJson)=>{        
+            setIsRefreshing(false);
+            setReservations(responseJson.reverse());
+            console.log('refresh end');
+        }).catch((error)=>{
+            console.error(error);
+        });
+    }
+
     if(isLoading){
         return(
             <View style={{ flex:1, paddingTop:20}}>
@@ -114,6 +146,8 @@ const InfoScreen = (props)=>{
                 data={reservations}
                 renderItem={({item}) =>(<Item keepers={keepers} item={item} props={props}/>)}
                 keyExtractor={item=>item.id}
+                refreshing={false}
+                onRefresh={handleRefresh}
                 />
 
         </View>
