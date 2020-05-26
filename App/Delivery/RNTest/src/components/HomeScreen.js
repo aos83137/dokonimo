@@ -9,11 +9,13 @@ import {
 
 
 import ToggleButton from './ToggleButton'
+import firebase from 'firebase'
   
 
 export default class HomeScreen extends React.Component{ 
     state={
-        value:''
+        value:'',
+        data:[],
     }
     constructor(props){
         super(props)
@@ -23,23 +25,78 @@ export default class HomeScreen extends React.Component{
     _onStateChange(newState){
         const value = newState?"대기중":"배달안함"
         this.setState({toggleText:value})
+        
     }
     
+    componentDidMount(){
+        if(!firebase.apps.length){
+            firebase.initializeApp({
+                apiKey: "AIzaSyDaeJwtorHi3g-ytqU9bn5cjFhKO-2kbIE",
+                authDomain: "maptest3-b3603.firebaseapp.com",
+                databaseURL: "https://maptest3-b3603.firebaseio.com",
+                projectId: "maptest3-b3603",
+                storageBucket: "maptest3-b3603.appspot.com",
+                messagingSenderId: "676243801867",
+                appId: "1:676243801867:web:9a0db9a23c16846b04c40e",
+                measurementId: "G-Y8XG5Y6V1D"
+            });
+        }
+
+ 
+        firebase.database().ref('/users').on("value",snapshot=>{
+            if(snapshot.forEach){
+                const to = [];
+                snapshot.forEach(
+                    (data)=>{
+                        const temp = data.val();
+                        to.push(temp);
+                        this.setState({data:to});
+                   
+                    }
+                )
+            }
+      
+        })
+
+        
+    }
 
     render(){
         const {toggleText} = this.state;
-        let button;
+        const users = [];
+
         if(toggleText=="대기중"){
-            button = <Button title="키퍼있는 곳"
-            onPress={()=>this.props.navigation.navigate('Map')} />
+            if(this.state.data){
+                for(i=0; i<this.state.data.length; i++){
+                    const keeper ={
+                        id:this.state.data[i].reservation_id+'번',
+                        name:this.state.data[i].name,
+                        user_latitude: this.state.data[i].user_latitude,
+                        user_longitude: this.state.data[i].user_longitude,
+                    }                 
+                    users.push(keeper);
+                    
+                    
+                }   
+
+            }
         }
+
         return(
             <View style={styles.container}>
                 <Text>안전 운전 하세요!</Text>
                 <ToggleButton onStateChange={this._onStateChange}/>
-                {button}
-                             
                 
+                {
+                    users.map(value=>{
+                        return(
+                            <Button title={value.id}
+                            onPress={()=>this.props.navigation.navigate('Map',{reservation_id:value.id,user_name:value.name,user_latitude:value.user_latitude,user_longitude:value.user_longitude})} />
+                            
+                        );
+                    })
+                } 
+                        
             </View>
         );
     }

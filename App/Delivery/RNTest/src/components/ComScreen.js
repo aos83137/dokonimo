@@ -6,14 +6,43 @@ import {
     Button,
   
   } from 'react-native'
+import firebase from 'firebase'
+
+let id;
+let name;
+const url = 'https://my-project-9710670624.df.r.appspot.com';
+
 export default class ComScreen extends React.Component{
     constructor(props){
         super(props)
     }
+    push(){
+        firebase.database().ref('/users/'+name).update({state:'push_luggage'});
+        fetch(url+'/reservations/'+id,{
+            method:'PATCH',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+            },
+            body:JSON.stringify({
+                reservation_status:'end_delivery',
+            })
+        }).then((res)=>res.json())
+        .then((resJson)=>{
+            console.log(resJson);
+            
+        }).catch(e=>{console.error(e);}
+        )
+    }
     render(){
+
+        const {reservation_id, user_name} = this.props.route.params
+        id = reservation_id;
+        name = user_name;
         return(
             <View style={styles.container}>
                 <Text style={styles.text}>배달 완료했습니다!</Text>
+                {this.push()}
                 <Button title = "홈" 
                 onPress={()=>this.props.navigation.navigate('딜리버리')}></Button>
             </View>
