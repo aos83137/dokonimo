@@ -7,11 +7,12 @@ import {
 import MapView ,{PROVIDER_GOOGLE,Marker}from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase'
-
+import CustomButton from './CustomButton'
 
 const LATITUDE_DELTA = 0.159;
 let id;
 let name;
+
 
 const url = 'https://my-project-9710670624.df.r.appspot.com';
 export default class GeoScreen extends React.Component {
@@ -20,12 +21,8 @@ export default class GeoScreen extends React.Component {
     
         this.state = {
             keeper:[],
-            initialPosition:{
-              latitude:0,
-              longitude:0,
-              latitudeDelta:0,
-              
-            }
+            dstate : false,
+            
         }
     }
     componentDidMount(){
@@ -36,7 +33,7 @@ export default class GeoScreen extends React.Component {
               latitude:lat,
               longitude:long,
               latitudeDelta:LATITUDE_DELTA,
-      
+              longitudeDelta:0.005,
             }
             this.setState({initialPosition:initialRegion})
         },(error)=>alert(JSON.stringify(error)),
@@ -63,7 +60,7 @@ export default class GeoScreen extends React.Component {
     
 
 
-    take(){
+    take = () => {
         firebase.database().ref('/users/'+name).update({state:'take_luggage'});
         
         fetch(url+'/reservations/'+id,{
@@ -82,6 +79,12 @@ export default class GeoScreen extends React.Component {
         }).catch(e=>{console.error(e);}
         )
         alert('수령 완료');
+        
+        this.setState({
+            dstate:true
+        })
+      
+
     }
 
 
@@ -91,17 +94,15 @@ export default class GeoScreen extends React.Component {
         console.log(reservation_id);
         id = reservation_id;
         name = user_name;
-
+        const {dstate} = this.state;
         
 
         return (
             <React.Fragment>
-                
-                <View>
-                    <Button title="짐 수령" onPress={this.take}/>
-                    <Button title="짐 배달 완료"
-                    onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})} />
-                </View>
+                {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'} title="짐 배달 완료" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'} title="짐 수령" onPress={this.take}/></View>)}
+        
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={styles.map}
@@ -114,7 +115,7 @@ export default class GeoScreen extends React.Component {
                         }
                     }
                 >
-                     {this.state.keeper?
+                     {this.state.keeper.keeper_store_latitude?
                     
                         <Marker
                         pinColor={'green'}
@@ -139,5 +140,10 @@ const styles = StyleSheet.create({
     map:{
         flex:1,
     },
+    CButton:{
+        backgroundColor:'white',
+        width: '100%',
+        height:'8%',
+    }
 
 })

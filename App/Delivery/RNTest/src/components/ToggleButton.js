@@ -22,7 +22,7 @@ export default class ToggleButton extends React.Component{
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity 
             onPress={()=>this._onPress()}
-            style={{margin:50,flex:1,height:60,backgroundColor:'#f4511e',justifyContent:'center'}}>
+            style={{margin:50,flex:1,height:60,backgroundColor:'#FA8258',justifyContent:'center'}}>
                 <Text style={{color:'white',textAlign:'center',fontSize:20}}>{textValue}</Text>
             </TouchableOpacity>
             </View>

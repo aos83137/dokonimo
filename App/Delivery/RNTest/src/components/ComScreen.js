@@ -7,6 +7,7 @@ import {
   
   } from 'react-native'
 import firebase from 'firebase'
+import CustomButton from './CustomButton'
 
 let id;
 let name;
@@ -43,8 +44,11 @@ export default class ComScreen extends React.Component{
             <View style={styles.container}>
                 <Text style={styles.text}>배달 완료했습니다!</Text>
                 {this.push()}
-                <Button title = "홈" 
-                onPress={()=>this.props.navigation.navigate('딜리버리')}></Button>
+                <View style={styles.CButton}>
+                    <CustomButton buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'} title = "홈" borderRadius={8}
+                    onPress={()=>this.props.navigation.navigate('딜리버리')} />
+                </View>
             </View>
             
             
@@ -62,6 +66,11 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:20,
+        margin:10,
+    },
+    CButton:{
+        width: '30%',
+        height:'8%',
     }
   });
   

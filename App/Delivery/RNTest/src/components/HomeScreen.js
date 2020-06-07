@@ -10,6 +10,7 @@ import {
 
 import ToggleButton from './ToggleButton'
 import firebase from 'firebase'
+import CustomButton from './CustomButton'
   
 
 export default class HomeScreen extends React.Component{ 
@@ -86,17 +87,23 @@ export default class HomeScreen extends React.Component{
             <View style={styles.container}>
                 <Text>안전 운전 하세요!</Text>
                 <ToggleButton onStateChange={this._onStateChange}/>
-                
+                <View style={styles.footer}>
                 {
                     users.map(value=>{
                         return(
-                            <Button title={value.id}
-                            onPress={()=>this.props.navigation.navigate('Map',{reservation_id:value.id,user_name:value.name,user_latitude:value.user_latitude,user_longitude:value.user_longitude})} />
-                            
+                            <CustomButton title={value.id} 
+                            borderRadius={8}
+                            marginBottom={5}
+                            buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'}
+                            onPress={()=>this.props.navigation.navigate('Map',{reservation_id:value.id,user_name:value.name,user_latitude:value.user_latitude,user_longitude:value.user_longitude})}/>
                         );
                     })
                 } 
+                </View>
+                
                         
+                
             </View>
         );
     }
@@ -111,8 +118,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor:'whitesmoke',
   },
-  button:{
-      backgroundColor:'#f4511e',
+  footer:{
+      width: '30%',
+      height:'8%',
   }
 });
 

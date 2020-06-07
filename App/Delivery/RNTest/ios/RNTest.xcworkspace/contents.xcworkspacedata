@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:result-2.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:result.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:bikeroute_xyz_2020-05-12_20_28_39_WALK_MAINSTREET.gpx">
+   </FileRef>
+   <FileRef
       location = "group:RNTest.xcodeproj">
    </FileRef>
    <FileRef

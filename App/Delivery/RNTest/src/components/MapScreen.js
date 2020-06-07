@@ -8,7 +8,7 @@ import {
 import MapView ,{PROVIDER_GOOGLE, Marker}from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase';
-
+import CustomButton from './CustomButton'
 
 const LATITUDE_DELTA = 0.192;
 const url =  'https://my-project-9710670624.df.r.appspot.com';
@@ -24,12 +24,7 @@ export default class MapScreen extends React.Component {
     
         this.state = {
             keeper:[],
-            initialPosition:{
-              latitude:0,
-              longitude:0,
-              latitudeDelta:0,
-              
-            }
+            
         }
     }
 
@@ -38,13 +33,15 @@ export default class MapScreen extends React.Component {
     componentDidMount(){
   
         Geolocation.getCurrentPosition((position)=>{
+            console.log('position',position);
+            
             var lat = parseFloat(position.coords.latitude)
             var long = parseFloat(position.coords.longitude)
             var initialRegion ={
               latitude:lat,
               longitude:long,
-              latitudeDelta:LATITUDE_DELTA,
-      
+              latitudeDelta:0.14,
+              longitudeDelta:0.14
             }
             this.setState({initialPosition:initialRegion})
         },(error)=>alert(JSON.stringify(error)))
@@ -71,7 +68,7 @@ export default class MapScreen extends React.Component {
     }
 
     render(){
-        console.log(this.state.keeper);
+        console.log('keeper info',this.state.keeper);
         const {reservation_id , user_name, user_latitude,user_longitude} = this.props.route.params
         id = reservation_id;
         name = user_name;
@@ -80,15 +77,8 @@ export default class MapScreen extends React.Component {
 
 
         return (
-            <React.Fragment>
-                <View>
-                    <Button title="수락" 
-                    onPress={this.ok}/>
-                    <Button title="거절" 
-                    onPress={()=>this.props.navigation.goBack()}/>
-                    
-                    
-                </View>
+            <View style={styles.container}>
+
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={styles.map}
@@ -96,11 +86,12 @@ export default class MapScreen extends React.Component {
                     showsUserLocation
                  
                 >
-                    {this.state.keeper?
-                    
+                    {this.state.keeper.keeper_store_latitude?
+                        
                         <Marker
                         pinColor={'green'}
                         coordinate={{latitude:this.state.keeper.keeper_store_latitude,longitude:this.state.keeper.keeper_store_longtitude}} />
+                        // />
                         :null
                         
                     }
@@ -109,11 +100,17 @@ export default class MapScreen extends React.Component {
                     <Marker
                     pinColor={'blue'}
                     coordinate={{latitude:user_latitude,longitude:user_longitude}} />
-                    
+                
                
                 </MapView>
-
-            </React.Fragment>
+                <View style={styles.CButton}>
+                    <CustomButton buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'} title="수락" onPress={this.ok} />
+                    <CustomButton buttonColor={'#F79F81'}
+                            titleColor={'#1C1C1C'} title="거절" onPress={()=>this.props.navigation.goBack()} />
+                </View>
+              
+            </View>
             
           );
 
@@ -121,8 +118,16 @@ export default class MapScreen extends React.Component {
    
   }
 const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },  
     map:{
-        flex:1,
+        ...StyleSheet.absoluteFillObject,
     },
+    CButton:{
+      backgroundColor:'white',
+      width: '100%',
+      height:'12%',
+    }
 
 })

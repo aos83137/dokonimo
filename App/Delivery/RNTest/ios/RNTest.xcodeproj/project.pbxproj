@@ -20,6 +20,7 @@
 		2F9FB99CA0C390E18488D60D /* libPods-RNTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C79C249F84ED4C1514945F65 /* libPods-RNTest.a */; };
 		39FB299ECB784EB93A8ED836 /* libPods-RNTest-RNTestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B21C08BCC7B026806AAA34A7 /* libPods-RNTest-RNTestTests.a */; };
 		96E75EF31F5FB9A97269336A /* libPods-RNTest-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5E13F83CF0687BF26B6917 /* libPods-RNTest-tvOS.a */; };
+		DDFC14ED2482539C000DC677 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDFC14EC2482539C000DC677 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		B1474CD03ADACAB9EAE3085E /* Pods-RNTest-RNTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNTest-RNTestTests.debug.xcconfig"; path = "Target Support Files/Pods-RNTest-RNTestTests/Pods-RNTest-RNTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B21C08BCC7B026806AAA34A7 /* libPods-RNTest-RNTestTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest-RNTestTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79C249F84ED4C1514945F65 /* libPods-RNTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDFC14EC2482539C000DC677 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -161,7 +163,6 @@
 				27F6A11C9B0930A7EA1FF72B /* Pods-RNTest-tvOSTests.debug.xcconfig */,
 				941399F546656E9256B8522D /* Pods-RNTest-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DDFC14EC2482539C000DC677 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* RNTest */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RNTestTests */,
@@ -343,6 +345,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				DDFC14ED2482539C000DC677 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

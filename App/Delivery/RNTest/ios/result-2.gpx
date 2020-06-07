@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="GPX Editor and Viewer 0.13.1" xmlns="http://www.topografix.com/GPX/1/1">
+<metadata>
+<desc>bikeroute.xyz</desc>
+<bounds minlat="35.8951" minlon="128.62132" maxlat="35.8935" maxlon="128.62339" />
+</metadata>
+
+<wpt lat="35.8952" lon="128.62133" />
+<wpt lat="35.89514" lon="128.62166" />
+<wpt lat="35.89505" lon="128.62199" />
+<wpt lat="35.89496" lon="128.62232" />
+<wpt lat="35.89489" lon="128.62262" />
+<wpt lat="35.8948" lon="128.62293" />
+<wpt lat="35.8947" lon="128.62324" />
+<wpt lat="35.89448" lon="128.62313" />
+<wpt lat="35.89425" lon="128.62291" />
+<wpt lat="35.89407" lon="128.62277" />
+<wpt lat="35.89394" lon="128.62277" />
+<wpt lat="35.89383" lon="128.62298" />
+<wpt lat="35.8937" lon="128.62325" />
+<wpt lat="35.89351" lon="128.62319" />
+<wpt lat="35.8934" lon="128.62339" />
+
+
+<trk />
+</gpx>
