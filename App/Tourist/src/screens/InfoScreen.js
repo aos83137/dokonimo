@@ -15,9 +15,10 @@ function Item({keepers,item,props}){
     let time = item.check_in
     let checkIn = item.check_in.split(' ')[0]
     let checkOut = item.check_out.split(' ')[0]
-    
-    if(item.reservation_status=='keeper_reservation'){
-        status = '예약 완료';
+    if(item.reservation_status == 'keeper_listen'){
+        status = '예약 대기'
+    }else if(item.reservation_status=='keeper_reservation'){
+        status = '예약 확정';
     }else if(item.reservation_status=='in_delivery'){
         status = '배달 중';
     }else if(item.reservation_status=='keeper_keeping'){
@@ -85,7 +86,7 @@ const InfoScreen = (props)=>{
         .then((responseJson)=>{         
             setReservations(responseJson.reverse());
         }).catch((error)=>{
-            console.error(error);
+            console.log(error);
         });
 
         fetch(URI+'/kstoreinfos',{
@@ -101,7 +102,9 @@ const InfoScreen = (props)=>{
             setKeepers(responseJson)
             setIsLoading(false);
         }).catch((error)=>{
-            console.error(error);
+            // console.error(error);
+            
+            setIsLoading(false);
         });
         
         return ()=>{
@@ -126,7 +129,7 @@ const InfoScreen = (props)=>{
             setReservations(responseJson.reverse());
             console.log('refresh end');
         }).catch((error)=>{
-            console.error(error);
+            console.log(error);
         });
     }
 

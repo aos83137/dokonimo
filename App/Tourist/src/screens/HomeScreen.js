@@ -27,6 +27,8 @@ export default class HomeScreen extends Component{
     //Test
     //componentDidMount : render가 호출된 후 실행되는 메서드
     componentDidMount() {
+        console.log('한번?');
+        
         // Instead of navigator.geolocation, just use Geolocation.
             Geolocation.getCurrentPosition(
                 (position) => {
@@ -71,7 +73,7 @@ export default class HomeScreen extends Component{
                 })
                 // this.setState(responseJson);           
             }).catch((error)=>{
-                console.error(error);
+                console.log(error);
             });
             SplashScreen.hide();
             // this.watchLocation();
@@ -191,6 +193,7 @@ export default class HomeScreen extends Component{
                     ref={map=> {this._map = map}}
                     initialRegion={this.state.initialRegion}
                     showsUserLocation={true}
+                    // onRegionChange
                     onUserLocationChange={
                         coordinate=>{
                             // console.log('test');

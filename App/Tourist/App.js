@@ -4,6 +4,8 @@ import { PermissionsAndroid, Button, View, Text,TextInput, Alert,ActivityIndicat
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 // import { Ionicons } from '@expo/vector-icons';
+import firebase from '@react-native-firebase/app';
+import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging';
 
 import MainTabStack from './src/screens/MainTabStack';
 import MyDrawerTap from './src/screens/MyDrawerTap';
@@ -64,6 +66,9 @@ export default class App extends Component{
   }
 
   async componentDidMount() {
+    this._checkPermission();
+    this._listenForNotifications();
+
     await request_location_runtime_permission();
     PushNotification.configure({
       onNotification: function(notification) {
@@ -87,7 +92,75 @@ export default class App extends Component{
     })
     SplashScreen.hide();
   }
-  
+
+  componentWillUnmount(){
+    this.notificationListener();
+    this.notificationOpenedListener();
+  }
+
+  //permission이 있는지 체크
+  async _checkPermission(){
+    const enabled = await messaging().hasPermission();
+    if (enabled) {
+        // user has permissions
+        console.log(enabled);
+        this._updateTokenToServer();
+    } else {
+        // user doesn't have permission
+        this._requestPermission();
+    }
+  }
+
+  //permission이 없다면 permission을 요청
+  async _requestPermission(){
+    try {
+      // User has authorised
+      await messaging().requestPermission();
+      await this._updateTokenToServer();
+    } catch (error) {
+        // User has rejected permissions
+        alert("you can't handle push notification");
+    }
+  }
+
+  //permission이 있다면 서버에 token 정보를 저장
+  async _updateTokenToServer(){
+    const fcmToken = await messaging().getToken();
+    console.log(fcmToken);
+
+    const header = {
+      method: "POST",
+      headers: {
+        'Accept':  'application/json',
+         'Content-Type': 'application/json',
+         'Cache': 'no-cache'
+      },
+      body: JSON.stringify({
+        user_id: "CURRENT_USER_ID",
+        firebase_token: fcmToken
+      }),
+      credentials: 'include',
+    };
+    const url = "http://YOUR_SERVER_URL";
+
+    // if you want to notification using server,
+    // do registry current user token
+
+    // await fetch(url, header);
+  }
+
+  async _listenForNotifications(){
+    // onNotificationDisplayed - ios only
+
+    // this.notificationListener = messaging().onNotification((notification) => {
+    //   console.log('onNotification', notification);
+    // });
+    this.setTopic = messaging().subscribeToTopic('tourist');
+    this.unsubscribe  = messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+  }
+
   render() {
     if(this.state.isLoading){
       return(

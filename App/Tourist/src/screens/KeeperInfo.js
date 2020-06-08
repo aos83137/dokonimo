@@ -88,8 +88,16 @@ const KeeperInfo = (props)=>{
             },
         })
         .then((response)=>response.json())
-        .then((responseJson)=>{   
-            setKeeper(responseJson[keeper_id-1])
+        .then((responseJson)=>{
+            console.log('keeper_id',keeper_id);
+            // console.log('responseJson',responseJson);
+            responseJson.forEach(element => {
+                // console.log(element.keeper_store_id);
+                if(element.keeper_store_id == keeper_id){
+                    console.log('element',element);
+                    setKeeper(element)
+                }
+            });
             setIsLoding(false);
         }).catch((error)=>{
             console.error(error);
@@ -114,7 +122,11 @@ const KeeperInfo = (props)=>{
             whereScreen:'info'
         });
     }
+    console.log(keeper);
+    
     const imgUrl = ''+keeper.keeper_store_imgurl;
+
+    
     // console.log(imgUrl);
     const test='../img/store/img5.png';    
     // const input = require(string);

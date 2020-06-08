@@ -104,11 +104,29 @@ const Delivery = (props)=>{
             }
         });
         
+        fetch('https://fcm.googleapis.com/fcm/send',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'key=AAAAnXNFhws:APA91bH5gDeGFgVYolbkdx44qnOyYadDP1-xst1-tkUYlWHXqC3Lropg4GIPwqnD8-fG8kmT6yzCh8ueY1rnvSYSrVokqfMRWOLexTF87JK_2cETW8RkT2oA9r13k8FLnG0IAHGBYqsc'
+            },
+            body:JSON.stringify(
+                {
+                    //여기 토큰을 딜리버리꺼로 바꾸면 될듯
+                    "to":"/topics/tourist",
+                    "priority":"high",
+                    "notification":{
+                        "body":"Background Message",
+                        "title":"BG Title"
+                    }, 
+                    "data":{
+                        "title": "딜리버리 요청.",
+                        "message":"투어리스트의 딜리버리 요청이 있습니다"
+                    }
+                }
+            )
+        });
 
-        
-        // setTimeout(()=>{
-            
-        // },2000)
     }
     const homeNavi=()=>{
         props.navigation.navigate('Main',{ screen: 'InfoScreen' });

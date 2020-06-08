@@ -13,7 +13,7 @@ import {
     Dimensions,
 } from 'react-native';
 import colors from '../styles/colors';
-import InputField from '../components/form/inputField';
+import InputField from '../components/form/InputField';
 import NextArrowButton from '../components/buttons/NextArrowButton';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";

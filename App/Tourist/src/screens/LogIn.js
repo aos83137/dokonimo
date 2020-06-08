@@ -3,7 +3,6 @@ import {PropTypes} from 'prop-types';
 //prop-types : 타입 확인 라이브러리
 import  Icon from 'react-native-vector-icons/FontAwesome';
 import {
-    Alert,
     View,
     Text,
     ScrollView ,
@@ -12,7 +11,7 @@ import {
     Dimensions,
 } from 'react-native';
 import colors from '../styles/colors';
-import InputField from '../components/form/inputField'
+import InputField from '../components/form/InputField';
 import NextArrowButton from '../components/buttons/NextArrowButton';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -39,24 +38,10 @@ export default class LogIn extends Component {
             const userEmail = this.state.emailAddress;
             const userName = userEmail.split('@')[0];
             await AsyncStorage.setItem('userToken',userName)
-            Alert.alert(
-                //Header
-                '로그인',
-                //title
-                '로그인이 되었습니다.',
-                //footer button
-                [
-                    {
-                        text:'Ok',
-                        onPress: ()=>{
-                          this.props.navigation.navigate('Setting',{
-                            'auth':true,
-                          });
-                        }
-                    }
-                ]
-            );
-
+            alert('로그인 완료');
+            this.props.navigation.navigate('Setting',{
+                'auth':true,
+            });
         }catch(e){
             console.error(e);
         }
