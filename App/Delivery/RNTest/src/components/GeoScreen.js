@@ -22,6 +22,7 @@ export default class GeoScreen extends React.Component {
         this.state = {
             keeper:[],
             dstate : false,
+            mstate : false,
             
         }
     }
@@ -81,7 +82,8 @@ export default class GeoScreen extends React.Component {
         alert('수령 완료');
         
         this.setState({
-            dstate:true
+            dstate:true,
+            mstate:true
         })
       
 
@@ -95,6 +97,7 @@ export default class GeoScreen extends React.Component {
         id = reservation_id;
         name = user_name;
         const {dstate} = this.state;
+        const {mstate} = this.state;
         
 
         return (
@@ -118,14 +121,14 @@ export default class GeoScreen extends React.Component {
                      {this.state.keeper.keeper_store_latitude?
                     
                         <Marker
-                        pinColor={'green'}
+                        image={require('../img/tool.png')}
                         coordinate={{latitude:this.state.keeper.keeper_store_latitude,longitude:this.state.keeper.keeper_store_longtitude}} />
                         :null
                         
                     }
-                    <Marker
-                    pinColor={'blue'}
-                    coordinate={{latitude:user_latitude,longitude:user_longitude}} />
+                    {mstate ? null : <Marker image={require('../img/signs.png')}
+                    coordinate={{latitude:user_latitude,longitude:user_longitude}} />}
+             
 
                 </MapView>
 
