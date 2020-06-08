@@ -12,8 +12,10 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^6.4.0",
+    "@react-navigation/bottom-tabs": "^5.5.2",
     "@react-navigation/compat": "^5.1.15",
     "@react-navigation/drawer": "^5.6.4",
+    "@react-navigation/material-bottom-tabs": "^5.2.10",
     "@react-navigation/native": "^5.2.4",
     "@react-navigation/stack": "^5.2.19",
     "firebase": "^7.14.2",
@@ -23,9 +25,11 @@
     "react-native-geolocation-service": "^4.0.1",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-maps": "^0.27.1",
+    "react-native-paper": "^3.10.1",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
-    "react-native-screens": "^2.7.0"
+    "react-native-screens": "^2.7.0",
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -1,8 +1,6 @@
 import React from 'react'
 import {
     View,
-    Button,
-    Text,
     StyleSheet
 } from 'react-native'
 import MapView ,{PROVIDER_GOOGLE, Marker}from 'react-native-maps';
@@ -89,16 +87,16 @@ export default class MapScreen extends React.Component {
                     {this.state.keeper.keeper_store_latitude?
                         
                         <Marker
-                        pinColor={'green'}
+                        image={require('../img/tool.png')}
                         coordinate={{latitude:this.state.keeper.keeper_store_latitude,longitude:this.state.keeper.keeper_store_longtitude}} />
-                        // />
+                      
                         :null
                         
                     }
                     
             
                     <Marker
-                    pinColor={'blue'}
+                    image={require('../img/signs.png')}
                     coordinate={{latitude:user_latitude,longitude:user_longitude}} />
                 
                

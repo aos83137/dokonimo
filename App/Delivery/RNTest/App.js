@@ -7,6 +7,7 @@ import HomeScreen from './src/components/HomeScreen'
 import MapScreen from './src/components/MapScreen'
 import GeoScreen from './src/components/GeoScreen'
 import ComScreen from './src/components/ComScreen'
+import TabScreen from './src/components/TabScreen'
 
 export async function request_location_runtime_permission() {
   try {
@@ -47,19 +48,20 @@ async componentDidMount(){
     return(
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="딜리버리" component={HomeScreen} 
+          {/* <Stack.Screen name="딜리버리" component={HomeScreen} 
             options={{
               title:'딜리버리', 
               headerStyle:{backgroundColor:'#FA8258'},
               headerTintColor:'#fff',
               headerTitleStyle:{fontWeight:'bold'},
-              // headerRight:()=>(
-              //   <Button 
-              //     onPress={()=>alert('This is a button!')}
-              //     title="Info"
-              //     color="#fff"
-              //   />
-              // ),
+           
+            }}/> */}
+            <Stack.Screen name="딜리버리" component={TabScreen} 
+            options={{
+              title:'딜리버리', 
+              headerStyle:{backgroundColor:'#FA8258'},
+              headerTintColor:'#fff',
+              headerTitleStyle:{fontWeight:'bold'},
             }}/>
             <Stack.Screen name="Map" component={MapScreen} 
             options={{
