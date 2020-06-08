@@ -72,12 +72,6 @@ const KeeperInfo = (props)=>{
             created_at:'2020.03.20',
             content:'今回、コインロッカーが使えず、困って、白畑ら、こちらのサイトを知りました。迅速に対応していただけて、また機会があれば、是非利用したいと思います。'
         },
-        {
-            tourist_id:'JeonYS',
-            starpoint:5,
-            created_at:'2020.05.12',
-            content:'사장님도 친절하시고 가게 구경도 재밌게 했습니다!!\n다음에 여행오면 또 이용할 것 같아요!!'
-        }
     ]
     useEffect(()=>{
         fetch(URI+'/kstoreinfos',{
@@ -98,10 +92,25 @@ const KeeperInfo = (props)=>{
                     setKeeper(element)
                 }
             });
+
+            fetch(URI+"/evaluations",{
+                method:"get",
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                },
+            }).then((response)=>response.json())
+            .then((responseJson)=>{
+                console.log(responseJson);
+                
+            })
+            .catch(e=>console.log(e))
+
             setIsLoding(false);
         }).catch((error)=>{
             console.error(error);
         });
+
     },[])
     if(isLoding){
         return(

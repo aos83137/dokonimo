@@ -11,7 +11,16 @@ const URI = 'https://my-project-9710670624.df.r.appspot.com'
 
 function Item({keepers,item,props}){
     let status;
-    let name = keepers[item.keeper_store_id-1].keeper_store_name;
+    console.log(item.keeper_store_id);
+    let name;
+    let data;
+    keepers.forEach(e => {
+        if(e.keeper_store_id===item.keeper_store_id){
+            console.log(e.keeper_store_name);
+            name = e.keeper_store_name;
+            data = e;
+        }
+    });
     let time = item.check_in
     let checkIn = item.check_in.split(' ')[0]
     let checkOut = item.check_out.split(' ')[0]
@@ -32,7 +41,7 @@ function Item({keepers,item,props}){
                 onPress={()=>{
                     
                     props.navigation.navigate('Reservation',{
-                        data:keepers[item.keeper_store_id-1],
+                        data:data,
                         reservation:item,
                         state:item.reservation_status,
                         whereScreen:'info',
@@ -98,7 +107,7 @@ const InfoScreen = (props)=>{
         })
         .then((response)=>response.json())
         .then((responseJson)=>{         
-            // console.log(responseJson);
+            // console.log('keepers ',responseJson);
             setKeepers(responseJson)
             setIsLoading(false);
         }).catch((error)=>{
