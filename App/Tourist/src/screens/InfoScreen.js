@@ -11,12 +11,10 @@ const URI = 'https://my-project-9710670624.df.r.appspot.com'
 
 function Item({keepers,item,props}){
     let status;
-    console.log(item.keeper_store_id);
     let name;
     let data;
     keepers.forEach(e => {
         if(e.keeper_store_id===item.keeper_store_id){
-            console.log(e.keeper_store_name);
             name = e.keeper_store_name;
             data = e;
         }

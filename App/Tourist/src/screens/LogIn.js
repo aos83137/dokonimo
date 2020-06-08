@@ -37,7 +37,8 @@ export default class LogIn extends Component {
         try{
             const userEmail = this.state.emailAddress;
             const userName = userEmail.split('@')[0];
-            await AsyncStorage.setItem('userToken',userName)
+            await AsyncStorage.setItem('userToken',userName);
+            
             alert('로그인 완료');
             this.props.navigation.navigate('Setting',{
                 'auth':true,

@@ -26,8 +26,8 @@ export default class Credit extends Component {
         this.state = {
             valid: true, // will be true once all fields are "valid" (time to enable the submit button)
             values: { // will be in the sanitized and formatted form
-                number: "5272 8951 8851 4144",
-                expiry: "1123",
+                number: "5272 8951 8851 4114",
+                expiry: "1111",
                 cvc: "322",
                 type: "master-card", // will be one of [null, "visa", "master-card", "american-express", "diners-club", "discover", "jcb", "unionpay", "maestro"]
                 name: "JEON YONG SEOK",

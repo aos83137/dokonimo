@@ -14,27 +14,32 @@ let {width, height} = Dimensions.get('window')
 const URI = 'https://my-project-9710670624.df.r.appspot.com'
 
 //props 안에 navigation, route가  들어가있음 {navigation, route} 이렇게 써도 되고 props.navigatio으로 써도됨
-function Item({item, props}){
+function Item({item, tourist}){
     let cnt='';
     for (var i=0; i<item.starpoint; i++){
         cnt += '★';
     }
+
 
 return(
     <View>
         <View style={styles.rowDirection}>
             <Avatar
                 rounded
-                title={item.tourist_id[0]}
+                title={item.tourist_name[0]}
                 size="medium"
             />
-            <Text  style={styles.nameText}>{item.tourist_id}</Text>
+            <Text  style={styles.nameText}>{item.tourist_name}</Text>
         </View>
         <View style={styles.starEmel}>
             <View style={styles.starRating}>
-            <Text>{cnt + ' '+item.starpoint}</Text>
+            <Rating imageSize={17} readonly startingValue={item.starpoint} style={styles.rating} />
+
+            <Text>{"  "+item.starpoint+'.0'}</Text>
             </View>
+            {/* <Text>{item.created_at.split(' ')[0]}</Text>                         */}
             <Text>{item.created_at}</Text>                        
+
         </View>
         <View style={styles.inWrapView}> 
             <Text>
@@ -54,25 +59,27 @@ const KeeperInfo = (props)=>{
     const [keeper,setKeeper] = useState({});
     const [isLoding, setIsLoding] = useState(true);
     const coord = props.route.params?.coord;
-    const comment = [
-        {
-            tourist_id:'JeonYS',
-            starpoint:5,
-            created_at:'2020.05.12',
-            content:'사장님도 친절하시고 가게 구경도 재밌게 했습니다!!\n다음에 여행오면 또 이용할 것 같아요!!'
-        },
-        {
-            tourist_id:'小嶋',
-            starpoint:5,
-            created_at:'2020.04.24',
-            content:'丁寧にご対応頂きました。ありがとうございます。'
-        },        {
-            tourist_id:'田中',
-            starpoint:5,
-            created_at:'2020.03.20',
-            content:'今回、コインロッカーが使えず、困って、白畑ら、こちらのサイトを知りました。迅速に対応していただけて、また機会があれば、是非利用したいと思います。'
-        },
-    ]
+    const [tourist, setTourist] = useState();
+    // const comment = [
+    //     {
+    //         tourist_id:'JeonYS',
+    //         starpoint:5,
+    //         created_at:'2020.05.12',
+    //         content:'사장님도 친절하시고 가게 구경도 재밌게 했습니다!!\n다음에 여행오면 또 이용할 것 같아요!!'
+    //     },
+    //     {
+    //         tourist_id:'小嶋',
+    //         starpoint:5,
+    //         created_at:'2020.04.24',
+    //         content:'丁寧にご対応頂きました。ありがとうございます。'
+    //     },        {
+    //         tourist_id:'田中',
+    //         starpoint:5,
+    //         created_at:'2020.03.20',
+    //         content:'今回、コインロッカーが使えず、困って、白畑ら、こちらのサイトを知りました。迅速に対応していただけて、また機会があれば、是非利用したいと思います。'
+    //     },
+    // ]
+    const [comment, setComment] = useState();
     useEffect(()=>{
         fetch(URI+'/kstoreinfos',{
             method:"get",
@@ -88,12 +95,13 @@ const KeeperInfo = (props)=>{
             responseJson.forEach(element => {
                 // console.log(element.keeper_store_id);
                 if(element.keeper_store_id == keeper_id){
-                    console.log('element',element);
+                    console.log('키퍼 정보 ',element); //키퍼 정보
                     setKeeper(element)
                 }
             });
 
-            fetch(URI+"/evaluations",{
+            
+            fetch(URI+"/evaluations/"+keeper_id,{
                 method:"get",
                 headers:{
                     'Accept':'application/json',
@@ -101,15 +109,17 @@ const KeeperInfo = (props)=>{
                 },
             }).then((response)=>response.json())
             .then((responseJson)=>{
-                console.log(responseJson);
-                
-            })
-            .catch(e=>console.log(e))
+                console.log('리뷰들 ',responseJson);
+                setComment(responseJson);
+                setIsLoding(false);
 
-            setIsLoding(false);
+            })
+            .catch(e=>console.log(e));
         }).catch((error)=>{
             console.error(error);
         });
+
+
 
     },[])
     if(isLoding){
@@ -131,7 +141,7 @@ const KeeperInfo = (props)=>{
             whereScreen:'info'
         });
     }
-    console.log(keeper);
+    // console.log(keeper);
     
     const imgUrl = ''+keeper.keeper_store_imgurl;
 
@@ -240,13 +250,18 @@ const KeeperInfo = (props)=>{
                                 <Text>http://www.naver.com</Text>
                             </View> */}
                         </View >
-                        <View style={styles.cardView}>
+                        <View style={styles.cardView2}>
                             <Text style={styles.subTitle}>평가</Text>
-                            <FlatList
+                            {
+                                comment?
+                                <FlatList
                                 data={comment}
-                                renderItem={({item})=>(<Item item={item} props={props}/>)}
+                                renderItem={({item})=>(<Item item={item} tourist={tourist}/>)}
                                 keyExtractor={item=>item.id}
-                            />
+                                />:
+                                <Text>아직 등록된 리뷰가 없습니다.</Text>
+                            }
+                            
                         </View>
                     </View>
                 </ScrollView>
@@ -324,6 +339,15 @@ const styles = StyleSheet.create({
         paddingLeft:18,
         paddingRight:18,
     },
+    cardView2:{
+        backgroundColor:colors.white,
+        width:'100%',
+        marginTop:10,
+        paddingTop:10,
+        paddingLeft:18,
+        paddingRight:18,
+        marginBottom:70,
+    },
     inWrapView:{
         borderBottomColor: colors.gray,
         borderBottomWidth: 1,
@@ -358,6 +382,7 @@ const styles = StyleSheet.create({
     starRating:{
         flexDirection:'row',
         justifyContent:'center',
+        alignItems:'center',
     }
 }
 );
