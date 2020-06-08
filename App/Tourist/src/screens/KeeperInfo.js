@@ -60,6 +60,7 @@ const KeeperInfo = (props)=>{
     const [isLoding, setIsLoding] = useState(true);
     const coord = props.route.params?.coord;
     const [tourist, setTourist] = useState();
+    const [startArg, setStarArg] = useState();
     // const comment = [
     //     {
     //         tourist_id:'JeonYS',
@@ -81,6 +82,7 @@ const KeeperInfo = (props)=>{
     // ]
     const [comment, setComment] = useState();
     useEffect(()=>{
+        let startSub = 0;
         fetch(URI+'/kstoreinfos',{
             method:"get",
             headers:{
@@ -110,6 +112,13 @@ const KeeperInfo = (props)=>{
             }).then((response)=>response.json())
             .then((responseJson)=>{
                 console.log('리뷰들 ',responseJson);
+                responseJson.forEach(e=>{
+                    // console.log(e.starpoint);
+                    startSub += e.starpoint;
+                })
+                const arg = (startSub/responseJson.length).toFixed(1);
+                console.log('별점 평균 ',arg);
+                setStarArg(arg)
                 setComment(responseJson);
                 setIsLoding(false);
 
@@ -171,8 +180,8 @@ const KeeperInfo = (props)=>{
                             <View style={styles.starEmel}>
                                 <Text>Keeper</Text>
                                 <View style={styles.starRating}>
-                                    <Rating imageSize={20} readonly startingValue={5} style={styles.rating} />
-                                    <Text>  5.0</Text>
+                                    <Rating imageSize={20} readonly startingValue={startArg} style={styles.rating} />
+                                    <Text>  {startArg}</Text>
                                 </View>
                             </View>
                             <Text style={styles.titleFont}>{keeper.keeper_store_name}</Text>
