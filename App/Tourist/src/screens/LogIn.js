@@ -8,12 +8,14 @@ import {
     ScrollView ,
     StyleSheet,
     KeyboardAvoidingView,
+    Alert,
     Dimensions,
 } from 'react-native';
 import colors from '../styles/colors';
 import InputField from '../components/form/InputField';
 import NextArrowButton from '../components/buttons/NextArrowButton';
 import AsyncStorage from '@react-native-community/async-storage';
+const url='my-project-9710670624.df.r.appspot.com';
 
 export default class LogIn extends Component {
     constructor(props) {
@@ -33,19 +35,84 @@ export default class LogIn extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleNextButton = this.handleNextButton.bind(this);
     }
+
     handleNextButton = async ()=>{
         try{
-            const userEmail = this.state.emailAddress;
-            const userName = userEmail.split('@')[0];
-            await AsyncStorage.setItem('userToken',userName);
-            
-            alert('로그인 완료');
-            this.props.navigation.navigate('Setting',{
-                'auth':true,
-            });
+            const {emailAddress,password} = this.state;
+            // const userName = emailAddress.split('@')[0];
+            let checkEmail = false;
+            let checkPasswd = false;
+            let userName;
+            await fetch('http://'+url+'/tourists',{
+                method:"GET",
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                }
+            }).then((response)=>{
+                return response.json()
+            })
+            .then((responseJson)=>{
+                console.log(responseJson);
+                
+                responseJson.forEach(tourist => {
+                    console.log('email :',tourist.tourist_email,'// passwd :',tourist.tourist_password);
+                    if(tourist.tourist_email == emailAddress){
+                        checkEmail = true;
+                        userName=tourist.tourist_name;
+                        console.log(tourist.tourist_name);
+                        
+                    }else{
+                    }
+                    if(tourist.tourist_password == password){
+                        checkPasswd = true;
+                    }else{
+                    }
+                });
+
+                //이메일 비번 둘다 일치 할때
+                if(checkEmail && checkPasswd){
+                    console.log('로그인');
+                    AsyncStorage.setItem('aysn',true);
+                    AsyncStorage.setItem('userToken',userName);
+
+                    Alert.alert(
+                        //Header
+                        '로그인 완료',
+                        //title
+                        '도코니모를 사용하실 수 있습니다.',
+                        //footer button
+                        [
+                            {
+                                text:'Ok',
+                                onPress: ()=>{
+                                  this.props.navigation.navigate('Setting',{
+                                    stateTest:'Home',
+                                  });
+                                }
+                            }
+                        ]
+                    );
+                }else if(checkEmail==false){
+                    console.log('이메일 불일치');
+                    alert('존재하지 않는 이메일 입니다.');
+                }else if(checkPasswd==false){
+                    console.log('패스워드 불일치');
+                    alert('패스워드 불일치');                }
+            })
+            .catch(e=>console.log(e));
+
         }catch(e){
             console.error(e);
         }
+
+        
+        // await AsyncStorage.setItem('userToken',userName);
+            
+        // alert('로그인 완료');
+        // this.props.navigation.navigate('Setting',{
+        //     'auth':true,
+        // });
         console.log('Done.');
     }
     handleEmailChange(email) {
