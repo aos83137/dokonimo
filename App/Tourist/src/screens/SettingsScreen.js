@@ -1,5 +1,5 @@
 import React,{component, Component} from 'react';
-import {View,Text, ScrollView, StyleSheet, TouchableHighlight} from 'react-native';
+import {View,Text, ScrollView, StyleSheet, TouchableHighlight,Alert} from 'react-native';
 import colors from '../styles/colors'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -51,8 +51,29 @@ export default class SettingsScreen extends Component{
     } 
     removeValue = async () => {
         try {
-            await AsyncStorage.clear()
-            this.setState({auth:false})
+            Alert.alert(
+                //Header
+                '로그아웃',
+                //title
+                '정말로 로그아웃 하시겠습니까?',
+                //footer button
+                [
+                    {
+                        text:'아니요',
+                        style: 'cancel',
+                    },
+                    {
+                        text:'네',
+                        onPress: ()=>{
+                        AsyncStorage.clear()
+                        this.setState({auth:false})
+                          this.props.navigation.navigate('Setting',{
+                            stateTest:'Home',
+                          });
+                        }
+                    }
+                ]
+            );  
           } catch(e) {
             // clear error
             console.error(e);
@@ -103,7 +124,8 @@ export default class SettingsScreen extends Component{
                 </TouchableHighlight>
                 <TouchableHighlight onPress={
                     ()=>{
-                        this.removeValue();                                
+                        this.removeValue();   
+                                                                       
                     }
                 }>
                     <View style={styles.content}>
