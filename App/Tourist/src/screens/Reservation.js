@@ -6,6 +6,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import  colors from '../styles/colors'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import { set } from 'react-native-reanimated';
 
 let {width, height} = Dimensions.get('window')
 const url='my-project-9710670624.df.r.appspot.com';
@@ -23,6 +24,8 @@ const Reservation = (props)=>{
     const [reservation, setReservation] = useState(props.route.params?.reservation); //예약정보 받음
     const [value, onChangeText] = useState('xxxx-xxxx-xxxx-xxxx');
     const [delivery, setDelivery]=useState();
+    const [reviewContent, setReviewContent] = useState();
+    const [rating, setRating] = useState();
     let ddd;
     const coord = props.route.params?.coord;
     console.log('여기는 reservation');
@@ -133,7 +136,26 @@ const Reservation = (props)=>{
                 {
                     text:'확인',
                     onPress: ()=>{
-                        
+                        fetch('http://'+url+'/evaluations',{
+                            method: 'POST',
+                            headers:{
+                                'Accept':'application/json',
+                                'Content-Type':'application/json'
+                            },
+                            body:JSON.stringify({
+                                "keeper_store_id":keeper_id,
+                                "tourist_id":4,
+                                "starpoint":rating,
+                                "content":reviewContent
+                             })
+                        }).then((response)=>{
+                            console.log('리뷰 데이터 저장 완료');
+                            props.navigation.navigate('Home',{
+                                stateTest:'change',
+                            });
+                        }).catch((e)=>{
+                            console.log();
+                        })
                     }
                 }
             ]
@@ -498,12 +520,23 @@ const Reservation = (props)=>{
                             multiline={true}
                             underlineColorAndroid={'transparent'}
                             textAlignVertical={'top'}
+                            onChangeText={val=>{
+                                console.log(val);
+                                
+                                setReviewContent(val);
+                            }}
                         />
                     </View>
                     <View style={styles.field}>
                         <AirbnbRating 
                             // starStyle={{ flex:3 }}
                           size={20}
+                          onFinishRating={
+                              rating=>{
+                                  console.log(rating);
+                                  setRating(rating);
+                              }
+                          }
                         />
 
                     </View>

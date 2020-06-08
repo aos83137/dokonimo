@@ -157,7 +157,7 @@ export default class App extends Component{
     // });
     this.setTopic = messaging().subscribeToTopic('tourist');
     this.unsubscribe  = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
   }
 
