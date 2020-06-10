@@ -7,6 +7,7 @@ import  colors from '../styles/colors'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 import { set } from 'react-native-reanimated';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 let {width, height} = Dimensions.get('window')
 const url='my-project-9710670624.df.r.appspot.com';
@@ -16,10 +17,10 @@ const Reservation = (props)=>{
     const checkOut = props.route.params?.checkOut;
     const bagCnt = props.route.params?.bagCnt;
     const carrCnt = props.route.params?.carrCnt;
-    const whereScreen = props.route.params?.whereScreen ? props.route.params?.whereScreen : true;
+    const [whereScreen,setWhereScreen] = useState(props.route.params?.whereScreen ? props.route.params?.whereScreen : true);
     const keeper_id = props.route.params?.keeper_id
     const data = props.route.params?.data ? props.route.params?.data : '없디'; // 가게정보 받음
-    const state = props.route.params?.state;
+    const [state,setState] = useState(props.route.params?.state);
     const [isLoading, setIsLoading] = useState(true);
     const [reservation, setReservation] = useState(props.route.params?.reservation); //예약정보 받음
     const [value, onChangeText] = useState('xxxx-xxxx-xxxx-xxxx');
@@ -198,11 +199,11 @@ const Reservation = (props)=>{
                     //Header
                     '결제 감사합니다.',
                     //title
-                    '예약이 완료 되었습니다.\n딜리버리 서비스를 사용 하시겠습니까?',
+                    '보관 하시는 짐의 사진을 등록해주세요.\n키퍼가 확인 후 수락을 합니다.',
                     //footer button
                     [
                         {
-                            text:'당일에 사용할께요.',
+                            text:'나중에 할께요',
                             style: 'cancel',
                             onPress:()=>{
                                 //딜리버리 스테이트를 바꿔야함
@@ -212,13 +213,18 @@ const Reservation = (props)=>{
                             }
                         },
                         {
-                            text:'네. 사용할래요.',
+                            text:'네.',
                             onPress: ()=>{
-                                props.navigation.navigate('DeliveryInfo',{
-                                    reservation:responseJson[0],
-                                    data,
-                                    userId,
-                                });
+                                // setState('keeper_listen')
+                                // setWhereScreen('info')
+                                // console.log('state',state);
+                                // console.log('whereScreen',whereScreen);
+                                
+                                // props.navigation.navigate('Reservation',{
+                                //     reservation:responseJson[0],
+                                //     data,
+                                //     userId,
+                                // });
                             }
                         }
                     ]
@@ -295,6 +301,38 @@ const Reservation = (props)=>{
         }
         );
     }
+
+    //carousel의 아이템 뷰 설정 함수
+    const renderCarouselItem = ({item}) => {
+        
+        return (
+            <View style={[styles.cardContainer]}>
+                    <Image style={styles.cardImage} source={{uri:item.url}}/>
+            </View>
+        );
+    }  
+    const pagination=()=> {
+        // const { entries, activeSlide } = this.state;
+        return (
+            <Pagination
+              dotsLength={5}
+              activeDotIndex={5}
+              containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+              dotStyle={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  marginHorizontal: 8,
+                  backgroundColor: 'rgba(255, 255, 255, 0.92)'
+              }}
+              inactiveDotStyle={{
+                  // Define styles for inactive dots here
+              }}
+              inactiveDotOpacity={0.4}
+              inactiveDotScale={0.6}
+            />
+        );
+    }
     const goDeliveryFindScreen = async()=>{
         const userId = await AsyncStorage.getItem('userToken');
         // await console.log('userId',userId);
@@ -312,6 +350,7 @@ const Reservation = (props)=>{
     let footer;
     let Review;
     let pictureView;
+    let imageList;
     //예약하기로 넘어 왔을 경우    
     if(whereScreen === 'reservation'){
         imageCard=
@@ -485,8 +524,33 @@ const Reservation = (props)=>{
             </View>;
         //상태 : 종료
         }else if(state ==='keeper_listen'){
+            imageList =
+            <View>
+                <Carousel
+                    //https://github.com/archriss/react-native-snap-carousel
+                        // ref={(c) => { this._carousel = c; }}
+                        data={
+                            [
+                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
+                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
+                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
+                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
+                            ]
+                        }
+                        renderItem={renderCarouselItem}
+                        sliderWidth={Dimensions.get('window').width}
+                        itemWidth={Dimensions.get('window').width-100}
+                        // containerCustomStyle={styles.carousel}
+                        // onSnapToItem = {
+                        //     (index) => this.onCarouselItemChange(index)
+                        // }
+                        removeClippedSubviews={false}
+                />
+            </View>
             footer=
-            <View>                
+            <View>              
+                
+                { pagination }
                 <View style={styles.paysCard}>
                         <Text>키퍼의 수락을 대기 중 입니다...</Text>    
                         <Text>
@@ -584,6 +648,16 @@ const Reservation = (props)=>{
                             {pictureView}
                             </View>:null
                         }
+                        {
+                            imageList?
+                            <View style={styles.cardView2}>
+                            {imageList}
+                            <Button
+                                buttonStyle={styles.button}
+                                title={'사진 추가'}
+                            />
+                            </View>:null
+                        }
                         <View style={styles.cardView}>
                             {footer}
                         </View>
@@ -653,6 +727,13 @@ const styles = StyleSheet.create({
         paddingTop:10,
         paddingLeft:18,
         paddingRight:18,
+    },    
+    cardView2:{
+        backgroundColor:colors.white,
+        width:'100%',
+        marginTop:10,
+        paddingTop:10,
+
     },
     inWrapView:{
         borderBottomColor: colors.gray,
@@ -706,6 +787,14 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom:10,
     },
+    button:{
+        marginLeft:13,
+        marginRight:13,
+        width:300,
+        backgroundColor:colors.green01,
+        marginBottom:15,
+        // backgroundColor:'rgba(255,255,255,0.2)'
+    },
     button2:{
         marginLeft:13,
         marginRight:13,
@@ -731,6 +820,14 @@ const styles = StyleSheet.create({
         marginTop:8,
         marginBottom:30,
         padding:8,
+    },
+    cardImage:{
+        width: Dimensions.get('window').width-100
+        , height: '90%'
+    },
+    cardContainer:{
+        width: Dimensions.get('window').width
+        , height: 400
     }
 });
 
