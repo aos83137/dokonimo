@@ -102,9 +102,9 @@ export default class MapScreen extends React.Component {
                
                 </MapView>
                 <View style={styles.CButton}>
-                    <CustomButton buttonColor={'#F79F81'}
+                    <CustomButton buttonColor={'#BBD4D8'}
                             titleColor={'#1C1C1C'} title="수락" onPress={this.ok} />
-                    <CustomButton buttonColor={'#F79F81'}
+                    <CustomButton buttonColor={'#BBD4D8'}
                             titleColor={'#1C1C1C'} title="거절" onPress={()=>this.props.navigation.goBack()} />
                 </View>
               

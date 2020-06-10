@@ -92,10 +92,10 @@ export default class HomeScreen extends React.Component{
                     users.map(value=>{
                         return(
                             <CustomButton title={value.id} 
-                            borderRadius={8}
-                            marginBottom={5}
-                            buttonColor={'#F79F81'}
-                            titleColor={'#1C1C1C'}
+                            
+                            marginBottom={6}
+                            buttonColor={'#008388'}
+                            titleColor={'#fff'}
                             onPress={()=>this.props.navigation.navigate('Map',{reservation_id:value.id,user_name:value.name,user_latitude:value.user_latitude,user_longitude:value.user_longitude})}/>
                         );
                     })
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   footer:{
       width: '30%',
-      height:'8%',
+      height:'15%',
   }
 });
 

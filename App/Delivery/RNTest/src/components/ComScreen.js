@@ -35,6 +35,12 @@ export default class ComScreen extends React.Component{
         }).catch(e=>{console.error(e);}
         )
     }
+    end=()=>{
+        firebase.database().ref('/users/'+name).set(null);
+        this.props.navigation.navigate('딜리버리');
+
+    }
+
     render(){
 
         const {reservation_id, user_name} = this.props.route.params
@@ -45,9 +51,9 @@ export default class ComScreen extends React.Component{
                 <Text style={styles.text}>배달 완료했습니다!</Text>
                 {this.push()}
                 <View style={styles.CButton}>
-                    <CustomButton buttonColor={'#F79F81'}
-                            titleColor={'#1C1C1C'} title = "홈" borderRadius={8}
-                    onPress={()=>this.props.navigation.navigate('딜리버리')} />
+                    <CustomButton buttonColor={'#008388'}
+                            titleColor={'#fff'} title = "홈" 
+                    onPress={this.end} />
                 </View>
             </View>
             
