@@ -127,40 +127,47 @@ const Reservation = (props)=>{
     }
 
     const sendReviewData =()=>{
-        Alert.alert(
-            //Header
-            '리뷰 등록',
-            //title
-            '리뷰가 등록 되었습니다.\n감사합니다.',
-            //footer button
-            [
-                {
-                    text:'확인',
-                    onPress: ()=>{
-                        fetch('http://'+url+'/evaluations',{
-                            method: 'POST',
-                            headers:{
-                                'Accept':'application/json',
-                                'Content-Type':'application/json'
-                            },
-                            body:JSON.stringify({
-                                "keeper_store_id":keeper_id,
-                                "tourist_id":4,
-                                "starpoint":rating,
-                                "content":reviewContent
-                             })
-                        }).then((response)=>{
-                            console.log('리뷰 데이터 저장 완료');
-                            props.navigation.navigate('Home',{
-                                stateTest:'change',
-                            });
-                        }).catch((e)=>{
-                            console.log();
-                        })
+        console.log('data.keeper_id',data.keeper_id);
+        console.log('rating',rating);
+        console.log();
+        console.log('content', reviewContent);
+        
+        
+        fetch('http://'+url+'/evaluations',{
+            method: 'POST',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                "keeper_store_id":data.keeper_store_id,
+                "tourist_id":1,
+                "starpoint":rating,
+                "content":reviewContent
+             })
+        }).then((response)=>{
+            console.log('리뷰 데이터 저장 완료');
+            Alert.alert(
+                //Header
+                '리뷰 등록',
+                //title
+                '리뷰가 등록 되었습니다.\n감사합니다.',
+                //footer button
+                [
+                    {
+                        text:'확인',
+                        onPress: ()=>{
+                                props.navigation.navigate('Home',{
+                                    stateTest:'change',
+                                });
+    
+                        }
                     }
-                }
-            ]
-        );
+                ]
+            );
+        }).catch((e)=>{
+            console.log(e);
+        })
     }
     const payEnd= async()=>{
         const userId = await AsyncStorage.getItem('userToken');
@@ -525,7 +532,7 @@ const Reservation = (props)=>{
         //상태 : 종료
         }else if(state ==='keeper_listen'){
             imageList =
-            <View>
+            <>
                 <Carousel
                     //https://github.com/archriss/react-native-snap-carousel
                         // ref={(c) => { this._carousel = c; }}
@@ -546,7 +553,9 @@ const Reservation = (props)=>{
                         // }
                         removeClippedSubviews={false}
                 />
-            </View>
+                <Button buttonStyle={styles.button2} title={'갤러리 열기'}/>
+                <Button buttonStyle={styles.button2} title={'사진 촬영'}/>
+            </>
             footer=
             <View>              
                 
@@ -615,7 +624,7 @@ const Reservation = (props)=>{
             </View>
         }
     }    
-    // console.log('1' +keeper_id);
+    console.log('1',data.keeper_store_id);
 
         return(
             <View style={{ flex:1 }}> 
@@ -631,17 +640,17 @@ const Reservation = (props)=>{
                     </View>
                     <View style = {styles.container}> 
                             {imageCard}
+                        {Review?
+                        <View style={styles.cardView}>
+                            {Review}
+                        </View>:null
+                        }   
                         <View style={styles.cardView}>
                             {checkInOut}
                         </View>
                         <View style={styles.cardView}>
                             {total}
                         </View >
-                        {Review?
-                        <View style={styles.cardView}>
-                            {Review}
-                        </View>:null
-                        }
                         {
                             pictureView?
                             <View style={styles.cardView}>
@@ -652,15 +661,12 @@ const Reservation = (props)=>{
                             imageList?
                             <View style={styles.cardView2}>
                             {imageList}
-                            <Button
-                                buttonStyle={styles.button}
-                                title={'사진 추가'}
-                            />
                             </View>:null
                         }
                         <View style={styles.cardView}>
                             {footer}
                         </View>
+
                     </View>
                 </ScrollView>
             </View>
@@ -733,7 +739,7 @@ const styles = StyleSheet.create({
         width:'100%',
         marginTop:10,
         paddingTop:10,
-        alignItems
+        alignItems:'center',
 
     },
     inWrapView:{
