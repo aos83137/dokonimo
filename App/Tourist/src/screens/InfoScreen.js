@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 
 
 let {width, height} = Dimensions.get('window')
-const URI = 'https://my-project-9710670624.df.r.appspot.com'
+const URI = 'https://sylvan-presence-280012.an.r.appspot.com'
 
 function Item({keepers,item,props}){
     let status;

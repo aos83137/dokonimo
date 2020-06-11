@@ -10,7 +10,7 @@ import { set } from 'react-native-reanimated';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 let {width, height} = Dimensions.get('window')
-const url='my-project-9710670624.df.r.appspot.com';
+const url='sylvan-presence-280012.an.r.appspot.com';
 //props 안에 navigation, route가  들어가있음 {navigation, route} 이렇게 써도 되고 props.navigatio으로 써도됨
 const Reservation = (props)=>{   
     const checkIn = props.route.params?.checkIn;

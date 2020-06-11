@@ -8,7 +8,7 @@ import {SearchMenu} from '../components/menu/SearchMenu';
 import {CurrentLocationButton} from '../components/buttons/CurrentLocationButton';
 import SplashScreen from 'react-native-splash-screen';
 
-const URI = 'https://my-project-9710670624.df.r.appspot.com'
+const URI = 'https://sylvan-presence-280012.an.r.appspot.com'
 export default class HomeScreen extends Component{
     
 
