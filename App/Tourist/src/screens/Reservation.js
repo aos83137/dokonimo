@@ -733,6 +733,7 @@ const styles = StyleSheet.create({
         width:'100%',
         marginTop:10,
         paddingTop:10,
+        alignItems
 
     },
     inWrapView:{
