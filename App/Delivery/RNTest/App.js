@@ -127,28 +127,28 @@ async componentDidMount(){
             <Stack.Screen name="딜리버리" component={TabScreen} 
             options={{
               title:'딜리버리', 
-              headerStyle:{backgroundColor:'#FA8258'},
+              headerStyle:{backgroundColor:'#008388'},
               headerTintColor:'#fff',
               headerTitleStyle:{fontWeight:'bold'},
             }}/>
             <Stack.Screen name="Map" component={MapScreen} 
             options={{
               title:'Map', 
-              headerStyle:{backgroundColor:'#FA8258'},
+              headerStyle:{backgroundColor:'#008388'},
               headerTintColor:'#fff',
               headerTitleStyle:{fontWeight:'bold'},
             }}/>
             <Stack.Screen name="Geo" component={GeoScreen}
             options={{
               title:'위치추적', 
-              headerStyle:{backgroundColor:'#FA8258'},
+              headerStyle:{backgroundColor:'#008388'},
               headerTintColor:'#fff',
               headerTitleStyle:{fontWeight:'bold'},
             }}/>
             <Stack.Screen name="Com" component={ComScreen}
             options={{
               title:'완료', 
-              headerStyle:{backgroundColor:'#FA8258'},
+              headerStyle:{backgroundColor:'#008388'},
               headerTintColor:'#fff',
               headerTitleStyle:{fontWeight:'bold'},
             }}/>

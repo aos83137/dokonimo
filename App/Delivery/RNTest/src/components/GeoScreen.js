@@ -102,8 +102,8 @@ export default class GeoScreen extends React.Component {
 
         return (
             <React.Fragment>
-                {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#F79F81'}
-                            titleColor={'#1C1C1C'} title="짐 배달 완료" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#F79F81'}
+                {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
+                            titleColor={'#1C1C1C'} title="짐 배달 완료" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
                             titleColor={'#1C1C1C'} title="짐 수령" onPress={this.take}/></View>)}
         
                 <MapView
