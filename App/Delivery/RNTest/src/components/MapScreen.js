@@ -9,7 +9,7 @@ import firebase from 'firebase';
 import CustomButton from './CustomButton'
 
 const LATITUDE_DELTA = 0.192;
-const url =  'https://my-project-9710670624.df.r.appspot.com';
+const url =  'https://sylvan-presence-280012.an.r.appspot.com';
 let id;
 let name;
 let latitude;

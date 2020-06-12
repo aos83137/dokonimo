@@ -1,5 +1,5 @@
-import React from 'react';
-import {PermissionsAndroid,Button} from 'react-native'
+import React, { useEffect } from 'react';
+import {PermissionsAndroid,ActivityIndicator,View} from 'react-native'
 import 'react-native-gesture-handler'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
@@ -8,7 +8,11 @@ import MapScreen from './src/components/MapScreen'
 import GeoScreen from './src/components/GeoScreen'
 import ComScreen from './src/components/ComScreen'
 import TabScreen from './src/components/TabScreen'
-import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging';
+import LoginScreen from './src/components/LoginScreen'
+import RootStackScreen from './src/components/RootStackScreen'
+import {AuthContext} from './src/cons/Context'
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export async function request_location_runtime_permission() {
   try {
@@ -37,128 +41,157 @@ export async function request_location_runtime_permission() {
 }
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
-export default class App extends React.Component{
-async componentDidMount(){
-  this._checkPermission();
-  this._listenForNotifications();
-  console.log('test didmount');
-  await request_location_runtime_permission();
-  
-}
+const App =()=>{
 
-  //permission이 있는지 체크
-  async _checkPermission(){
-    const enabled = await messaging().hasPermission();
-    if (enabled) {
-        // user has permissions
-        console.log(enabled);
-        this._updateTokenToServer();
-    } else {
-        // user doesn't have permission
-        this._requestPermission();
-    }
-  }
+    // const [isLoading, setIsLoading] = React.useState(true);
+    // const [userToken, setUserToken] = React.useState(null);
 
-  //permission이 없다면 permission을 요청
-  async _requestPermission(){
-    try {
-      // User has authorised
-      await messaging().requestPermission();
-      await this._updateTokenToServer();
-    } catch (error) {
-        // User has rejected permissions
-        alert("you can't handle push notification");
-    }
-  }
-
-  //permission이 있다면 서버에 token 정보를 저장
-  async _updateTokenToServer(){
-    const fcmToken = await messaging().getToken();
-    console.log(fcmToken);
-
-    const header = {
-      method: "POST",
-      headers: {
-        'Accept':  'application/json',
-         'Content-Type': 'application/json',
-         'Cache': 'no-cache'
-      },
-      body: JSON.stringify({
-        user_id: "CURRENT_USER_ID",
-        firebase_token: fcmToken
-      }),
-      credentials: 'include',
+    const initialLoginState = {
+      isLoading: true,
+      userName: null,
+      userToken: null,
     };
-    const url = "http://YOUR_SERVER_URL";
 
-    // if you want to notification using server,
-    // do registry current user token
+    const loginReducer = (prevState, action) => {
+      switch( action.type ) {
+        case 'RETRIEVE_TOKEN': 
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case 'LOGIN': 
+          return {
+            ...prevState,
+            userName: action.id,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case 'LOGOUT': 
+          return {
+            ...prevState,
+            userName: null,
+            userToken: null,
+            isLoading: false,
+          };
+        case 'REGISTER': 
+          return {
+            ...prevState,
+            userName: action.id,
+            userToken: action.token,
+            isLoading: false,
+          };
+      }
+    };
 
-    // await fetch(url, header);
-  }
+    const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
-  async _listenForNotifications(){
-    // onNotificationDisplayed - ios only
+    const authContext = React.useMemo(() => ({
+      signIn: async(userName,password) => {
 
-    // this.notificationListener = messaging().onNotification((notification) => {
-    //   console.log('onNotification', notification);
-    // });
-    this.setTopic = messaging().subscribeToTopic('tourist');
-    this.unsubscribe  = messaging().onMessage(async remoteMessage => {
-      // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-  }
+        // setUserToken('fgkj');
+        // setIsLoading(false);
+        let userToken;
+        userToken = null;
+        if(userName == 'user' && password == 'pass'){
+          try {
+            userToken='dfgdfg';
+            await AsyncStorage.setItem('userToken', userToken);
+          } catch(e) {
+            console.log(e);
+          }
+        }
+        
+        dispatch({ type: 'LOGIN', id: userName, token: userToken });
+      },
+      signOut: async() => {
+        // setUserToken(null);
+        // setIsLoading(false);
+        try {
+          await AsyncStorage.removeItem('userToken');
+        } catch(e) {
+          console.log(e);
+        }
+        dispatch({ type: 'LOGOUT' });
+      },
+      signUp: () => {
+        // setUserToken('fgkj');
+        // setIsLoading(false);
+      },
+   
+    }), []);
 
+    useEffect(() => {
+      setTimeout(async() => {
+        // setIsLoading(false);
+        let userToken;
+        userToken = null;
+        try {
+          userToken = await AsyncStorage.getItem('userToken');
+        } catch(e) {
+          console.log(e);
+        }
 
-  render(){
-
+        dispatch({ type: 'REGISTER', token: userToken });
+      }, 1000);
+    }, []);
+  
+    if( loginState.isLoading ) {
+      return(
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <ActivityIndicator size="large"/>
+        </View>
+      );
+    }
 
     return(
-      <NavigationContainer>
-        <Stack.Navigator>
-          {/* <Stack.Screen name="딜리버리" component={HomeScreen} 
-            options={{
-              title:'딜리버리', 
-              headerStyle:{backgroundColor:'#FA8258'},
-              headerTintColor:'#fff',
-              headerTitleStyle:{fontWeight:'bold'},
-           
-            }}/> */}
-            <Stack.Screen name="딜리버리" component={TabScreen} 
-            options={{
-              title:'딜리버리', 
-              headerStyle:{backgroundColor:'#008388'},
-              headerTintColor:'#fff',
-              headerTitleStyle:{fontWeight:'bold'},
-            }}/>
-            <Stack.Screen name="Map" component={MapScreen} 
-            options={{
-              title:'Map', 
-              headerStyle:{backgroundColor:'#008388'},
-              headerTintColor:'#fff',
-              headerTitleStyle:{fontWeight:'bold'},
-            }}/>
-            <Stack.Screen name="Geo" component={GeoScreen}
-            options={{
-              title:'위치추적', 
-              headerStyle:{backgroundColor:'#008388'},
-              headerTintColor:'#fff',
-              headerTitleStyle:{fontWeight:'bold'},
-            }}/>
-            <Stack.Screen name="Com" component={ComScreen}
-            options={{
-              title:'완료', 
-              headerStyle:{backgroundColor:'#008388'},
-              headerTintColor:'#fff',
-              headerTitleStyle:{fontWeight:'bold'},
-            }}/>
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer>
+          {loginState.userToken !== null ? (
+            <Stack.Navigator>
+              <Stack.Screen name="딜리버리" component={TabScreen} 
+              options={{
+                title:'딜리버리', 
+                headerStyle:{backgroundColor:'#008388'},
+                headerTintColor:'#fff',
+                headerTitleStyle:{fontWeight:'bold'},
+              }}/>
+              <Stack.Screen name="Map" component={MapScreen} 
+              options={{
+                title:'Map', 
+                headerStyle:{backgroundColor:'#008388'},
+                headerTintColor:'#fff',
+                headerTitleStyle:{fontWeight:'bold'},
+              }}/>
+              <Stack.Screen name="Geo" component={GeoScreen}
+              options={{
+                title:'위치추적', 
+                headerStyle:{backgroundColor:'#008388'},
+                headerTintColor:'#fff',
+                headerTitleStyle:{fontWeight:'bold'},
+              }}/>
+              <Stack.Screen name="Com" component={ComScreen}
+              options={{
+                title:'완료', 
+                headerStyle:{backgroundColor:'#008388'},
+                headerTintColor:'#fff',
+                headerTitleStyle:{fontWeight:'bold'},
+              }}/>
+              <Stack.Screen name="Login" component={LoginScreen}
+              options={{
+                title:'로그인', 
+                headerStyle:{backgroundColor:'#008388'},
+                headerTintColor:'#fff',
+                headerTitleStyle:{fontWeight:'bold'},
+              }} />
 
-
-        </Stack.Navigator>
-     
-      </NavigationContainer>
+          </Stack.Navigator> 
+          ) :  <RootStackScreen /> }
+ 
+        </NavigationContainer>
+      </AuthContext.Provider>
     );
   }
-}
 
 
+export default App;

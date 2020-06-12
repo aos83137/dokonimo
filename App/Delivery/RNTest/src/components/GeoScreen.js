@@ -14,7 +14,7 @@ let id;
 let name;
 
 
-const url = 'https://my-project-9710670624.df.r.appspot.com';
+const url = 'https://sylvan-presence-280012.an.r.appspot.com';
 export default class GeoScreen extends React.Component {
     constructor(props){
         super(props);

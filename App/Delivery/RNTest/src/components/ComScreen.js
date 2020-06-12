@@ -11,7 +11,7 @@ import CustomButton from './CustomButton'
 
 let id;
 let name;
-const url = 'https://my-project-9710670624.df.r.appspot.com';
+const url = 'https://sylvan-presence-280012.an.r.appspot.com';
 
 export default class ComScreen extends React.Component{
     constructor(props){
@@ -34,9 +34,11 @@ export default class ComScreen extends React.Component{
             
         }).catch(e=>{console.error(e);}
         )
+        
     }
     end=()=>{
         firebase.database().ref('/users/'+name).set(null);
+        firebase.database().ref('/users/'+name).set({delivery_latitude:null,delivery_longitude:null});
         this.props.navigation.navigate('딜리버리');
 
     }

@@ -49,6 +49,7 @@ export default class HomeScreen extends React.Component{
                 const to = [];
                 snapshot.forEach(
                     (data)=>{
+                        console.log(data);
                         const temp = data.val();
                         to.push(temp);
                         this.setState({data:to});

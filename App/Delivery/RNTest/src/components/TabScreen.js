@@ -3,39 +3,43 @@ import {PermissionsAndroid,Button} from 'react-native'
 import 'react-native-gesture-handler'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import HomeScreen from './HomeScreen'
 import MScreen from './MScreen' 
 import SScreen from './SScreen'
-const Tab = createMaterialBottomTabNavigator();
+
+const Tab = createBottomTabNavigator();
 export default class TabScreen extends React.Component{
     render(){
         return(
-            <Tab.Navigator>
-                <Tab.Screen name="Home" component={HomeScreen} 
-                
-                options={{ tabBarLabel: 'Home',
-                tabBarIcon:({color})=>(
-                    <Icon name="home" color={color} size={26}/>
-                ),
-                }}></Tab.Screen>
-                <Tab.Screen name="Info" component={MScreen} 
-                options={{ tabBarLabel: 'Info', 
-                tabBarIcon:({color})=>(
-                    <Icon name="info" color={color} size={26} />
-                ),
-                }} ></Tab.Screen>
-                <Tab.Screen name="Settings" component={SScreen}
-                options={{ tabBarLabel: 'Settings', 
-                tabBarIcon:({color})=>(
-                    <Icon name="settings" color={color} size={26} />
-                ),
-                }}
-                >
-
-                </Tab.Screen>
+            <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  let iconName;
+      
+                  if (route.name === 'Home') {
+                    iconName = focused
+                      ? 'home'
+                      : 'home';
+                  } else if (route.name === 'Settings') {
+                    iconName = focused ? 'settings' : 'settings';
+                  } else if (route.name === 'Info'){
+                      iconName = focused ? 'info' : 'info';
+                  }
+      
+                  // You can return any component that you like here!
+                  return <Icon name={iconName} size={size} color={color} />;
+                },
+              })}
+              tabBarOptions={{
+                activeTintColor: '#008388',
+                inactiveTintColor: 'gray',
+              }}>
+                <Tab.Screen name="Home" component={HomeScreen}></Tab.Screen>
+                <Tab.Screen name="Info" component={MScreen} ></Tab.Screen>
+                <Tab.Screen name="Settings" component={SScreen}></Tab.Screen>
             </Tab.Navigator>
         );
     }
