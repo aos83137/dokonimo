@@ -11,7 +11,7 @@ import { FlatList } from 'react-native-gesture-handler';
 
 let {width, height} = Dimensions.get('window')
 
-const URI = 'https://my-project-9710670624.df.r.appspot.com'
+const URI = 'https://sylvan-presence-280012.an.r.appspot.com'
 
 //props 안에 navigation, route가  들어가있음 {navigation, route} 이렇게 써도 되고 props.navigatio으로 써도됨
 function Item({item, tourist}){

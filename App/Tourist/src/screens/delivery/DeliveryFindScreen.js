@@ -12,7 +12,7 @@ import colors from '../../styles/colors';
 import database from '@react-native-firebase/database';
 
 
-const url='my-project-9710670624.df.r.appspot.com';
+const url='sylvan-presence-280012.an.r.appspot.com';
 
 export default class DeliveryFindScreen extends Component{
     constructor(props){
