@@ -14,8 +14,7 @@ import {AuthContext} from './src/cons/Context'
 import AsyncStorage from '@react-native-community/async-storage';
 
 import PushNotification from "react-native-push-notification";
-import firebase from 'firebase';
-import {messaging} from 'firebase';
+import messaging from '@react-native-firebase/messaging';
 
 
 export async function request_location_runtime_permission() {
@@ -124,75 +123,75 @@ const App =()=>{
       },
    
     }), []);
-// //permission이 있는지 체크
-// _checkPermission=async()=>{
-//   const enabled = await firebase.messaging().hasPermission();
-//   if (enabled) {
-//       // user has permissions
-//       console.log(enabled);
-//       _updateTokenToServer();
-//   } else {
-//       // user doesn't have permission
-//       _requestPermission();
-//   }
-// }
+//permission이 있는지 체크
+_checkPermission=async()=>{
+  const enabled = await firebase.messaging().hasPermission();
+  if (enabled) {
+      // user has permissions
+      console.log(enabled);
+      _updateTokenToServer();
+  } else {
+      // user doesn't have permission
+      _requestPermission();
+  }
+}
 
-// //permission이 없다면 permission을 요청
-// _requestPermission=async()=>{
-//   try {
-//     // User has authorised
-//     await firebase.messaging().requestPermission();
-//     await _updateTokenToServer();
-//   } catch (error) {
-//       // User has rejected permissions
-//       alert("you can't handle push notification");
-//   }
-// }
+//permission이 없다면 permission을 요청
+_requestPermission=async()=>{
+  try {
+    // User has authorised
+    await firebase.messaging().requestPermission();
+    await _updateTokenToServer();
+  } catch (error) {
+      // User has rejected permissions
+      alert("you can't handle push notification");
+  }
+}
 
-// //permission이 있다면 서버에 token 정보를 저장
-// _updateTokenToServer=async()=>{
-//   const fcmToken = await firebase.messaging().getToken();
-//   console.log(fcmToken);
+//permission이 있다면 서버에 token 정보를 저장
+_updateTokenToServer=async()=>{
+  const fcmToken = await firebase.messaging().getToken();
+  console.log(fcmToken);
 
-//   const header = {
-//     method: "POST",
-//     headers: {
-//       'Accept':  'application/json',
-//        'Content-Type': 'application/json',
-//        'Cache': 'no-cache'
-//     },
-//     body: JSON.stringify({
-//       user_id: "CURRENT_USER_ID",
-//       firebase_token: fcmToken
-//     }),
-//     credentials: 'include',
-//   };
-//   const url = "http://YOUR_SERVER_URL";
+  const header = {
+    method: "POST",
+    headers: {
+      'Accept':  'application/json',
+       'Content-Type': 'application/json',
+       'Cache': 'no-cache'
+    },
+    body: JSON.stringify({
+      user_id: "CURRENT_USER_ID",
+      firebase_token: fcmToken
+    }),
+    credentials: 'include',
+  };
+  const url = "http://YOUR_SERVER_URL";
 
-//   // if you want to notification using server,
-//   // do registry current user token
+  // if you want to notification using server,
+  // do registry current user token
 
-//   // await fetch(url, header);
-// }
+  // await fetch(url, header);
+}
 
-// _listenForNotifications=async()=>{
-//   // notificationListener = firebase.notifications().onNotification((notification) => {
-//   //   console.log('onNotification', notification);
-//   // });
+_listenForNotifications=async()=>{
+  // notificationListener = firebase.notifications().onNotification((notification) => {
+  //   console.log('onNotification', notification);
+  // });
 
-//   // notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-//   //     console.log('onNotificationOpened', notificationOpen);
-//   // });
+  // notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+  //     console.log('onNotificationOpened', notificationOpen);
+  // });
 
-//   // const notificationOpen = await firebase.notifications().getInitialNotification();
-//   // if (notificationOpen) {
-//   //     console.log('getInitialNotification', notificationOpen);
-//   // }
-// }
+  // const notificationOpen = await firebase.notifications().getInitialNotification();
+  // if (notificationOpen) {
+  //     console.log('getInitialNotification', notificationOpen);
+  // }
+}
     useEffect(() => {
-      // _checkPermission();
-      // _listenForNotifications();
-      console.log('test',messaging);
+      _checkPermission();
+      _listenForNotifications();
+
       
       
       PushNotification.configure({
