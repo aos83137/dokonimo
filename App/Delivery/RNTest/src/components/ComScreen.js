@@ -39,7 +39,7 @@ export default class ComScreen extends React.Component{
     end=()=>{
         firebase.database().ref('/users/'+name).set(null);
         firebase.database().ref('/users/'+name).set({delivery_latitude:null,delivery_longitude:null});
-        this.props.navigation.navigate('딜리버리');
+        this.props.navigation.navigate('Home');
 
     }
 

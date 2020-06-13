@@ -182,7 +182,7 @@ _listenForNotifications=async()=>{
       _checkPermission();
       _listenForNotifications();
 
-      
+      request_location_runtime_permission();
       
       PushNotification.configure({
         onNotification: function(notification) {

@@ -67,7 +67,7 @@ export default class MScreen extends React.Component{
       this.state.dataSource.forEach(
         (data)=>{
           
-          if(data.reservation_status=='end_delivery'){
+          if(data.reservation_status=='keeper_keeping'){
             
             const ends ={
               id:data.reservation_id+'번',

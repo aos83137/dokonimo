@@ -42,6 +42,7 @@ export default class HomeScreen extends React.Component{
                 measurementId: "G-Y8XG5Y6V1D"
             });
         }
+        
  
         firebase.database().ref('/users').on("value",snapshot=>{
             if(snapshot.forEach){
@@ -83,12 +84,13 @@ export default class HomeScreen extends React.Component{
             }
         }
 
+
         return(
             <View style={styles.container}>
                 <Text>안전 운전 하세요!</Text>
                 <ToggleButton onStateChange={this._onStateChange}/>
                 <View style={styles.footer}>
-                {
+                {this.state.data?
                     users.map(value=>{
                         return(
                             <CustomButton title={value.id} 
@@ -99,6 +101,7 @@ export default class HomeScreen extends React.Component{
                             onPress={()=>this.props.navigation.navigate('Map',{reservation_id:value.id,user_name:value.name,user_latitude:value.user_latitude,user_longitude:value.user_longitude})}/>
                         );
                     })
+                    :null
                 } 
                 </View>
                 
