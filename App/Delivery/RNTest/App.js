@@ -125,7 +125,7 @@ const App =()=>{
     }), []);
 //permission이 있는지 체크
 _checkPermission=async()=>{
-  const enabled = await firebase.messaging().hasPermission();
+  const enabled = await messaging().hasPermission();
   if (enabled) {
       // user has permissions
       console.log(enabled);
@@ -140,7 +140,7 @@ _checkPermission=async()=>{
 _requestPermission=async()=>{
   try {
     // User has authorised
-    await firebase.messaging().requestPermission();
+    await messaging().requestPermission();
     await _updateTokenToServer();
   } catch (error) {
       // User has rejected permissions
@@ -150,7 +150,7 @@ _requestPermission=async()=>{
 
 //permission이 있다면 서버에 token 정보를 저장
 _updateTokenToServer=async()=>{
-  const fcmToken = await firebase.messaging().getToken();
+  const fcmToken = await messaging().getToken();
   console.log(fcmToken);
 
   const header = {
@@ -175,18 +175,12 @@ _updateTokenToServer=async()=>{
 }
 
 _listenForNotifications=async()=>{
-  // notificationListener = firebase.notifications().onNotification((notification) => {
-  //   console.log('onNotification', notification);
-  // });
-
-  // notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
-  //     console.log('onNotificationOpened', notificationOpen);
-  // });
-
-  // const notificationOpen = await firebase.notifications().getInitialNotification();
-  // if (notificationOpen) {
-  //     console.log('getInitialNotification', notificationOpen);
-  // }
+  setTopic = messaging().subscribeToTopic('delivery');
+  unsubscribe  = messaging().onMessage(async remoteMessage => {
+    console.log(remoteMessage);
+    
+    // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+  });
 }
     useEffect(() => {
       _checkPermission();

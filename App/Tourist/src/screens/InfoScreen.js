@@ -28,7 +28,7 @@ function Item({keepers,item,props}){
         status = '예약 확정';
     }else if(item.reservation_status=='in_delivery'){
         status = '배달 중';
-    }else if(item.reservation_status=='keeper_keeping'){
+    }else if(item.reservation_status=='keeper_keeping'||item.reservation_status=='end_delivery'){
         status = '보관 중';
     }else{
         status = '종료';

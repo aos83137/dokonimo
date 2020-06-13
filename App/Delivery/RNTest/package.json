@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "deep-clean": "./node_modules/.bin/react-native-clean-project --keep-node-modules --remove-iOS-build --keep-brew --keep-pods --remove-iOS-pods --remove-android-build && yarn clean",
+    "clean": "\\rm -fr ./node_modules dist/* ios/build ios/Pods ios/KScoreApp.xcarchive android/build android/app/build public/js public/assets && yarn"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.11.0",
