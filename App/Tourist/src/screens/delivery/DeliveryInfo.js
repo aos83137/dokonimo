@@ -30,7 +30,7 @@ const Delivery = (props)=>{
             setUserId(userToken);
             
         }catch(e){
-            console.error(e);
+            console.log(e);
         }
     }
     useEffect(()=>{
@@ -62,7 +62,7 @@ const Delivery = (props)=>{
                 setTime(time);
             })
             .catch((e)=>{
-                console.error(e);
+                console.log(e);
             });
             setUserCoords(userCoords)
         },(e)=>{console.error(e);});
@@ -113,11 +113,11 @@ const Delivery = (props)=>{
             body:JSON.stringify(
                 {
                     //여기 토큰을 딜리버리꺼로 바꾸면 될듯
-                    "to":"/topics/tourist",
+                    "to":"/topics/delivery",
                     "priority":"high",
                     "notification":{
-                        "body":"Background Message",
-                        "title":"BG Title"
+                        "body":"투어리스트의 딜리버리 요청이 있습니다",
+                        "title":"딜리버리 요청"
                     }, 
                     "data":{
                         "title": "딜리버리 요청.",

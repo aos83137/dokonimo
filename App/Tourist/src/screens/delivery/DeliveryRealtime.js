@@ -121,7 +121,7 @@ export default class DeliveryFindScreen extends Component{
             })
         })
         .catch((e)=>{
-            console.error(e);
+            console.log(e);
         });
     }
 

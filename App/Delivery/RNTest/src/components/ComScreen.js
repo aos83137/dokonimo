@@ -39,7 +39,31 @@ export default class ComScreen extends React.Component{
     end=()=>{
         firebase.database().ref('/users/'+name).set(null);
         firebase.database().ref('/users/'+name).set({delivery_latitude:null,delivery_longitude:null});
-        this.props.navigation.navigate('Home');
+
+        fetch('https://fcm.googleapis.com/fcm/send',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'key=AAAAnXNFhws:APA91bH5gDeGFgVYolbkdx44qnOyYadDP1-xst1-tkUYlWHXqC3Lropg4GIPwqnD8-fG8kmT6yzCh8ueY1rnvSYSrVokqfMRWOLexTF87JK_2cETW8RkT2oA9r13k8FLnG0IAHGBYqsc'
+            },
+            body:JSON.stringify(
+                {
+                    //여기 토큰을 딜리버리꺼로 바꾸면 될듯
+                    "to":"/topics/tourist",
+                    "priority":"high",
+                    "notification":{
+                        "body":"키퍼에게 짐 전달을 완료했습니다.",
+                        "title":"딜리버리 도착"
+                    }, 
+                    "data":{
+                        "title": "딜리버리 도착",
+                        "message":"키퍼에게 짐 전달을 완료했습니다."
+                    }
+                }
+            )
+        });
+
+        this.props.navigation.navigate('딜리버리');
 
     }
 
