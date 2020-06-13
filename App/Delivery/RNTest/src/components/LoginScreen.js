@@ -5,7 +5,8 @@ import {
     Text,
     Button,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
   
 } from 'react-native'
 
@@ -14,9 +15,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import {AuthContext} from '../cons/Context'
+import { database } from 'firebase';
 
-
+const url =  'https://sylvan-presence-280012.an.r.appspot.com';
 const LoginScreen = ({navigation}) =>{ 
+
+
 
     const [data,setData] = React.useState({
         username:'',
@@ -85,11 +89,31 @@ const LoginScreen = ({navigation}) =>{
     const {signIn} = React.useContext(AuthContext);
 
     const loginHandle = (username, password) =>{
-        signIn(username,password);
+     
+        fetch(url+'/deliverys',{
+            method:'GET',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+            }   
+        }).then((res)=>res.json())
+        .then((resJson)=>{
+            resJson.forEach((data)=>{
+                if(username==data.delivery_name && password==data.delivery_password){
+                    signIn(username,password);
+                }
+            })
+        }).catch(e=>{console.error(e)})
+
+    
+        
+
+       
     }
 
     return(
         <View style={styles.container}>
+           
             <Text style={styles.text_header}>Login To Delivery App</Text>
             <View style={styles.action}>
                 <Text  style={styles.text_email}>Name</Text>
@@ -167,7 +191,7 @@ const LoginScreen = ({navigation}) =>{
             </View>
             <View style={styles.button}>
                 <CustomButton title='회원가입' buttonColor={'#BBD4D8'} borderRadius={8}
-                onPress={()=>navigation.navigate('Signup')}/>
+                onPress={()=> navigation.navigate('Signup')}/>
             </View>
         </View>
     );

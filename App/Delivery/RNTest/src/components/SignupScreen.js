@@ -96,7 +96,7 @@ const SignupScreen = ({navigation}) => {
     }
 
 
-    const signup = () =>{
+    const signupbutton = () =>{
         fetch(url+'/deliverys',{
             method:'POST',
             headers:{
@@ -107,7 +107,8 @@ const SignupScreen = ({navigation}) => {
                 delivery_name:data.username,
                 delivery_phonenumber:data.phon,
                 delivery_email:data.email,
-                delivery_car:data.car
+                delivery_car:data.car,
+                delivery_password:data.password
             })
         }).then((res)=>res.json())
         .then((resJson)=>{
@@ -217,12 +218,12 @@ const SignupScreen = ({navigation}) => {
             
             <View style={styles.button}>
                 <CustomButton title='회원가입' buttonColor={'#BBD4D8'} borderRadius={8}
-                />
+                onPress={()=>{signupbutton()}} />
             </View>
 
             <View style={styles.button}>
                 <CustomButton title='로그인' buttonColor={'#BBD4D8'} borderRadius={8} 
-                onPress={navigation.navigate('Login')}/>
+                onPress={()=>navigation.navigate('Login')}/>
             </View>
         </View>
     );
