@@ -29,11 +29,11 @@ export async function request_location_runtime_permission() {
     )
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
 
-      // Alert.alert("위치 권한 부여됨");
+      Alert.alert("위치 권한 부여됨");
     }
     else {
 
-      // Alert.alert("Location Permission Not Granted");
+      Alert.alert("Location Permission Not Granted");
 
     }
 
@@ -140,7 +140,7 @@ _requestPermission=async()=>{
     await _updateTokenToServer();
   } catch (error) {
       // User has rejected permissions
-      alert("you can't handle push notification");
+      // alert("you can't handle push notification");
   }
 }
 
