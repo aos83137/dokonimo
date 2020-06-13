@@ -42,7 +42,6 @@ export default class HomeScreen extends React.Component{
                 measurementId: "G-Y8XG5Y6V1D"
             });
         }
-
  
         firebase.database().ref('/users').on("value",snapshot=>{
             if(snapshot.forEach){
