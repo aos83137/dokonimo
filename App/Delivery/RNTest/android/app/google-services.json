@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "676243801867",
+    "firebase_url": "https://maptest3-b3603.firebaseio.com",
+    "project_id": "maptest3-b3603",
+    "storage_bucket": "maptest3-b3603.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676243801867:android:ef80e12d3e2c1a5f04c40e",
+        "android_client_info": {
+          "package_name": "com.deliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKKnsTVwZ4O_qZb8EBWuBrU3lCgASpj-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "676243801867-b5qru792l2flsoqqi8jeatvkukqvko3l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RNTest"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676243801867:android:d3f562d1b4d2f5bc04c40e",
+        "android_client_info": {
+          "package_name": "com.maptest3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKKnsTVwZ4O_qZb8EBWuBrU3lCgASpj-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "676243801867-b5qru792l2flsoqqi8jeatvkukqvko3l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RNTest"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676243801867:android:695d6bf1e01b317b04c40e",
+        "android_client_info": {
+          "package_name": "com.rntest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKKnsTVwZ4O_qZb8EBWuBrU3lCgASpj-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676243801867-in7pksl8rgvrtjvhmbeakr6340udjjh5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "676243801867-b5qru792l2flsoqqi8jeatvkukqvko3l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RNTest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
