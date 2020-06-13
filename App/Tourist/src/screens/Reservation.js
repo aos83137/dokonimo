@@ -501,22 +501,22 @@ const Reservation = (props)=>{
                     </View>
                 </View>
             </View>;
-            pictureView = 
-            <View>
-                <Text style={styles.headerText}>
-                    고객님의 짐
-                </Text>
-                <View style={styles.paysCard}>
-                    <Text>
-                        고객님의 짐은 키퍼가 안전하게 보관 하고 있습니다.
-                    </Text>
-                    <View>
-                        <Text>
-                            사진
-                        </Text>
-                    </View>
-                </View>
-            </View>
+            // pictureView = 
+            // <View>
+            //     {/* <Text style={styles.headerText}>
+            //         고객님의 짐
+            //     </Text>
+            //     <View style={styles.paysCard}>
+            //         <Text>
+            //             고객님의 짐은 키퍼가 안전하게 보관 하고 있습니다.
+            //         </Text>
+            //         <View>
+            //             <Text>
+            //                 사진
+            //             </Text>
+            //         </View>
+            //     </View> */}
+            // </View>
         //상태 : 배달 중
         }else if(state==='in_delivery'){
             footer=
