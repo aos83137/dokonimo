@@ -6,12 +6,14 @@ import {createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+
 import HomeScreen from './HomeScreen'
 import MScreen from './MScreen' 
 import SScreen from './SScreen'
 
 const Tab = createBottomTabNavigator();
 export default class TabScreen extends React.Component{
+
     render(){
         return(
             <Tab.Navigator

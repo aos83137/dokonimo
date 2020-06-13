@@ -8,6 +8,7 @@ import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase';
 import CustomButton from './CustomButton'
 
+
 const LATITUDE_DELTA = 0.192;
 const url =  'https://sylvan-presence-280012.an.r.appspot.com';
 let id;
@@ -25,7 +26,7 @@ export default class MapScreen extends React.Component {
             
         }
     }
-
+    
 
 
     componentDidMount(){
@@ -72,6 +73,9 @@ export default class MapScreen extends React.Component {
         name = user_name;
         latitude = user_latitude;
         longitude = user_longitude;
+
+        
+
 
 
         return (

@@ -9,17 +9,23 @@ import {
 } from 'react-native'
 
 
-const url = 'hhttps://sylvan-presence-280012.an.r.appspot.com';
+const url = 'https://sylvan-presence-280012.an.r.appspot.com';
 export default class MScreen extends React.Component{
+
+
   constructor(){
     super()
     this.state={
       dataSource:[],
       end:[],
+      refreshing:false
     }
   }
+
+
   
   renderItem = ({item}) =>{
+
     return(
       <View style={{flex:1,marginBottom:3,width:'100%'}}>
         <View style={{flex:1,justifyContent:'center'}}>
@@ -34,6 +40,12 @@ export default class MScreen extends React.Component{
   }
 
   componentDidMount(){
+    this.getData()
+
+  }
+
+  getData =()=>{
+    this.setState({refreshing:true})
     fetch(url+'/rktshow')
     .then((response)=>response.json())
     .then((responseJson)=>{
@@ -41,22 +53,22 @@ export default class MScreen extends React.Component{
         dataSource:responseJson
       })
      
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-
+    }).finally(()=>this.setState({refreshing:false}))
     
   }
 
+ 
+
+
   render(){
+
     
       const to = [];
       this.state.dataSource.forEach(
         (data)=>{
           
           if(data.reservation_status=='end_delivery'){
-            console.log('end');
+            
             const ends ={
               id:data.reservation_id+'번',
               name:data.keeper_store_name,
@@ -69,10 +81,14 @@ export default class MScreen extends React.Component{
         }
       )
       return(
+        
         <View style={styles.container}>
           <FlatList
             data={to}
             renderItem={this.renderItem}
+            refreshing={this.state.refreshing}
+            onRefresh={this.getData}
+
             />
         </View>
       );

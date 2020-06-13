@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {PermissionsAndroid,ActivityIndicator,View} from 'react-native'
 import 'react-native-gesture-handler'
 import {NavigationContainer} from '@react-navigation/native'
@@ -41,6 +41,7 @@ export async function request_location_runtime_permission() {
 }
 const Stack = createStackNavigator();
 console.disableYellowBox = true;
+
 const App =()=>{
 
     // const [isLoading, setIsLoading] = React.useState(true);
@@ -85,28 +86,25 @@ const App =()=>{
     };
 
     const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
-
+    
     const authContext = React.useMemo(() => ({
       signIn: async(userName,password) => {
 
-        // setUserToken('fgkj');
-        // setIsLoading(false);
-        let userToken;
-        userToken = null;
-        if(userName == 'user' && password == 'pass'){
-          try {
-            userToken='dfgdfg';
-            await AsyncStorage.setItem('userToken', userToken);
-          } catch(e) {
-            console.log(e);
-          }
+        userToken = password;
+        
+       
+
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch(e) {
+          console.log(e);
         }
+        console.log(userToken);
         
         dispatch({ type: 'LOGIN', id: userName, token: userToken });
       },
       signOut: async() => {
-        // setUserToken(null);
-        // setIsLoading(false);
+
         try {
           await AsyncStorage.removeItem('userToken');
         } catch(e) {
@@ -114,16 +112,13 @@ const App =()=>{
         }
         dispatch({ type: 'LOGOUT' });
       },
-      signUp: () => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
-      },
-   
+      signUp:()=>{
+
+      }
     }), []);
 
     useEffect(() => {
       setTimeout(async() => {
-        // setIsLoading(false);
         let userToken;
         userToken = null;
         try {
@@ -131,6 +126,7 @@ const App =()=>{
         } catch(e) {
           console.log(e);
         }
+        console.log(userToken);
 
         dispatch({ type: 'REGISTER', token: userToken });
       }, 1000);
@@ -145,6 +141,8 @@ const App =()=>{
     }
 
     return(
+      
+      
       <AuthContext.Provider value={authContext}>
         <NavigationContainer>
           {loginState.userToken !== null ? (
