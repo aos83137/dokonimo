@@ -1,12 +1,16 @@
 import React from 'react'
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Text,
+    Image
 } from 'react-native'
 import MapView ,{PROVIDER_GOOGLE, Marker}from 'react-native-maps';
+import { IconButton } from 'react-native-paper';
+import {Overlay } from 'react-native-elements';
 import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase';
-import CustomButton from './CustomButton'
+import CustomButton from './CustomButton';
 
 
 const LATITUDE_DELTA = 0.192;
@@ -17,15 +21,42 @@ let latitude;
 let longitude;
 
 
+
 export default class MapScreen extends React.Component {
     constructor(props){
         super(props)
     
         this.state = {
             keeper:[],
+            visible:false,
+    
             
         }
     }
+
+
+
+    toggleOverlay = () => {
+        this.setState({visible:true})
+    };
+
+    toggleOverlay2 = () => {
+        this.setState({visible:false})
+    };
+
+    useLayoutEffect(){
+        this.props.navigation.setOptions({
+        headerRight: () => (
+            <IconButton
+                icon="image"
+                color="#BBD4D8"
+                size={28}
+                onPress={()=>{this.toggleOverlay()}}
+                />
+        ),
+        });
+    };
+
     
 
 
@@ -66,6 +97,8 @@ export default class MapScreen extends React.Component {
         
     }
 
+    
+
     render(){
         console.log('keeper info',this.state.keeper);
         const {reservation_id , user_name, user_latitude,user_longitude} = this.props.route.params
@@ -74,12 +107,28 @@ export default class MapScreen extends React.Component {
         latitude = user_latitude;
         longitude = user_longitude;
 
-        
+
+
+
 
 
 
         return (
             <View style={styles.container}>
+                {this.useLayoutEffect()}
+
+                <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
+                    <Text>가방 사진</Text>
+                    <Image
+                    style={{height:200,width:200}}
+                    source={require('../img/bag1.jpeg')}></Image>
+                    <Image
+                    style={{height:200,width:200 }}
+                    source={require('../img/bag2.jpeg')}></Image>
+                    <Image
+                    style={{height:200,width:200}}
+                    source={require('../img/bag4.jpeg')}></Image>
+                </Overlay>
 
                 <MapView
                     provider={PROVIDER_GOOGLE}
