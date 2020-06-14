@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {PermissionsAndroid,ActivityIndicator,View} from 'react-native'
+import {PermissionsAndroid,ActivityIndicator,View,Text} from 'react-native'
+import { IconButton } from 'react-native-paper';
+import { Button, Overlay } from 'react-native-elements'
 import 'react-native-gesture-handler'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-import HomeScreen from './src/components/HomeScreen'
 import MapScreen from './src/components/MapScreen'
 import GeoScreen from './src/components/GeoScreen'
 import ComScreen from './src/components/ComScreen'
@@ -217,6 +218,8 @@ _listenForNotifications=async()=>{
       );
     }
 
+
+
     return(
       
       
@@ -237,6 +240,15 @@ _listenForNotifications=async()=>{
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},
+                // headerRight: () => (
+                //   <IconButton
+                //     icon="image"
+                //     color="#BBD4D8"
+                //     size={28}
+                //     onPress={()=>alert('ss')}
+                //   />
+                  
+                // ),
               }}/>
               <Stack.Screen name="Geo" component={GeoScreen}
               options={{
