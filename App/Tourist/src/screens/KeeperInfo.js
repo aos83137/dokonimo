@@ -116,9 +116,16 @@ const KeeperInfo = (props)=>{
                     // console.log(e.starpoint);
                     startSub += e.starpoint;
                 })
-                const arg = (startSub/responseJson.length).toFixed(1);
-                console.log('별점 평균 ',arg);
-                setStarArg(arg)
+                if(responseJson.length>0){
+                    const arg = (startSub/responseJson.length).toFixed(1);
+                    console.log('별점 평균 ',arg);
+                    setStarArg(arg)
+                }else{
+                    console.log(0);
+                    
+                    setStarArg(0)
+                }
+           
                 setComment(responseJson);
                 setIsLoding(false);
 
@@ -181,7 +188,7 @@ const KeeperInfo = (props)=>{
                                 <Text>Keeper</Text>
                                 <View style={styles.starRating}>
                                     <Rating imageSize={20} readonly startingValue={startArg} style={styles.rating} />
-                                    <Text>  {startArg}</Text>
+                                    <Text>  {startArg?startArg:''}</Text>
                                 </View>
                             </View>
                             <Text style={styles.titleFont}>{keeper.keeper_store_name}</Text>
@@ -268,7 +275,10 @@ const KeeperInfo = (props)=>{
                                 renderItem={({item})=>(<Item item={item} tourist={tourist}/>)}
                                 keyExtractor={item=>item.id}
                                 />:
-                                <Text>아직 등록된 리뷰가 없습니다.</Text>
+                                <View>
+                                    <Text>아직 등록된 리뷰가 없습니다.</Text>
+                                </View>
+                                
                             }
                             
                         </View>

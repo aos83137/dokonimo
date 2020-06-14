@@ -27,6 +27,7 @@ const Reservation = (props)=>{
     const [delivery, setDelivery]=useState();
     const [reviewContent, setReviewContent] = useState();
     const [rating, setRating] = useState();
+    const [payLoading,setPayLoading] = useState();
     let ddd;
     const coord = props.route.params?.coord;
     console.log('여기는 reservation');
@@ -171,7 +172,7 @@ const Reservation = (props)=>{
     }
     const payEnd= async()=>{
         const userId = await AsyncStorage.getItem('userToken');
-
+        setPayLoading(true);
         fetch('http://'+url+'/reservations',{
             method: 'POST',
             headers:{
@@ -201,7 +202,8 @@ const Reservation = (props)=>{
                 return response.json()
             }).then((responseJson)=>{
                 console.log('reservation',responseJson.reverse()[0]);
-                
+                setPayLoading(false);
+
                 Alert.alert(
                     //Header
                     '결제 감사합니다.',
@@ -214,7 +216,7 @@ const Reservation = (props)=>{
                             style: 'cancel',
                             onPress:()=>{
                                 //딜리버리 스테이트를 바꿔야함
-                                props.navigation.navigate('Info',{
+                                props.navigation.navigate('Home',{
                                     stateTest:'change',
                                 });
                             }
@@ -222,16 +224,9 @@ const Reservation = (props)=>{
                         {
                             text:'네.',
                             onPress: ()=>{
-                                // setState('keeper_listen')
-                                // setWhereScreen('info')
-                                // console.log('state',state);
-                                // console.log('whereScreen',whereScreen);
-                                
-                                // props.navigation.navigate('Reservation',{
-                                //     reservation:responseJson[0],
-                                //     data,
-                                //     userId,
-                                // });
+                                props.navigation.navigate('Info',{
+                                    stateTest:'change',
+                                });
                             }
                         }
                     ]
@@ -244,29 +239,29 @@ const Reservation = (props)=>{
             console.error(error);
         })
 
-        fetch('https://fcm.googleapis.com/fcm/send',{
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'Authorization': 'key=AAAAnXNFhws:APA91bH5gDeGFgVYolbkdx44qnOyYadDP1-xst1-tkUYlWHXqC3Lropg4GIPwqnD8-fG8kmT6yzCh8ueY1rnvSYSrVokqfMRWOLexTF87JK_2cETW8RkT2oA9r13k8FLnG0IAHGBYqsc'
-            },
-            body:JSON.stringify(
-                {
-                    //여기 토큰을 키퍼꺼로 바꾸면 될듯
-                    "to":"/topics/tourist",
-                    "priority":"high",
-                    "notification":{
-                        "body":"예약완료",
-                        "title":"예약이 되었습니다.",
-                        "icon":"myicon"
-                    }, 
-                    "data":{
-                        "title": "투어리스트의 예약",
-                        "message":"투어리스트의 예약이 완료되었습니다."
-                    }
-                }
-            )
-        });
+        // fetch('https://fcm.googleapis.com/fcm/send',{
+        //     method: 'POST',
+        //     headers:{
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'key=AAAAnXNFhws:APA91bH5gDeGFgVYolbkdx44qnOyYadDP1-xst1-tkUYlWHXqC3Lropg4GIPwqnD8-fG8kmT6yzCh8ueY1rnvSYSrVokqfMRWOLexTF87JK_2cETW8RkT2oA9r13k8FLnG0IAHGBYqsc'
+        //     },
+        //     body:JSON.stringify(
+        //         {
+        //             //여기 토큰을 키퍼꺼로 바꾸면 될듯
+        //             "to":"/topics/tourist",
+        //             "priority":"high",
+        //             "notification":{
+        //                 "body":"예약완료",
+        //                 "title":"예약이 되었습니다.",
+        //                 "icon":"myicon"
+        //             }, 
+        //             "data":{
+        //                 "title": "투어리스트의 예약",
+        //                 "message":"투어리스트의 예약이 완료되었습니다."
+        //             }
+        //         }
+        //     )
+        // });
         try{
             await AsyncStorage.setItem('status','endKeeper')
             console.log('스테이터스 저장 완료');

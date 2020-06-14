@@ -64,7 +64,7 @@ export default class DeliveryFindScreen extends Component{
         });
         
         chang = this.state.dbRef.on('value', snapshot => {
-                console.log(snapshot.val());
+                console.log('딜리버리 이용 정보',snapshot.val());
                 
                 const newCoordinate ={
                     latitude:snapshot.val().delivery_latitude,
@@ -125,29 +125,29 @@ export default class DeliveryFindScreen extends Component{
         });
     }
 
-    //짐 인계했을 때
-    pushLuggage(){
-        //
-        Alert.alert(
-            //header
-            '인계 완료했습니다.',
-            // title
-            'Info탭에서 실시간 짐의 위치를 확인할 수 있습니다.',
-            [
-                {
-                    text:'홈으로...',
-                    onPress:()=>{
-                        database().ref('/delivery').update({state:'delivering'})
-                        .then(()=>{console.log('Data updated');
-                        });
-                        this.props.navigation.navigate('Main',{
-                            test:'test',
-                        });
-                    }
-                },
-            ]
-        )
-    }
+    // //짐 인계했을 때
+    // pushLuggage(){
+    //     //
+    //     Alert.alert(
+    //         //header
+    //         '인계 완료했습니다.',
+    //         // title
+    //         'Info탭에서 실시간 짐의 위치를 확인할 수 있습니다.',
+    //         [
+    //             {
+    //                 text:'홈으로...',
+    //                 onPress:()=>{
+    //                     database().ref('/delivery').update({state:'delivering'})
+    //                     .then(()=>{console.log('Data updated');
+    //                     });
+    //                     this.props.navigation.navigate('Main',{
+    //                         test:'test',
+    //                     });
+    //                 }
+    //             },
+    //         ]
+    //     )
+    // }
 
     //유저위치 기준 맵 중앙으로
     centerMap(){
@@ -191,8 +191,8 @@ export default class DeliveryFindScreen extends Component{
         this._map.animateToRegion({
             latitude:zoomOutLat,
             longitude:zoomOutLon,
-            latitudeDelta:0.02,
-            longitudeDelta:0.02,
+            latitudeDelta:0.1,
+            longitudeDelta:0.1,
         })
     }
 
