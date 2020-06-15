@@ -11,6 +11,8 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import ImagePicker from 'react-native-image-picker';
 import { SafeAreaViewBase } from 'react-native';
+import { utils } from '@react-native-firebase/app';
+import storage from '@react-native-firebase/storage';
 
 let {width, height} = Dimensions.get('window')
 const url='sylvan-presence-280012.an.r.appspot.com';
@@ -32,6 +34,7 @@ const Reservation = (props)=>{
     const [rating, setRating] = useState();
     const [payLoading,setPayLoading] = useState();
     const [imageSource, setImageSource] = useState([]);
+
     const options = {
         title: 'Load Photo',
         customButtons: [
@@ -290,18 +293,24 @@ const Reservation = (props)=>{
     // }
 
     const onCamera=()=>{
-        ImagePicker.launchCamera(options, (response) => {
-            // Same code as in above section!
-            console.log(response);
+        // console.log(utils.FilePath.PICTURES_DIRECrTORY)
+        // ImagePicker.launchCamera(options, (response) => {
+        //     // Same code as in above section!
+        //     console.log(response);
             
-          });
+        //   });
+    }
+    const uploadImage =async(uri,imageName,ref)=>{
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        console.log(blob);
+        
+        return ref.put(blob);
     }
     const showCameraRoll = ()=> {
-        // ImagePicker.showImagePicker(options,(response)=>{
-        //     // console.log(response);
+        // let result = await ImagePicker.launchImageLibrary();
 
-        // });
-        ImagePicker.launchImageLibrary(options, (response) => {
+        ImagePicker.launchImageLibrary(options, async(response) => {
             // console.log('imageSource',imageSource);
             const file ={
                 uri:response.uri,
@@ -310,19 +319,33 @@ const Reservation = (props)=>{
             }
             console.log('file',file);
             
+            const ref = await storage().ref("/images/"+file.name);
             if (response.error) {
                 console.log('LaunchImageLibrary Error: ', response.error);
             }
             else {     
                 console.log('set image');
-                setImageSource(imageSource.concat({url:response.uri}));
+                if(file.uri.length>0){
+                    uploadImage(file.uri, file.name, ref)
+                       .then(()=>{
+                           console.log('Success');
+                           ref.getDownloadURL()
+                           .then((response)=>{
+                               console.log('response',response);
+                               
+                           })
+                        
+
+                           console.log('ttt',ttt);
+                           
+                       })
+                       .catch((e)=>console.log(e));
+                    setImageSource(imageSource.concat({url:response.uri}));
+                    
+                }
             }
-            
+
         });
-        // RNS3.put(file,config)
-        // .then((response)=>{
-        //     console.log(response);
-        // })
       };
 
     const goDelivery = async()=>{
@@ -597,8 +620,8 @@ const Reservation = (props)=>{
                         // }
                         removeClippedSubviews={false}
                 />
-                <Button buttonStyle={styles.button2} title={'갤러리 열기'} onPress={showCameraRoll}/>
-                <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={onCamera}/>
+                <Button buttonStyle={styles.button2} title={'사진 등록'} onPress={showCameraRoll}/>
+                {/* <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={onCamera}/> */}
             </>
             footer=
             <View>              
