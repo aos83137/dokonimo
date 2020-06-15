@@ -10,7 +10,7 @@ import { set } from 'react-native-reanimated';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import ImagePicker from 'react-native-image-picker';
-
+import { SafeAreaViewBase } from 'react-native';
 
 let {width, height} = Dimensions.get('window')
 const url='sylvan-presence-280012.an.r.appspot.com';
@@ -289,17 +289,40 @@ const Reservation = (props)=>{
     //     Alert.alert("키퍼 예약을 끝내신 후 배달을 원하시는 고객님께서는 '예약하기'를 눌러 완료하신 뒤 예약페이지에서 딜리버리를 예약할 수 있습니다!");
     // }
 
+    const onCamera=()=>{
+        ImagePicker.launchCamera(options, (response) => {
+            // Same code as in above section!
+            console.log(response);
+            
+          });
+    }
     const showCameraRoll = ()=> {
+        // ImagePicker.showImagePicker(options,(response)=>{
+        //     // console.log(response);
+
+        // });
         ImagePicker.launchImageLibrary(options, (response) => {
             // console.log('imageSource',imageSource);
+            const file ={
+                uri:response.uri,
+                name:response.fileName,
+                type:'image/jpg'
+            }
+            console.log('file',file);
             
-          if (response.error) {
-            console.log('LaunchImageLibrary Error: ', response.error);
-          }
-          else {              
-            setImageSource(imageSource.concat({url:response.uri}));
-          }
+            if (response.error) {
+                console.log('LaunchImageLibrary Error: ', response.error);
+            }
+            else {     
+                console.log('set image');
+                setImageSource(imageSource.concat({url:response.uri}));
+            }
+            
         });
+        // RNS3.put(file,config)
+        // .then((response)=>{
+        //     console.log(response);
+        // })
       };
 
     const goDelivery = async()=>{
@@ -335,8 +358,8 @@ const Reservation = (props)=>{
 
     //carousel의 아이템 뷰 설정 함수
     const renderCarouselItem = ({item}) => {
-        console.log('item',item);
-        
+        // console.log('item',item);
+
         return (
             <View style={[styles.cardContainer]}>
                     <Image style={styles.cardImage} source={{uri:item.url}}/>
@@ -558,7 +581,9 @@ const Reservation = (props)=>{
         }else if(state ==='keeper_listen'){
             imageList =
             <>
-            {console.log('imageSource',imageSource)}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>짐 사진 등록</Text>
+            </View>
                 <Carousel
                     //https://github.com/archriss/react-native-snap-carousel
                         // ref={(c) => { this._carousel = c; }}
@@ -573,7 +598,7 @@ const Reservation = (props)=>{
                         removeClippedSubviews={false}
                 />
                 <Button buttonStyle={styles.button2} title={'갤러리 열기'} onPress={showCameraRoll}/>
-                <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={()=>{}}/>
+                <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={onCamera}/>
             </>
             footer=
             <View>              
@@ -643,7 +668,9 @@ const Reservation = (props)=>{
             </View>
         }
     }    
-    console.log('키퍼 아이디',data.keeper_store_id);
+    // console.log('키퍼 아이디',data.keeper_store_id);
+    // <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+    // console.log('test',AWS.config);
 
         return(
             <View style={{ flex:1 }}> 
@@ -664,6 +691,12 @@ const Reservation = (props)=>{
                             {Review}
                         </View>:null
                         }   
+                        {
+                            imageList?
+                            <View style={styles.cardView2}>
+                            {imageList}
+                            </View>:null
+                        }
                         <View style={styles.cardView}>
                             {checkInOut}
                         </View>
@@ -676,12 +709,7 @@ const Reservation = (props)=>{
                             {pictureView}
                             </View>:null
                         }
-                        {
-                            imageList?
-                            <View style={styles.cardView2}>
-                            {imageList}
-                            </View>:null
-                        }
+
                         <View style={styles.cardView}>
                             {footer}
                         </View>
