@@ -2,9 +2,12 @@ import React from 'react'
 import {
     View,
     Button,
-    StyleSheet
+    StyleSheet,
+    Image
 } from 'react-native'
 import MapView ,{PROVIDER_GOOGLE,Marker}from 'react-native-maps';
+import { IconButton } from 'react-native-paper';
+import {Overlay } from 'react-native-elements';
 import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase'
 import CustomButton from './CustomButton'
@@ -23,9 +26,33 @@ export default class GeoScreen extends React.Component {
             keeper:[],
             dstate : false,
             mstate : false,
+            visible:false,
             
         }
     }
+
+    toggleOverlay = () => {
+        this.setState({visible:true})
+    };
+
+    toggleOverlay2 = () => {
+        this.setState({visible:false})
+    };
+
+    useLayoutEffect(){
+        this.props.navigation.setOptions({
+        headerRight: () => (
+            <IconButton
+                icon="image"
+                color="#BBD4D8"
+                size={28}
+                onPress={()=>{this.toggleOverlay()}}
+                />
+        ),
+        });
+    };
+
+    
     componentDidMount(){
         Geolocation.getCurrentPosition((position)=>{
             var lat = parseFloat(position.coords.latitude)
@@ -102,6 +129,21 @@ export default class GeoScreen extends React.Component {
 
         return (
             <React.Fragment>
+                {this.useLayoutEffect()}
+
+                <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
+                    <Text>가방 사진</Text>
+                    <Image
+                    style={{height:200,width:200}}
+                    source={require('../img/bag1.jpeg')}></Image>
+                    <Image
+                    style={{height:200,width:200 }}
+                    source={require('../img/bag2.jpeg')}></Image>
+                    <Image
+                    style={{height:200,width:200}}
+                    source={require('../img/bag4.jpeg')}></Image>
+                </Overlay>
+
                 {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
                             titleColor={'#1C1C1C'} title="짐 배달 완료" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
                             titleColor={'#1C1C1C'} title="짐 수령" onPress={this.take}/></View>)}
