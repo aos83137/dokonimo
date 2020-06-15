@@ -50,6 +50,7 @@ export default class MScreen extends React.Component{
     .then((response)=>response.json())
     .then((responseJson)=>{
       this.setState({
+
         dataSource:responseJson
       })
      
@@ -67,7 +68,7 @@ export default class MScreen extends React.Component{
       this.state.dataSource.forEach(
         (data)=>{
           
-          if(data.reservation_status=='keeper_keeping'){
+          if(data.reservation_status=='end_delivery'){
             
             const ends ={
               id:data.reservation_id+'번',
