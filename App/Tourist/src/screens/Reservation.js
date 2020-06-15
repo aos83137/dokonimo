@@ -9,6 +9,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { set } from 'react-native-reanimated';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
+import ImagePicker from 'react-native-image-picker';
+
+
 let {width, height} = Dimensions.get('window')
 const url='sylvan-presence-280012.an.r.appspot.com';
 //props 안에 navigation, route가  들어가있음 {navigation, route} 이렇게 써도 되고 props.navigatio으로 써도됨
@@ -28,9 +31,21 @@ const Reservation = (props)=>{
     const [reviewContent, setReviewContent] = useState();
     const [rating, setRating] = useState();
     const [payLoading,setPayLoading] = useState();
+    const [imageSource, setImageSource] = useState([]);
+    const options = {
+        title: 'Load Photo',
+        customButtons: [
+          { name: 'button_id_1', title: 'CustomButton 1' },
+          { name: 'button_id_2', title: 'CustomButton 2' }
+        ],
+        storageOptions: {
+          skipBackup: true,
+          path: 'images',
+        },
+      };
     let ddd;
     const coord = props.route.params?.coord;
-    console.log('여기는 reservation');
+    // console.log('여기는 reservation');
     // console.log('data',data);
     // console.log('reservation',reservation.reservation_id);
 
@@ -273,6 +288,20 @@ const Reservation = (props)=>{
     // const deliveryEx=()=>{
     //     Alert.alert("키퍼 예약을 끝내신 후 배달을 원하시는 고객님께서는 '예약하기'를 눌러 완료하신 뒤 예약페이지에서 딜리버리를 예약할 수 있습니다!");
     // }
+
+    const showCameraRoll = ()=> {
+        ImagePicker.launchImageLibrary(options, (response) => {
+            // console.log('imageSource',imageSource);
+            
+          if (response.error) {
+            console.log('LaunchImageLibrary Error: ', response.error);
+          }
+          else {              
+            setImageSource(imageSource.concat({url:response.uri}));
+          }
+        });
+      };
+
     const goDelivery = async()=>{
         fetch('http://'+url+'/reservations',{
             method: 'GET',
@@ -306,6 +335,7 @@ const Reservation = (props)=>{
 
     //carousel의 아이템 뷰 설정 함수
     const renderCarouselItem = ({item}) => {
+        console.log('item',item);
         
         return (
             <View style={[styles.cardContainer]}>
@@ -528,17 +558,11 @@ const Reservation = (props)=>{
         }else if(state ==='keeper_listen'){
             imageList =
             <>
+            {console.log('imageSource',imageSource)}
                 <Carousel
                     //https://github.com/archriss/react-native-snap-carousel
                         // ref={(c) => { this._carousel = c; }}
-                        data={
-                            [
-                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
-                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
-                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
-                                {url:'https://codingeverybody83137.s3.us-east-1.amazonaws.com/0032_3868081_1.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEKv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLW5vcnRoZWFzdC0yIkcwRQIhAJXCDfe6PcSKwoPsuy%2Fhc9ckNvwfv7CGp%2FPQmTkoCN%2BJAiBUEpk7bvnSj8Hy%2Baurg5H%2FRcQLAZbroUCcQWBZTtNCTyqJAggkEAEaDDg5MzUyNTQ4NjU5OSIMrb3w9hG6azW79km9KuYB4dbDWFYDQK7cowMrV2kPpoX6Dyho7XtN96tb8YPwJCtfd8hE9Pgx%2BhbOVmkEhI%2FKSEMuX2KLtw%2FvcmADF0litPGi0pkNFAMCLLCceuEGEq83d3TDhCO4ppzyNl3rxkdy3%2Flmw%2FpTeWIWVxjHj%2F8pVCkvfXQ%2Fgs8QgXKOEuPHRrFfIrLo6OGwtT0pE47lLiNbVnlykfUabtva%2FbV%2BgOQl6TaAomHPcTgtlOEJoe3uILm%2F9nGJM6ffpwUklUBAbOw%2Bmera52RlsfAWHU41UFx5b8rlixgLpRIch7%2B2AnK57Kyy68sozRMwhY6B9wU6yQJ55UAuXB2Q%2Bh9HQr%2BeP%2FBfkZntNjGzAnbz2C1uUQA3tnIHwzMUhP9uxcS%2BO6kC3OW%2FnIKB%2FQ1qrfVj5jvoSaKhl8jyeFsPkOjXrGLZIRBWGGxGvr1mgOcbYSUlwoix7b%2BXAAm6z%2BbBQ2N%2B41N56xMmm%2By2wHxT7uo4g40FqHmds4cnAYscO24eYxDb0sUEZ54IlD14tBSAlwFIoimida0H5%2Fxc49nX5QfrCPGsmzlcgvaOCZx1Zid09jDNKp%2FgN7z2708x0nnCkFgKbNvlD06nQfzX69YrYG2uw3hCpEAArNZpObpVF%2FLXdDBpEII%2FsbSDI6uulmoNcKU6BDc3tPBV6u%2F2LV5crwIL1wJkvR99MM2DyL9O9xomLvgYO3L4ZK2d8SjViERQpD5MaxvD%2BACgVApUaMkXO7FEoNHszx5OgmlHrwxCWcY0fQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200610T025425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA5ACSE5QD6EQ3F7F6%2F20200610%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5d34a1f52489019098b8100e1ef327e60f2d8e11cbe931d6bfd36cb89072e27c'},
-                            ]
-                        }
+                        data={imageSource}
                         renderItem={renderCarouselItem}
                         sliderWidth={Dimensions.get('window').width}
                         itemWidth={Dimensions.get('window').width-100}
@@ -548,8 +572,8 @@ const Reservation = (props)=>{
                         // }
                         removeClippedSubviews={false}
                 />
-                <Button buttonStyle={styles.button2} title={'갤러리 열기'}/>
-                <Button buttonStyle={styles.button2} title={'사진 촬영'}/>
+                <Button buttonStyle={styles.button2} title={'갤러리 열기'} onPress={showCameraRoll}/>
+                <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={()=>{}}/>
             </>
             footer=
             <View>              
@@ -619,7 +643,7 @@ const Reservation = (props)=>{
             </View>
         }
     }    
-    console.log('1',data.keeper_store_id);
+    console.log('키퍼 아이디',data.keeper_store_id);
 
         return(
             <View style={{ flex:1 }}> 
