@@ -3,10 +3,14 @@ import {
     View,
     StyleSheet,
     Text,
+    Image,
+    ScrollView,
+
 
 } from 'react-native'
 import MapView ,{PROVIDER_GOOGLE, Marker}from 'react-native-maps';
-
+import { IconButton } from 'react-native-paper';
+import {Overlay } from 'react-native-elements';
 import Geolocation from 'react-native-geolocation-service';
 import firebase from 'firebase';
 import CustomButton from './CustomButton';
@@ -27,15 +31,40 @@ export default class MapScreen extends React.Component {
     
         this.state = {
             keeper:[],
+            visible:false,
         
     
             
         }
     }
 
+    toggleOverlay = () => {
+        this.setState({visible:true})
+    };
 
+    toggleOverlay2 = () => {
+        this.setState({visible:false})
+    };
 
+    useLayoutEffect(){
+        this.props.navigation.setOptions({
+        headerRight: () => (
+            <IconButton
+                icon="image"
+                color="#BBD4D8"
+                size={28}
+                onPress={()=>{this.toggleOverlay()}}
+                />
+        ),
+        });
+    };
 
+    images=[
+        require('../img/bag1.jpeg'),
+        require('../img/bag2.jpeg'),
+        require('../img/bag3.jpeg'),
+        require('../img/bag4.jpeg')
+    ]
 
 
     componentDidMount(){
@@ -93,6 +122,25 @@ export default class MapScreen extends React.Component {
 
         return (
             <View style={styles.container}>
+                {this.useLayoutEffect()}
+
+                <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
+                    <Text style={{fontSize:20,marginTop:150,}}>가방 사진</Text>
+
+                    <ScrollView horizontal style={{width:250,height:250}}>
+                        {
+                            this.images.map((image,index)=>(
+                                <Image
+                                key={index}
+                                style={{height:300,width:300 }}
+                                source={image}></Image>
+                               
+                            ))
+                            
+                        }
+                    </ScrollView>
+          
+                </Overlay>
                 
                 <MapView
                     provider={PROVIDER_GOOGLE}

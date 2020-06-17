@@ -4,7 +4,8 @@ import {
     View,
     Button,
     StyleSheet,
-    Image
+    Image,
+    ScrollView,
 } from 'react-native'
 import MapView ,{PROVIDER_GOOGLE,Marker}from 'react-native-maps';
 import { IconButton } from 'react-native-paper';
@@ -53,6 +54,12 @@ export default class GeoScreen extends React.Component {
         });
     };
 
+    images=[
+        require('../img/bag1.jpeg'),
+        require('../img/bag2.jpeg'),
+        require('../img/bag3.jpeg'),
+        require('../img/bag4.jpeg')
+    ]
     
     componentDidMount(){
         Geolocation.getCurrentPosition((position)=>{
@@ -133,16 +140,19 @@ export default class GeoScreen extends React.Component {
                 {this.useLayoutEffect()}
 
                 <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
-                    <Text>가방 사진</Text>
-                    <Image
-                    style={{height:200,width:200}}
-                    source={require('../img/bag1.jpeg')}></Image>
-                    <Image
-                    style={{height:200,width:200 }}
-                    source={require('../img/bag2.jpeg')}></Image>
-                    <Image
-                    style={{height:200,width:200}}
-                    source={require('../img/bag4.jpeg')}></Image>
+                    <Text style={{fontSize:20,marginTop:150,}}>가방 사진</Text>
+                    <ScrollView horizontal style={{width:250,height:250}}>
+                        {
+                            this.images.map((image,index)=>(
+                                <Image
+                                key={index}
+                                style={{height:300,width:300 }}
+                                source={image}></Image>
+                               
+                            ))
+                            
+                        }
+                    </ScrollView>
                 </Overlay>
 
                 {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
