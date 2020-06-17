@@ -68,6 +68,30 @@ const Reservation = (props)=>{
         }).catch((error)=>{
             console.error(error);
         });
+        // console.log('reservation_status : ',reservation.reservation_status);
+        if(reservation){
+            fetch('http://'+url+'/rphotos/'+reservation.reservation_id,{
+                method:"get",
+                header:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json',
+                }
+            }).then((res)=>{
+                return res.json();
+            }).
+            then((resJson)=>{
+                console.log('resJson',resJson);
+                let uri = [];
+                resJson.forEach(e => {
+                    // console.log('e.rphoto_url',e.rphoto_url);
+                    uri=uri.concat({'url':e.rphoto_url});
+                });
+                // console.log('uri',uri);
+                setImageSource(uri);
+            })
+            
+        }
+            
     },[props]);
 
     if(isLoading){
@@ -256,30 +280,6 @@ const Reservation = (props)=>{
         }).catch((error)=>{
             console.error(error);
         })
-
-        // fetch('https://fcm.googleapis.com/fcm/send',{
-        //     method: 'POST',
-        //     headers:{
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'key=AAAAnXNFhws:APA91bH5gDeGFgVYolbkdx44qnOyYadDP1-xst1-tkUYlWHXqC3Lropg4GIPwqnD8-fG8kmT6yzCh8ueY1rnvSYSrVokqfMRWOLexTF87JK_2cETW8RkT2oA9r13k8FLnG0IAHGBYqsc'
-        //     },
-        //     body:JSON.stringify(
-        //         {
-        //             //여기 토큰을 키퍼꺼로 바꾸면 될듯
-        //             "to":"/topics/tourist",
-        //             "priority":"high",
-        //             "notification":{
-        //                 "body":"예약완료",
-        //                 "title":"예약이 되었습니다.",
-        //                 "icon":"myicon"
-        //             }, 
-        //             "data":{
-        //                 "title": "투어리스트의 예약",
-        //                 "message":"투어리스트의 예약이 완료되었습니다."
-        //             }
-        //         }
-        //     )
-        // });
         try{
             await AsyncStorage.setItem('status','endKeeper')
             console.log('스테이터스 저장 완료');
@@ -328,20 +328,28 @@ const Reservation = (props)=>{
                 if(file.uri.length>0){
                     uploadImage(file.uri, file.name, ref)
                        .then(()=>{
-                           console.log('Success');
+                           console.log('firebase put Success');
                            ref.getDownloadURL()
-                           .then((response)=>{
-                               console.log('response',response);
-                               
-                           })
-                        
-
-                           console.log('ttt',ttt);
-                           
+                           .then((getURL)=>{
+                               console.log('getURL',getURL);
+                               fetch("http://"+url+"/rphotos",{
+                                   method:"POST",
+                                   headers:{
+                                       "Accept":'application/json',
+                                       "Content-Type":'application/json'
+                                   },
+                                   body:JSON.stringify({
+                                        reservation_id:reservation.reservation_id,
+                                        rphoto_url:getURL,
+                                        rphoto_content:"rphoto_content"
+                                    })
+                               })
+                               .then(res=>console.log('rphotos put success',res))
+                               .catch(e=>console.log(e));                               
+                           }).catch(e=>console.log(e));
                        })
                        .catch((e)=>console.log(e));
                     setImageSource(imageSource.concat({url:response.uri}));
-                    
                 }
             }
 
@@ -694,6 +702,7 @@ const Reservation = (props)=>{
     // console.log('키퍼 아이디',data.keeper_store_id);
     // <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
     // console.log('test',AWS.config);
+    // console.log('imageSource',imageSource);
 
         return(
             <View style={{ flex:1 }}> 
