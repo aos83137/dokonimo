@@ -29,6 +29,7 @@ export default class GeoScreen extends React.Component {
             dstate : false,
             mstate : false,
             visible:false,
+            photos:[],
             
         }
     }
@@ -54,12 +55,6 @@ export default class GeoScreen extends React.Component {
         });
     };
 
-    images=[
-        require('../img/bag1.jpeg'),
-        require('../img/bag2.jpeg'),
-        require('../img/bag3.jpeg'),
-        require('../img/bag4.jpeg')
-    ]
     
     componentDidMount(){
         Geolocation.getCurrentPosition((position)=>{
@@ -86,6 +81,19 @@ export default class GeoScreen extends React.Component {
         .then((responseJson)=>{
             this.setState({
                 keeper:responseJson[0]
+                
+            });
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+
+
+        fetch(url + '/rphotos/' + id)
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            this.setState({
+                photos:responseJson
                 
             });
         })
@@ -143,11 +151,11 @@ export default class GeoScreen extends React.Component {
                     <Text style={{fontSize:20,marginTop:150,}}>가방 사진</Text>
                     <ScrollView horizontal style={{width:250,height:250}}>
                         {
-                            this.images.map((image,index)=>(
+                            this.state.photos.map((image,index)=>(
                                 <Image
                                 key={index}
                                 style={{height:300,width:300 }}
-                                source={image}></Image>
+                                source={{uri:image.rphoto_url}}></Image>
                                
                             ))
                             

@@ -32,6 +32,7 @@ export default class MapScreen extends React.Component {
         this.state = {
             keeper:[],
             visible:false,
+            photos:[],
         
     
             
@@ -58,13 +59,6 @@ export default class MapScreen extends React.Component {
         ),
         });
     };
-
-    images=[
-        require('../img/bag1.jpeg'),
-        require('../img/bag2.jpeg'),
-        require('../img/bag3.jpeg'),
-        require('../img/bag4.jpeg')
-    ]
 
 
     componentDidMount(){
@@ -94,6 +88,20 @@ export default class MapScreen extends React.Component {
         .catch((error)=>{
             console.log(error);
         })
+
+        fetch(url + '/rphotos/' + id)
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            this.setState({
+                photos:responseJson
+                
+            });
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+
+
     }
     ok=()=>{
 
@@ -115,6 +123,8 @@ export default class MapScreen extends React.Component {
         longitude = user_longitude;
 
 
+        console.log(this.state.photos);
+
 
 
 
@@ -129,11 +139,11 @@ export default class MapScreen extends React.Component {
 
                     <ScrollView horizontal style={{width:250,height:250}}>
                         {
-                            this.images.map((image,index)=>(
+                            this.state.photos.map((image,index)=>(
                                 <Image
                                 key={index}
                                 style={{height:300,width:300 }}
-                                source={image}></Image>
+                                source={{uri:image.rphoto_url}}></Image>
                                
                             ))
                             
