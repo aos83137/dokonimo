@@ -81,14 +81,16 @@ export default class DeliveryFindScreen extends Component{
                 this.getRouteLocation();
             }                 
         });
+        let flag = false;
+
         database().ref('/users/'+this.state.userId)
         .on('value', snapshot => {
                 //data가 object이긴 한데 json처럼 값이 안나와서 정제 한번 해줌.
                 console.log(snapshot.val().state);
-                if(snapshot.val().state == 'take_luggage'){
+                if(snapshot.val().state == 'take_luggage' && !flag){
                     this.takeLuggage();
                     console.log('update status to in_delivery');
-                    
+                    flag = true;
                 }
                 const newCoordinate ={
                     latitude:snapshot.val().delivery_latitude,
@@ -311,7 +313,7 @@ export default class DeliveryFindScreen extends Component{
                       />:null
                     }
                 </MapView>
-                <TouchableHighlight 
+                {/* <TouchableHighlight 
                     onPress={()=>{
                     
 
@@ -321,7 +323,7 @@ export default class DeliveryFindScreen extends Component{
                     <View style = {styles.elem}>
                         <Icon name='keyboard-arrow-left' size={24}/>
                     </View>
-                </TouchableHighlight>
+                </TouchableHighlight> */}
             </View>
 
         );

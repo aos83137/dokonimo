@@ -47,49 +47,71 @@ export default class DeliveryFindScreen extends Component{
     }
     getDeliveryLocation(){
         console.log(this.state.userId);
-        this.state.dbRef.once('value')
-        .then(snapshot => {
-            console.log('User data: ', snapshot.val());
-            this.setState({
-                dInit:{
-                    latitude:snapshot.val().delivery_latitude,
-                    longitude:snapshot.val().delivery_longitude,
-                }
-            });    
-            console.log('componenMOunt',this.state.dInit);
-   
-            if(this.state.dInit){
-                this.getRouteLocation();
-            }                 
-        });
-        
-        chang = this.state.dbRef.on('value', snapshot => {
-                console.log('딜리버리 이용 정보',snapshot.val());
-                
-                const newCoordinate ={
-                    latitude:snapshot.val().delivery_latitude,
-                    longitude:snapshot.val().delivery_longitude,
-                }
-                // console.log(newCoordinate);//잘나옴
- 
-                if (Platform.OS === "android") {
-                    if (this.marker) {
-                        // console.log(this.marker);
-                        this.marker._component.animateMarkerToCoordinate(
-                            newCoordinate,
-                            500 // 500 is the duration to animate the marker
-                        );
-                    }
-                }
+        if(this.state.dbRef){
+            this.state.dbRef.once('value')
+            .then(snapshot => {
+                console.log('User data: ', snapshot.val());
                 this.setState({
-                    delivery:{
-                        latitude:newCoordinate.latitude, 
-                        longitude: newCoordinate.longitude,
-                        latitudeDelta:0.003,
-                        longitudeDelta:0.003,
-                    },
-                })
-        });     
+                    dInit:{
+                        latitude:snapshot.val().delivery_latitude,
+                        longitude:snapshot.val().delivery_longitude,
+                    }
+                });    
+                console.log('componenMOunt',this.state.dInit);
+    
+                if(this.state.dInit){
+                    this.getRouteLocation();
+                }                 
+            });
+            
+            chang = this.state.dbRef.on('value', snapshot => {
+                    console.log('딜리버리 이용 정보',snapshot.val());
+                    
+                    const newCoordinate ={
+                        latitude:snapshot.val().delivery_latitude,
+                        longitude:snapshot.val().delivery_longitude,
+                    }
+                    // console.log(newCoordinate);//잘나옴
+    
+                    if (Platform.OS === "android") {
+                        if (this.marker) {
+                            // console.log(this.marker);
+                            this.marker._component.animateMarkerToCoordinate(
+                                newCoordinate,
+                                500 // 500 is the duration to animate the marker
+                            );
+                        }
+                    }
+                    this.setState({
+                        delivery:{
+                            latitude:newCoordinate.latitude, 
+                            longitude: newCoordinate.longitude,
+                            latitudeDelta:0.003,
+                            longitudeDelta:0.003,
+                        },
+                    })
+            });     
+        }else{
+            Alert.alert(
+            //header
+            '짐 전달 완료',
+            // title
+            '전달이 완료 되었습니다.',
+            [
+                {
+                    text:'예약으로...',
+                    onPress:()=>{
+                        // database().ref('/delivery').update({state:'delivering'})
+                        // .then(()=>{console.log('Data updated');
+                        // });
+                        this.props.navigation.navigate('Info',{
+                            test:'test',
+                        });
+                    }
+                },
+            ]
+        )
+        }
     }
     getRouteLocation(){
         console.log('getRouteLoccation 안에 delivery값 : ',this.state.dInit);
