@@ -1,0 +1,70 @@
+body{
+    background: radial-gradient(#e5e5e5, #ffff, #e5e5e5);
+}
+
+.card{
+    width: 28rem;
+}
+
+.card:hover{
+    box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.253) !important;
+}
+
+.card-body{
+    padding: 0.3rem 0 !important;
+}
+
+.card-title{
+    text-align: center;
+}
+
+.card-text{
+    font-size: .9rem;
+    padding: 0.4rem 1.9rem;
+}
+/*위치 조정 등*/
+.container-fluid .row{
+    padding-top: 1rem;
+    padding-left: 7rem;
+}
+
+.col-md-4{
+    padding-bottom: 1rem;
+}
+
+.overflow{
+    overflow:hidden;
+}
+
+.card-img-top{
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+
+.card-img-top:hover{
+    transform: scale(1.2);
+}
+/*매장관리 MediaCard*/
+.container-fluid1 .row{
+    padding-top: 10rem;
+    padding-left: 7rem;
+}
+
+.col-md-5{
+    margin-right: 5rem;
+    color: rgba(0, 0, 0, 0.253);
+
+}
+
+.overflow{
+    overflow:hidden;
+}
+
+.card-img-top{
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+
+.card-img-top:hover{
+    transform: scale(1.2);
+}
