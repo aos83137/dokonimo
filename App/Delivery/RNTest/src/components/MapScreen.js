@@ -33,10 +33,9 @@ export default class MapScreen extends React.Component {
             keeper:[],
             visible:false,
             photos:[],
-        
-    
             
         }
+        this._carousel = {};
     }
 
     toggleOverlay = () => {
@@ -135,20 +134,32 @@ export default class MapScreen extends React.Component {
                 {this.useLayoutEffect()}
 
                 <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
-                    <Text style={{fontSize:20,marginTop:150,}}>가방 사진</Text>
+                    <Text style={{fontSize:20,marginTop:100}}>가방 사진</Text>
 
                     <ScrollView horizontal style={{width:250,height:250}}>
                         {
                             this.state.photos.map((image,index)=>(
-                                <Image
+                                <Image 
                                 key={index}
-                                style={{height:300,width:300 }}
+                                style={{height:300,width:300,marginTop:20 }}
                                 source={{uri:image.rphoto_url}}></Image>
                                
                             ))
                             
                         }
                     </ScrollView>
+                    <Text style={{fontSize:20,marginTop:20}}>
+                        45cm이하 : {this.state.keeper.bag_cnt} 개
+                    </Text>
+                    <Text style={{fontSize:20,marginTop:20}}>
+                        45cm이상 : {this.state.keeper.car_cnt} 개
+                    </Text>
+                    <Text style={{fontSize:20,marginTop:20}}>
+                        주소 : {this.state.keeper.keeper_store_address}
+                    </Text>
+                    <Text style={{fontSize:20,marginTop:20,marginBottom:50}}>
+                        가게 명 : {this.state.keeper.keeper_store_name}
+                    </Text>
           
                 </Overlay>
                 
