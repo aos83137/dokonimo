@@ -106,7 +106,7 @@ const DateSetting = (props)=>{
                 <Overlay overlayStyle={styles.overlay} isVisible={carrVisible} onBackdropPress={toggleCarrOverlay}>
                     <View style={styles.overlayStyle}>
                         <View style = {styles.title}>
-                            <Text style={styles.checkText1}>수트케이스 사이즈</Text>    
+                            <Text style={styles.checkText1}>수트케이스 개수</Text>    
                             <Text style={styles.luggageText1}>길이가 45cm 이상인 수하물</Text>    
                         </View>
                         <View style={styles.elem}>
@@ -134,7 +134,7 @@ const DateSetting = (props)=>{
                 <Overlay overlayStyle={styles.overlay} isVisible={visible} onBackdropPress={toggleOverlay}>
                     <View style={styles.overlayStyle}>
                         <View style = {styles.title}>
-                            <Text style={styles.checkText1}>가방 사이즈</Text>    
+                            <Text style={styles.checkText1}>가방 개수</Text>    
                             <Text style={styles.luggageText1}>길이가 45cm 이하인 수하물</Text>    
                         </View>
                         <View style={styles.elem}>
@@ -205,7 +205,7 @@ const DateSetting = (props)=>{
                                 size={30}
                                 style={styles.icon}
                             />
-                            <Text style={styles.luggageText1}>가방 사이즈</Text>
+                            <Text style={styles.luggageText1}>가방 개수</Text>
                             <TouchableOpacity
                             onPress={toggleOverlay}>
                                 <Icon2
@@ -243,7 +243,7 @@ const DateSetting = (props)=>{
                                 size={30}
                                 style={styles.icon}
                             />
-                            <Text style={styles.luggageText1}>슈트케이스의 사이즈</Text>
+                            <Text style={styles.luggageText1}>슈트케이스의 개수</Text>
                             <TouchableOpacity
                             onPress={toggleCarrOverlay}
                             >

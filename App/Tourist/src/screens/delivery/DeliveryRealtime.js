@@ -179,8 +179,8 @@ export default class DeliveryFindScreen extends Component{
         this._map.animateToRegion({
             latitude,
             longitude,
-            latitudeDelta:0.003,
-            longitudeDelta:0.003
+            latitudeDelta:0.01,
+            longitudeDelta:0.01
         })
     }
     //딜리버리 위치로
@@ -191,8 +191,8 @@ export default class DeliveryFindScreen extends Component{
         this._map.animateToRegion({
             latitude,
             longitude,
-            latitudeDelta:0.003,
-            longitudeDelta:0.003
+            latitudeDelta:0.01,
+            longitudeDelta:0.01
         })
     }
     //유저+ 딜리버리 중앙위치

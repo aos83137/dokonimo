@@ -37,8 +37,8 @@ export default class DeliveryFindScreen extends Component{
                     let initialRegion = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
-                        latitudeDelta: 0.003,
-                        longitudeDelta: 0.003,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
                     }
                     this.setState({
                         initialRegion,
@@ -218,8 +218,8 @@ export default class DeliveryFindScreen extends Component{
         this._map.animateToRegion({
             latitude,
             longitude,
-            latitudeDelta:0.003,
-            longitudeDelta:0.003
+            latitudeDelta:0.01,
+            longitudeDelta:0.01
         })
     }
     zoomOut(){
@@ -239,8 +239,8 @@ export default class DeliveryFindScreen extends Component{
         this._map.animateToRegion({
             latitude:zoomOutLat,
             longitude:zoomOutLon,
-            latitudeDelta:0.006,
-            longitudeDelta:0.006,
+            latitudeDelta:0.1,
+            longitudeDelta:0.1,
         })
     }
 
