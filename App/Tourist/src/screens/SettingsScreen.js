@@ -53,17 +53,17 @@ export default class SettingsScreen extends Component{
         try {
             Alert.alert(
                 //Header
-                '로그아웃',
+                'ログアウト',
                 //title
-                '정말로 로그아웃 하시겠습니까?',
+                '本当にログアウトしますか?',
                 //footer button
                 [
                     {
-                        text:'아니요',
+                        text:'いいえ',
                         style: 'cancel',
                     },
                     {
-                        text:'네',
+                        text:'はい',
                         onPress: ()=>{
                         AsyncStorage.clear()
                         this.setState({auth:false})
@@ -98,7 +98,7 @@ export default class SettingsScreen extends Component{
                     }
                 }>
                     <View style={styles.content}>
-                        <Text style={styles.text}>회원가입</Text>
+                        <Text style={styles.text}>会員登録</Text>
                         <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                     </View>
                 </TouchableHighlight>
@@ -108,7 +108,7 @@ export default class SettingsScreen extends Component{
                     }
                 }>
                     <View style={styles.content}>
-                        <Text style={styles.text}>로그인</Text>
+                        <Text style={styles.text}>ログイン</Text>
                         <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                     </View>
                 </TouchableHighlight>                     
@@ -118,7 +118,7 @@ export default class SettingsScreen extends Component{
             <>
                 <TouchableHighlight onPress={()=>{this.props.navigation.navigate('Credit')}}>
                     <View style={styles.content}>
-                        <Text style={styles.text}>결제 정보</Text>
+                        <Text style={styles.text}>クレジットカード登録</Text>
                         <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                     </View>
                 </TouchableHighlight>
@@ -129,7 +129,7 @@ export default class SettingsScreen extends Component{
                     }
                 }>
                     <View style={styles.content}>
-                        <Text style={styles.text}>로그아웃</Text>
+                        <Text style={styles.text}>ログアウト</Text>
                         <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                     </View>
                 </TouchableHighlight>
@@ -139,12 +139,12 @@ export default class SettingsScreen extends Component{
         return(
             <ScrollView style={styles.container} stickyHeaderIndices ={[0]} >
                 <View style={styles.titleContent}>
-                    <Text style={styles.headerText}>설정</Text>
+                    <Text style={styles.headerText}>設定</Text>
                 </View>
                 <View style={styles.wrapContent}>
                     <View>
                         <View style={styles.subTitleContent}>
-                            <Text style={styles.text}>인증</Text>
+                            <Text style={styles.text}>認証</Text>
                         </View>
                         {
                             authLoginView
@@ -152,11 +152,11 @@ export default class SettingsScreen extends Component{
                     </View>                    
                     <View>
                         <View style={styles.subTitleContent}>
-                            <Text style={styles.text}>기본설정</Text>
+                            <Text style={styles.text}>基本設定</Text>
                         </View> 
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>알림</Text>
+                                <Text style={styles.text}>通知受信</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>
@@ -168,7 +168,7 @@ export default class SettingsScreen extends Component{
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>언어설정</Text>
+                                <Text style={styles.text}>言語設定</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>
@@ -185,36 +185,36 @@ export default class SettingsScreen extends Component{
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>금지 품목</Text>
+                                <Text style={styles.text}>禁止品目</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>지원팀으로 연락</Text>
+                                <Text style={styles.text}>支援チームに連絡</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>
                     </View>
                     <View>
                         <View style={styles.subTitleContent}>
-                            <Text style={styles.text}>이 앱에 관하여</Text>
+                            <Text style={styles.text}>このアプリについて</Text>
                         </View>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>공지</Text>
+                                <Text style={styles.text}>お知らせ</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>    
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>금지 품목</Text>
+                                <Text style={styles.text}>禁止品目</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight>
                             <View style={styles.content}>
-                                <Text style={styles.text}>지원팀으로 연락</Text>
+                                <Text style={styles.text}>支援チームに連絡</Text>
                                 <Icon name="keyboard-arrow-right" size={30} color={colors.gray}/>
                             </View>
                         </TouchableHighlight>

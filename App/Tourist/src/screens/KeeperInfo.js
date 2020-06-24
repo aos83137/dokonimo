@@ -194,7 +194,7 @@ const KeeperInfo = (props)=>{
                             <Text style={styles.titleFont}>{keeper.keeper_store_name}</Text>
                         </View>
                         <View style={styles.cardView}>
-                            <Text style = {styles.subTitle}>보관 가능한 시간</Text>                            
+                            <Text style = {styles.subTitle}>保管可能の時間</Text>                            
                             {/* <Tooltip popover={<Text>Info here</Text>} height={100}> */}
                                 <View style={styles.inWrapView}>
                                     <View style={styles.elem}>
@@ -204,7 +204,7 @@ const KeeperInfo = (props)=>{
                                             color={colors.green01}
                                             style={styles.icon}
                                         />
-                                        <Text style={styles.subText}>오늘</Text>
+                                        <Text style={styles.subText}>今日</Text>
                                     </View>
                                     <View>
                                         <Text style={styles.subText}>{keeper.keeper_store_openinghours}</Text>
@@ -219,20 +219,20 @@ const KeeperInfo = (props)=>{
                                         color={colors.green01}
                                         style={styles.icon}
                                     />
-                                    <Text style={styles.subText}>수하물 개수 제한</Text>
+                                    <Text style={styles.subText}>荷物の制限</Text>
                                 </View>
                                 <View>
                                     <Text style={styles.subText}>
-                                        가방 사이즈 x {keeper.keeper_store_bag_cnt}
+                                        カバンの数 x {keeper.keeper_store_bag_cnt}
                                     </Text>
                                     <Text style={styles.subText}>
-                                        슈트케이스의 사이즈 x {keeper.keeper_store_bag_cnt}
+                                        スーツケースの数 x {keeper.keeper_store_bag_cnt}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                         <View style={styles.cardView}>
-                            <Text style = {styles.subTitle}>가게 정보</Text>
+                            <Text style = {styles.subTitle}>店の情報</Text>
                             <View style={styles.inWrapView}>
                                 <View style={styles.elem}>
                                     <Icon
@@ -241,7 +241,7 @@ const KeeperInfo = (props)=>{
                                         color={colors.green01}
                                         style={styles.icon}
                                     />
-                                    <Text style={styles.subText}>전화기</Text>
+                                    <Text style={styles.subText}>電話番号</Text>
                                 </View>
                                 <View style={styles.elem}>
                                     <Text style={styles.subText}>{keeper.keeper_store_tel}</Text>
@@ -255,7 +255,7 @@ const KeeperInfo = (props)=>{
                                         color={colors.green01}
                                         style={styles.icon}
                                     />
-                                    <Text style={styles.subText}>위치</Text>
+                                    <Text style={styles.subText}>位置</Text>
                                 </View>
                                 <View>
                                     <Text style={styles.subText}>{keeper.keeper_store_address}</Text>
@@ -267,7 +267,7 @@ const KeeperInfo = (props)=>{
                             </View> */}
                         </View >
                         <View style={styles.cardView2}>
-                            <Text style={styles.subTitle}>평가</Text>
+                            <Text style={styles.subTitle}>レビュー</Text>
                             {
                                 comment?
                                 <FlatList
@@ -285,7 +285,7 @@ const KeeperInfo = (props)=>{
                     </View>
                 </ScrollView>
                 <View style={styles.floatView}>
-                    <Button title={'예약하기'} buttonStyle={{backgroundColor:colors.green01}} onPress={goReservation}></Button>
+                    <Button title={'予約する'} buttonStyle={{backgroundColor:colors.green01}} onPress={goReservation}></Button>
                 </View>
             </View>
         );

@@ -53,7 +53,7 @@ function Item({keepers,item,props}){
                             <Text style={styles.titleDate}>{checkIn+'~'+checkOut}</Text>
                         </View>
                         <View style={{ flex:1 }}>
-                            <Text style = {styles.titleText}>状況</Text>
+                            <Text style = {styles.titleText}>状態</Text>
                             <Text style={styles.stateText}>
                                 {status}
                             </Text>
