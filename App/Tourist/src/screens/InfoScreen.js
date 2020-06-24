@@ -23,15 +23,15 @@ function Item({keepers,item,props}){
     let checkIn = item.check_in.split(' ')[0]
     let checkOut = item.check_out.split(' ')[0]
     if(item.reservation_status == 'keeper_listen'){
-        status = '예약 대기'
+        status = '予約待機'
     }else if(item.reservation_status=='keeper_reservation'){
-        status = '예약 확정';
+        status = '予約確定';
     }else if(item.reservation_status=='in_delivery'){
-        status = '배달 중';
+        status = '伝達中';
     }else if(item.reservation_status=='keeper_keeping'){
-        status = '보관 중';
+        status = '保管中';
     }else{
-        status = '종료';
+        status = '終了';
     }
     return (
         <View style={styles.item}>
@@ -53,7 +53,7 @@ function Item({keepers,item,props}){
                             <Text style={styles.titleDate}>{checkIn+'~'+checkOut}</Text>
                         </View>
                         <View style={{ flex:1 }}>
-                            <Text style = {styles.titleText}>상태</Text>
+                            <Text style = {styles.titleText}>状況</Text>
                             <Text style={styles.stateText}>
                                 {status}
                             </Text>
