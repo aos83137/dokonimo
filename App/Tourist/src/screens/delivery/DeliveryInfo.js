@@ -116,12 +116,12 @@ const Delivery = (props)=>{
                     "to":"/topics/delivery",
                     "priority":"high",
                     "notification":{
-                        "body":"투어리스트의 딜리버리 요청이 있습니다",
-                        "title":"딜리버리 요청"
+                        "body":"ツアーリストからデリバリーリクエストがあります。",
+                        "title":"デリバリーリクエスト"
                     }, 
                     "data":{
-                        "title": "딜리버리 요청.",
-                        "message":"투어리스트의 딜리버리 요청이 있습니다"
+                        "title": "デリバリーリクエスト",
+                        "message":"ツアーリストからデリバリーリクエストがあります。"
                     }
                 }
             )
@@ -136,7 +136,7 @@ const Delivery = (props)=>{
         showActivity=
         <View style = {styles.elem}>
             <ActivityIndicator/>
-            <Text style={styles.searchText}>딜리버리를 찾는 중 입니다....</Text>
+            <Text style={styles.searchText}>デリバリーを探しています…</Text>
         </View>
     }
 
@@ -151,29 +151,29 @@ const Delivery = (props)=>{
             <View>
                 <Overlay isVisible={visible}>
                     <View style={styles.header}>
-                        <Text h3>상세금액</Text>
+                        <Text h3>詳細金額</Text>
                     </View>
                     <View style={{ flex:2 }}>
                         <LottieView style={styles.lottie} source={require('../../img/lottie/walk-processes.json')} autoPlay loop/>
                     </View>
                     <View style={styles.content}>
                         <View>
-                            <Text>출발지 : 현재 위치</Text>
+                            <Text>出発地：現在地</Text>
                             {/* <Icon2 name='arrow-down' size={24}/> */}
-                            <Text>목적지 : {data.keeper_store_name}</Text>
+                            <Text>目的地 : {data.keeper_store_name}</Text>
 
-                            <Text h5>운행거리 : {distance}</Text>
-                            <Text>최종결제금액 : 1000¥</Text>
+                            <Text h5>運行距離 : {distance}</Text>
+                            <Text>最終決済金額 : 1000¥</Text>
                         </View>
                     </View>
                     <View style={styles.footer}>
                         
                         {showActivity?
-                        showActivity:<Text>딜리버리를 찾으시겠습니까?</Text>
+                        showActivity:<Text>デリバリーを探しますか。</Text>
                         }
                         <View style={styles.elem}>
-                            <Button buttonStyle={styles.button2} title="아니요"  onPress={toggleOverlay}/>
-                            <Button buttonStyle={styles.button2} title="네" onPress={findDelivery}  />
+                            <Button buttonStyle={styles.button2} title="いいえ"  onPress={toggleOverlay}/>
+                            <Button buttonStyle={styles.button2} title="ハイ" onPress={findDelivery}  />
                         </View>
                     </View >
                 </Overlay>
@@ -186,30 +186,30 @@ const Delivery = (props)=>{
                 </TouchableHighlight>
             </View>
             <View style = {styles.lottieView}>
-            <Text h4 style={styles.headerTitle}>예약 접수가 완료 되었습니다.</Text>
+            <Text h4 style={styles.headerTitle}>ご予約の受付が完了しました。</Text>
             <LottieView style={styles.lottie} source={require('../../img/lottie/checkList3.json')} autoPlay loop/>
             </View>
             <View style={styles.content}>
                 <Text style={styles.contentText2}>
-                    딜리버리 서비스 이용하기
+                    デリバリーサービスを利用する
                 </Text>
                 <Text style={styles.contentText}>
-                    고객님의 짐을 가게까지 배달해 주는 서비스입니다.
+                    お客様の荷物をお店までお伝えするサービスです。
                 </Text>
                 <Text style={styles.contentText}>
-                    경로는 현재 위치에서 키퍼까지 자동 설정되며
+                    経路は現在の位置からキーパーまで自動設定され、
                 </Text>
                 <Text style={styles.contentText}>
-                    10분 내로 도착 할 수 있는 딜리버리를 부릅니다.
+                    10分以内に到着できるデリバリーを呼びます。
                 </Text>
                 <Text style={styles.contentText3}>
-                    (24시간 내 키퍼의 수락에 따라 예약이 취소 될 수가 있습니다.)</Text>
+                    (24時間内のキーパーの受け入れにより、予約がキャンセルされることがあります。)</Text>
             </View>
             <View style={styles.footer}>
                 {/* {showActivity} */}
                 <View style={{justifyContent:'center', flexDirection:'row', }}>
-                    <Button title="당일에 사용할께요." type='Clear' titleStyle={styles.buttonTitle} buttonStyle={styles.button} onPress={homeNavi}/>
-                    <Button title="네. 지금 사용할께요" type='Clear' titleStyle={styles.buttonTitle} buttonStyle={styles.button} onPress={toggleOverlay}/>
+                    <Button title="当日に使います。" type='Clear' titleStyle={styles.buttonTitle} buttonStyle={styles.button} onPress={homeNavi}/>
+                    <Button title="はい、今使います。" type='Clear' titleStyle={styles.buttonTitle} buttonStyle={styles.button} onPress={toggleOverlay}/>
                 </View>
             </View>
         </View>
@@ -268,10 +268,10 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     contentText:{
-        fontSize:16,
+        fontSize:14,
     },  
     contentText3:{
-        fontSize:12,
+        fontSize:11,
         marginTop:10,
     },  
     headerTitle:{

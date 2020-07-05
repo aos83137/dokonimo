@@ -227,7 +227,7 @@ export default class DeliveryFindScreen extends Component{
         return(
             <View style={styles.container}>
                 <View style={styles.rootMenu}>
-                    <Text style={styles.titleText}>실시간 위치 확인</Text>
+                    <Text style={styles.titleText}>リアルタイム位置確認</Text>
                     <View style={styles.elem}>
                         <Avatar
                             rounded
@@ -235,10 +235,10 @@ export default class DeliveryFindScreen extends Component{
                             size="large"
                         />
                         <View style={styles.deliveryInfoText}>
-                            <Text>딜리버리 : 전꿈몽</Text>
+                            <Text>デリバリー : 전꿈몽</Text>
                             <Text>대구11사1234 | 아반떼cn7</Text>
-                            <Text style={styles.timeText}>총 거리 : {this.state.distance}</Text>
-                            <Text style={styles.timeText}>약 소요시간 : {this.state.time}분</Text>
+                            <Text style={styles.timeText}>総距離 : {this.state.distance}</Text>
+                            <Text style={styles.timeText}>所要時間 : {this.state.time}분</Text>
                         </View>
                     </View>
                     

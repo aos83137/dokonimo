@@ -180,7 +180,7 @@ export default class HomeScreen extends Component{
         const checkOut = this.props.route.params?.checkOut
         const bagCnt = this.props.route.params?.bagCnt
         const carrCnt = this.props.route.params?.carrCnt
-        const inputData = this.props.route.params?.inputData ? this.props.route.params?.inputData.description : '검색';
+        const inputData = this.props.route.params?.inputData ? this.props.route.params?.inputData.description : '検索';
         
         return(
             <View style={styles.container}>

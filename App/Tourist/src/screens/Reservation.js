@@ -109,10 +109,10 @@ const Reservation = (props)=>{
         let day = date.getDate();                   //d
         day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
         let hour = date.getHours();                 //h
-        let ampm = '오전';
+        let ampm = '午前';
         if(hour>=12){
             hour= hour -12;
-            ampm = '오후';
+            ampm = '午後';
         }
         let min = date.getMinutes();                //m
         if(min<10) min = '0' + min;
@@ -129,9 +129,9 @@ const Reservation = (props)=>{
             if(appm<10){
                 appm = '0'+appm;
             }
-            appm = '오후 '+appm;
+            appm = '午後 '+appm;
         }else{
-            appm = '오전 '+ Number(time.split(':')[0]);
+            appm = '午前 '+ Number(time.split(':')[0]);
         }
         
         const apmtime = appm+':'+time.split(':')[1];
@@ -192,13 +192,13 @@ const Reservation = (props)=>{
             console.log('리뷰 데이터 저장 완료');
             Alert.alert(
                 //Header
-                '리뷰 등록',
+                'レビュー登録',
                 //title
-                '리뷰가 등록 되었습니다.\n감사합니다.',
+                'レビューが登録されました。\nありがとうございます。',
                 //footer button
                 [
                     {
-                        text:'확인',
+                        text:'確認',
                         onPress: ()=>{
                                 props.navigation.navigate('Home',{
                                     stateTest:'change',
@@ -248,13 +248,13 @@ const Reservation = (props)=>{
 
                 Alert.alert(
                     //Header
-                    '결제 감사합니다.',
+                    '予約ありがとうございます',
                     //title
-                    '보관 하시는 짐의 사진을 등록해주세요.\n키퍼가 확인 후 수락을 합니다.',
+                    '保管する荷物の写真を登録してください。\nキーパーが確認後、受諾をします。',
                     //footer button
                     [
                         {
-                            text:'나중에 할께요',
+                            text:'後にします。',
                             style: 'cancel',
                             onPress:()=>{
                                 //딜리버리 스테이트를 바꿔야함
@@ -444,31 +444,31 @@ const Reservation = (props)=>{
             <Image style={styles.keeperImg} source={{ uri:data.keeper_store_imgurl }}></Image>
             <Text style={styles.keeperText}>{data.keeper_store_name}</Text>
         </View>
-        headerText = <Text style={styles.headerText}>예약하기</Text>
+        headerText = <Text style={styles.headerText}>予約する</Text>
         total= 
         <View style={{ flex:1,alignItems:'center' }}>
             <Text style={styles.headerText}>비용</Text>
             <View style = {styles.tableView}>
                 <View style={{ flex:1}}>
                     <Text></Text>
-                    <Text>가방</Text>
-                    <Text>캐리어</Text>
-                    <Text>합계</Text>
+                    <Text>鞄</Text>
+                    <Text>キャリー</Text>
+                    <Text>合計</Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>개수</Text>
+                    <Text style={{ flex:1 }}>数</Text>
                     <Text>{bagCnt}</Text>    
                     <Text>{carrCnt}</Text>
                     <Text></Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>기간</Text>
+                    <Text style={{ flex:1 }}>期間</Text>
                     <Text>{getDays2(checkIn,checkOut)}</Text>
                     <Text>{getDays2(checkIn,checkOut)}</Text>
                     <Text></Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>비용</Text>
+                    <Text style={{ flex:1 }}>費用</Text>
                     <Text>¥{bagCnt*400*ddd}</Text>
                     <Text>¥{carrCnt*700*ddd}</Text>
                     <Text>¥{bagCnt*400*ddd+carrCnt*700*ddd}</Text>
@@ -479,7 +479,7 @@ const Reservation = (props)=>{
             <View>
                 <View style={styles.inWrapView}>
                     <View>
-                        <Text style={styles.subFont}>체크인</Text>
+                        <Text style={styles.subFont}>チェックイン</Text>
                     </View>
                 <View>
                     <Text style={styles.subFont}>{getFormatDate(checkIn)}</Text>
@@ -487,7 +487,7 @@ const Reservation = (props)=>{
             </View>
             <View style={styles.inWrapView}>
                 <View>
-                    <Text style={styles.subFont}>체크아웃</Text>
+                    <Text style={styles.subFont}>チェックアウト</Text>
                 </View>
                 <View>
                     <Text style={styles.subFont}>{getFormatDate(checkOut)}</Text>
@@ -499,7 +499,7 @@ const Reservation = (props)=>{
             <View style={styles.paysCard}>
                 <View>
                     <Button
-                        buttonStyle={{backgroundColor:colors.green01}} title="예약하기" 
+                        buttonStyle={{backgroundColor:colors.green01}} title="予約する" 
                         onPress={payEnd}
                     />
                 </View>
@@ -512,12 +512,12 @@ const Reservation = (props)=>{
                 <Image style={styles.keeperImg} source={{ uri:data.keeper_store_imgurl }}></Image>
                 <Text style={styles.keeperText}>{data.keeper_store_name }</Text>
             </View>
-        headerText = <Text style={styles.headerText}>예약확인</Text>
+        headerText = <Text style={styles.headerText}>予約確認</Text>
         checkInOut=
         <View>
             <View style={styles.inWrapView}>
                 <View>
-                    <Text style={styles.subFont}>체크인</Text>
+                    <Text style={styles.subFont}>チェックイン</Text>
                 </View>
                 <View>
                     <Text style={styles.subFont}>{getFormatDate2(reservation.check_in)}</Text>
@@ -525,7 +525,7 @@ const Reservation = (props)=>{
             </View>
             <View style={styles.inWrapView}>
                 <View>
-                    <Text style={styles.subFont}>체크아웃</Text>
+                    <Text style={styles.subFont}>チェックアウト</Text>
                 </View>
                 <View>
                     <Text style={styles.subFont}>{getFormatDate2(reservation.check_out)}</Text>
@@ -534,28 +534,28 @@ const Reservation = (props)=>{
         </View>;
         total= 
         <View style={{ flex:1,alignItems:'center' }}>
-            <Text style={styles.headerText}>결제 된 비용</Text>
+            <Text style={styles.headerText}>決済費用</Text>
             <View style = {styles.tableView}>
                 <View style={{ flex:1}}>
                     <Text></Text>
-                    <Text>가방</Text>
-                    <Text>캐리어</Text>
-                    <Text>합계</Text>
+                    <Text>鞄</Text>
+                    <Text>キャリー</Text>
+                    <Text>合計</Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>개수</Text>
+                    <Text style={{ flex:1 }}>数</Text>
                     <Text>{reservation.bag_cnt}</Text>    
                     <Text>{reservation.car_cnt}</Text>
                     <Text></Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>기간</Text>
+                    <Text style={{ flex:1 }}>機関</Text>
                     <Text>{getDays(reservation.check_in,reservation.check_out)}</Text>
                     <Text>{getDays(reservation.check_in,reservation.check_out)}</Text>
                     <Text></Text>
                 </View>
                 <View style={{ flex:1}}>
-                    <Text style={{ flex:1 }}>비용</Text>
+                    <Text style={{ flex:1 }}>費用</Text>
                     <Text>¥{reservation.bag_cnt*400*ddd}</Text>
                     <Text>¥{reservation.car_cnt*700*ddd}</Text>
                     <Text>¥{reservation.bag_cnt*400*ddd+reservation.car_cnt*700*ddd}</Text>
@@ -567,14 +567,14 @@ const Reservation = (props)=>{
             footer=
             <View>
                 <Text style={styles.headerText}>
-                    딜리버리 이용
+                    デリバリーの利用
                 </Text>
                 <View style={styles.paysCard}>
                     <View>
-                        <Text>- 가게까지 짐을 배달해 주는 서비스입니다.</Text>    
-                        <Text>- 반경 5KM 내의 딜리버리를 찾습니다.</Text>
+                        <Text>- キーパーに荷物を配達してくれるサービスです。</Text>    
+                        <Text>- 半径5KM内のデリバリーを探します。</Text>
                         <Button
-                            buttonStyle={{backgroundColor:colors.green01}} title="예약하기" 
+                            buttonStyle={{backgroundColor:colors.green01}} title="予約する" 
                             onPress={goDelivery}
                         />
                     </View>
@@ -601,9 +601,9 @@ const Reservation = (props)=>{
             footer=
             <View>                
                 <View style={styles.paysCard}>
-                        <Text>딜리버리의 위치를 실시간으로 확인 할 수 있습니다.</Text>    
+                        <Text>デリバリーの位置をリアルタイムで確認できます。</Text>    
                         <Button
-                            buttonStyle={{backgroundColor:colors.green01}} title="딜리버리 확인" 
+                            buttonStyle={{backgroundColor:colors.green01}} title="デリバリー確認" 
                             onPress={goDeliveryFindScreen}
                         />
                 </View>
@@ -613,7 +613,7 @@ const Reservation = (props)=>{
             imageList =
             <>
             <View style={styles.header}>
-                <Text style={styles.headerText}>짐 사진 등록</Text>
+                <Text style={styles.headerText}>荷物の写真を登録</Text>
             </View>
                 <Carousel
                     //https://github.com/archriss/react-native-snap-carousel
@@ -628,7 +628,7 @@ const Reservation = (props)=>{
                         // }
                         removeClippedSubviews={false}
                 />
-                <Button buttonStyle={styles.button2} title={'사진 등록'} onPress={showCameraRoll}/>
+                <Button buttonStyle={styles.button2} title={'写真登録'} onPress={showCameraRoll}/>
                 {/* <Button buttonStyle={styles.button2} title={'사진 촬영'}  onPress={onCamera}/> */}
             </>
             footer=
@@ -636,9 +636,9 @@ const Reservation = (props)=>{
                 
                 { pagination }
                 <View style={styles.paysCard}>
-                        <Text>키퍼의 수락을 대기 중 입니다...</Text>    
+                        <Text>キーファーの受諾を待機中です...</Text>    
                         <Text>
-                            잠시만 기다려 주십시오...
+                            少々お待ちください...
                         </Text>
                 </View>
             </View>;
@@ -646,23 +646,23 @@ const Reservation = (props)=>{
             footer=
             <View>
                 <View>  
-                    <Text style={styles.headerText}>딜리버리 이용 내역</Text>                  
+                    <Text style={styles.headerText}>デリバリー利用内訳</Text>                  
                     <View style={styles.paysCard}>
                         <View>
-                            <Text>- 딜리버리 : {delivery.delivery_name}</Text> 
-                            <Text>- 차종 : {delivery.delivery_car}</Text>   
-                            <Text>- 이동 거리 : 6.23km</Text>
+                            <Text>- デリバリー : {delivery.delivery_name}</Text> 
+                            <Text>- 車種 : {delivery.delivery_car}</Text>   
+                            <Text>- 移動距離 : 6.23km</Text>
                         </View>
                     </View>
                 </View>
             </View>;
             Review=
             <View>
-                <Text style={styles.headerText}>리뷰 작성</Text>                  
-                <Text style={{ width:'100%' }}>키퍼에 대한 리뷰를 남겨주세요.</Text> 
+                <Text style={styles.headerText}>レビュー作成</Text>                  
+                <Text style={{ width:'100%' }}>キーパーについてのレビューを残してください。</Text> 
                 <View style={styles.reviewView}>
                     <View style={styles.field}>
-                        <Text style={{ marginBottom:5, fontSize:18 }}>후기</Text>
+                        <Text style={{ marginBottom:5, fontSize:18 }}>コメント</Text>
                         <TextInput
                             style={{ borderColor:colors.gray, borderWidth:2, width:'90%', padding:10 }}
                             multiline={true}

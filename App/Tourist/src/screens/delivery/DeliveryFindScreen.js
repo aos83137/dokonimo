@@ -173,9 +173,9 @@ export default class DeliveryFindScreen extends Component{
         }).then((resJson)=>{
             Alert.alert(
                 //header
-                '인계 완료했습니다.',
+                '引継ぎ完了しました。',
                 // title
-                'Info탭에서 실시간 짐의 위치를 확인할 수 있습니다.',
+                'Infoタブでリアルタイムで荷物の位置を確認できます。',
                 [
                     {
                         text:'홈으로...',
@@ -248,7 +248,7 @@ export default class DeliveryFindScreen extends Component{
         return(
             <View style={styles.container}>
                 <View style={styles.rootMenu}>
-                    <Text style={styles.titleText}>딜리버리를 찾았습니다.</Text>
+                    <Text style={styles.titleText}>デリバリーを見つけました。</Text>
                     <View style={styles.elem}>
                         <Avatar
                             rounded
@@ -256,10 +256,10 @@ export default class DeliveryFindScreen extends Component{
                             size="large"
                         />
                         <View style={styles.deliveryInfoText}>
-                            <Text style={styles.dName}>딜리버리 : 전꿈몽</Text>
+                            <Text style={styles.dName}>デリバリー : 전꿈몽</Text>
                             <Text style={styles.dCar}>대구11사1234 | 아반떼cn7</Text>
-                            <Text style={styles.timeText}>총 거리 : {this.state.distance}</Text>
-                            <Text style={styles.timeText}>약 {this.state.time}분 후 도착합니다.</Text>
+                            <Text style={styles.timeText}>総距離 : {this.state.distance}</Text>
+                            <Text style={styles.timeText}>略 {this.state.time}分後に到着します</Text>
                         </View>
                     </View>
                     
