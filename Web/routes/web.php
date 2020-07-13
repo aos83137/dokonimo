@@ -21,16 +21,13 @@ Route::get('/{any}', function () {
     return view('welcome');
 })->where('any','.*');
 
-
 Route::resource('user','SibalController');
-Route::resource('users','UserController');
+
 Route::resource('tourists','TouristController');
-Route::resource('keepers','KeeperController');
+Route::resource('keeperx','KeeperxController');
 Route::resource('deliverys','DeliveryController');
 Route::resource('evaluations','EvaluationController');
 Route::resource('kstoreinfos','KstoreinfoController');
 Route::resource('reservations','ReservationController');
-Route::resource('rphotos','RphotoController');
 Route::get('rtshow/{id}', 'ReservationController@rtshow');
 Route::get('storeshow/{id}', 'KeeperxController@storeshow');
-Route::get('rktshowall/{id}', 'ReservationController@rktshowall');

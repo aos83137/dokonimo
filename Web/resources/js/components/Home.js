@@ -25,10 +25,12 @@ render() {
                     <h1 className="h1-responsive font-weight-bold p-6 col-example text-center text-white" color="white" style={{marginTop:"200px", height:"100px"}}>
                       スマートフォンで簡単に荷物を預けることができます。
                     </h1>
-                  <MDBBtn className="keeper_register" rounded color="primary"
-                  style={{marginLeft:"850px", marginTop:"50px"}}>
-                    <MDBIcon icon="store" className="mr-2"/><MDBNavLink to="/createstore" style={{color:"white"}} >店舗登録</MDBNavLink>
-                  </MDBBtn>    
+                  <MDBNavLink to="/createstore" style={{color:"white"}} >
+                    <MDBBtn className="keeper_register" rounded color="primary"
+                    style={{marginLeft:"750px", marginTop:"40px",width:"130px",height:"70px"}}>
+                      <MDBIcon icon="store" className="mr-2"/>店舗登録
+                    </MDBBtn>
+                  </MDBNavLink>    
                   </MDBMask>
                 </MDBRow>
               </div>

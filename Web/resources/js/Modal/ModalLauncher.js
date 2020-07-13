@@ -46,11 +46,10 @@ class ModalLauncher extends Component {
 
           {this.state.showModal && (
             <ImageModal onCloseRequest={() => this.handleToggleModal()}>
-              {this.state.photos.map((photo,index)=>{
-                <div style={{display: 'flex',flexDirection:'row'}}>
-                  <img style={{marginLeft: '6%', marginTop:'12%', width:'20%', height:'50%'}} src= {photo.rphoto_url} />
-                </div>
-              })}
+              <div style={{display: 'flex',flexDirection:'row'}}>
+                <img style={{marginLeft: '25%', marginTop:'10%', width:'20%', height:'50%'}} src= 'https://firebasestorage.googleapis.com/v0/b/maptest3-b3603.appspot.com/o/images%2FKakaoTalk_20200614_193307381_02.jpg?alt=media&token=d880e7b1-e6db-4441-a57b-590e29c3cfcd' />
+                <img style={{marginLeft: '10%', marginTop:'10%', width:'20%', height:'50%'}} src= 'https://firebasestorage.googleapis.com/v0/b/maptest3-b3603.appspot.com/o/images%2FKakaoTalk_20200617_233223040_02.jpg?alt=media&token=c4f84aa8-f2b7-4639-8e46-bb7b9856a82b' />
+              </div>
             </ImageModal>
           )}
       </div>

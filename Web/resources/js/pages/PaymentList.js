@@ -24,6 +24,9 @@ export default function PaymentList() {
       <LeftSideBar />
       <div className={classes.root}>
         <Paper variant="outlined" square>
+          <div className="container text-center mb-5" >
+              <h1  style={{textAlign:'center'}}>決済リスト</h1>
+          </div>
             <PaymentTable />
         </Paper>
       </div>

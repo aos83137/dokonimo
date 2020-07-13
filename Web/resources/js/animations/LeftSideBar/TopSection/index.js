@@ -21,7 +21,7 @@ const TopSection = () => {
         onClick={() => setIsShowSidebar(true)}
       />
       <h3 style={{paddingLeft:'30px'}}>キッパーメニュー</h3>
-      <a href='/' style={{textDecoration: 'none', color:'black'}}><h3 style={{paddingLeft:'635px'}}>DOKONIMO</h3></a>
+      <a href='/' style={{textDecoration: 'none', color:'black'}}><h3 style={{paddingLeft:'500px'}}>DOKONIMO</h3></a>
     </div>
   );
 };
