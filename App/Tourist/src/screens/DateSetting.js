@@ -65,10 +65,10 @@ const DateSetting = (props)=>{
         let day = date.getDate();                   //d
         day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
         let hour = date.getHours();                 //h
-        let ampm = '오전';
+        let ampm = '午前';
         if(hour>=12){
             hour= hour -12;
-            ampm = '오후';
+            ampm = '午後';
         }
         let min = date.getMinutes();                //m
         if(min<10) min = '0' + min;
@@ -77,7 +77,7 @@ const DateSetting = (props)=>{
 
     let button;
     if(whereScreen === 'date'){
-        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="검색" 
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="探す" 
             onPress={()=>{props.navigation.navigate('Home',{
                     checkIn,
                     checkOut,
@@ -86,7 +86,7 @@ const DateSetting = (props)=>{
                 })
             }}/>
     }else if(whereScreen==='info'){
-        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="예약 내역 확인" 
+        button=<Button buttonStyle={{backgroundColor:colors.green01}} title="予約内容を確認" 
             onPress={()=>{props.navigation.navigate('Reservation',{
                     checkIn,
                     checkOut,
@@ -106,8 +106,8 @@ const DateSetting = (props)=>{
                 <Overlay overlayStyle={styles.overlay} isVisible={carrVisible} onBackdropPress={toggleCarrOverlay}>
                     <View style={styles.overlayStyle}>
                         <View style = {styles.title}>
-                            <Text style={styles.checkText1}>수트케이스 개수</Text>    
-                            <Text style={styles.luggageText1}>길이가 45cm 이상인 수하물</Text>    
+                            <Text style={styles.checkText1}>スーツケースの数</Text>    
+                            <Text style={styles.luggageText1}>長さ45cm以上の手荷物</Text>    
                         </View>
                         <View style={styles.elem}>
                             <Avatar
@@ -134,8 +134,8 @@ const DateSetting = (props)=>{
                 <Overlay overlayStyle={styles.overlay} isVisible={visible} onBackdropPress={toggleOverlay}>
                     <View style={styles.overlayStyle}>
                         <View style = {styles.title}>
-                            <Text style={styles.checkText1}>가방 개수</Text>    
-                            <Text style={styles.luggageText1}>길이가 45cm 이하인 수하물</Text>    
+                            <Text style={styles.checkText1}>カバンの数</Text>    
+                            <Text style={styles.luggageText1}>長さ45センチ以下の手荷物</Text>    
                         </View>
                         <View style={styles.elem}>
                             <Avatar
@@ -182,7 +182,7 @@ const DateSetting = (props)=>{
                     />
                     <TouchableOpacity onPress={()=>{showDatePicker('checkIn')}}>
                         <View>
-                            <Text style={styles.checkText1}>체크인</Text>
+                            <Text style={styles.checkText1}>チェックイン</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkIn)}</Text>
                         </View>
                     </TouchableOpacity>
@@ -191,7 +191,7 @@ const DateSetting = (props)=>{
                     </View>
                     <TouchableOpacity onPress={()=>{showDatePicker('checkOut')}}>
                         <View>
-                            <Text style={styles.checkText1}>체크아웃</Text>
+                            <Text style={styles.checkText1}>チェックアウト</Text>
                             <Text style={styles.checkText2}>{getFormatDate(checkOut)}</Text>
                         </View>
                     </TouchableOpacity>
@@ -205,7 +205,7 @@ const DateSetting = (props)=>{
                                 size={30}
                                 style={styles.icon}
                             />
-                            <Text style={styles.luggageText1}>가방 개수</Text>
+                            <Text style={styles.luggageText1}>カバンの数</Text>
                             <TouchableOpacity
                             onPress={toggleOverlay}>
                                 <Icon2
@@ -243,7 +243,7 @@ const DateSetting = (props)=>{
                                 size={30}
                                 style={styles.icon}
                             />
-                            <Text style={styles.luggageText1}>슈트케이스의 개수</Text>
+                            <Text style={styles.luggageText1}>スーツケースの数</Text>
                             <TouchableOpacity
                             onPress={toggleCarrOverlay}
                             >

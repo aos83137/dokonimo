@@ -94,12 +94,12 @@ export default class DeliveryFindScreen extends Component{
         }else{
             Alert.alert(
             //header
-            '짐 전달 완료',
+            '荷物',
             // title
-            '전달이 완료 되었습니다.',
+            '荷物を無地渡しました。',
             [
                 {
-                    text:'예약으로...',
+                    text:'予約へ...',
                     onPress:()=>{
                         // database().ref('/delivery').update({state:'delivering'})
                         // .then(()=>{console.log('Data updated');

@@ -12,7 +12,7 @@ export default class PlacesAutoComplete extends Component{
         return(
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <GooglePlacesAutocomplete
-              placeholder='지역 검색'
+              placeholder='地域検索'
               minLength={2} // minimum length of text to search
               autoFocus={true}
               returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype

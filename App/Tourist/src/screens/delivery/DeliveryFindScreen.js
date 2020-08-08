@@ -178,7 +178,7 @@ export default class DeliveryFindScreen extends Component{
                 'Infoタブでリアルタイムで荷物の位置を確認できます。',
                 [
                     {
-                        text:'홈으로...',
+                        text:'もどる...',
                         onPress:()=>{
                             database().ref('/delivery').update({state:'delivering'})
                             .then(()=>{console.log('Data updated');
