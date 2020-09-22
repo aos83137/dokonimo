@@ -264,7 +264,7 @@ const Reservation = (props)=>{
                             }
                         },
                         {
-                            text:'네.',
+                            text:'はい',
                             onPress: ()=>{
                                 props.navigation.navigate('Info',{
                                     stateTest:'change',
@@ -447,7 +447,7 @@ const Reservation = (props)=>{
         headerText = <Text style={styles.headerText}>予約する</Text>
         total= 
         <View style={{ flex:1,alignItems:'center' }}>
-            <Text style={styles.headerText}>비용</Text>
+            <Text style={styles.headerText}>費用</Text>
             <View style = {styles.tableView}>
                 <View style={{ flex:1}}>
                     <Text></Text>
