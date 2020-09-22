@@ -14,43 +14,43 @@ const SScreen =()=>{
 
     return(
       <View style={styles.container}>
-        <Text style={styles.text}>설정</Text>
+        <Text style={styles.text}>設定</Text>
         <ScrollView style={styles.scroll}>
-          <Text style={styles.text2}>인증</Text>
+          <Text style={styles.text2}>認証</Text>
           <View style={styles.button}>
-            <CustomButton title="계좌 등록"/>
+            <CustomButton title="口座登録"/>
           </View>
           <View style={styles.button}>
-            <CustomButton title="로그아웃" 
+            <CustomButton title="ログアウト" 
             onPress={()=>{signOut()}}/>
           </View>
-          <Text style={styles.text2}>기본 설정</Text>
+          <Text style={styles.text2}>基本設定</Text>
           <View style={styles.button}>
-            <CustomButton title="알림"/>
+            <CustomButton title="知らせ"/>
           </View>
           <View style={styles.button}>
             <CustomButton title="GPS"/>
           </View>
           <View style={styles.button}>
-            <CustomButton title="언어설정"/>
+            <CustomButton title="言語設定"/>
           </View>
           <Text style={styles.text2}>Help</Text>
           <View style={styles.button}>
             <CustomButton title="FAQ"/>
           </View>
           <View style={styles.button}>
-            <CustomButton title="금지 품목"/>
+            <CustomButton title="禁止品目"/>
           </View>
           <View style={styles.button}>
-            <CustomButton title="지원팀으로 연락"/>
+            <CustomButton title="支援チームに連絡"/>
           </View>
-          <Text style={styles.text2}>이 앱에 관하여</Text>
+          <Text style={styles.text2}>このアプリに関して</Text>
           <View style={styles.button}>
-            <CustomButton title="공지"/>
+            <CustomButton title="案内"/>
           </View><View style={styles.button}>
-            <CustomButton title="금지 품목"/>
+            <CustomButton title="禁止品目"/>
           </View><View style={styles.button}>
-            <CustomButton title="지원팀으로 연락"/>
+            <CustomButton title="支援チームに連絡"/>
           </View>
           
         </ScrollView>

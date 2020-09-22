@@ -116,7 +116,7 @@ const LoginScreen = ({navigation}) =>{
            
             <Text style={styles.text_header}>Login To Delivery App</Text>
             <View style={styles.action}>
-                <Text  style={styles.text_email}>Name</Text>
+                <Text  style={styles.text_email}>名前</Text>
                 <FontAwesome 
                     name="user-o"
                     color="#fff"
@@ -148,7 +148,7 @@ const LoginScreen = ({navigation}) =>{
             }
             
             <View style={styles.action }>
-                <Text  style={styles.text_pass}>Password</Text>
+                <Text  style={styles.text_pass}>パスワード</Text>
                 <Feather 
                     name="lock"
                     color="#fff"
@@ -186,11 +186,11 @@ const LoginScreen = ({navigation}) =>{
             }
 
             <View style={styles.button}>
-                <CustomButton title='로그인' buttonColor={'#BBD4D8'} borderRadius={8} 
+                <CustomButton title='ログイン' buttonColor={'#BBD4D8'} borderRadius={8} 
                 onPress={()=>{loginHandle( data.username,data.password )}} />
             </View>
             <View style={styles.button}>
-                <CustomButton title='회원가입' buttonColor={'#BBD4D8'} borderRadius={8}
+                <CustomButton title='会員加入' buttonColor={'#BBD4D8'} borderRadius={8}
                 onPress={()=> navigation.navigate('Signup')}/>
             </View>
         </View>

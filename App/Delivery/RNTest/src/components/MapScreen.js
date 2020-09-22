@@ -134,7 +134,7 @@ export default class MapScreen extends React.Component {
                 {this.useLayoutEffect()}
 
                 <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
-                    <Text style={{fontSize:20,marginTop:100}}>가방 사진</Text>
+                    <Text style={{fontSize:20,marginTop:100}}>バッグ写真</Text>
 
                     <ScrollView horizontal style={{width:250,height:250}}>
                         {
@@ -149,16 +149,16 @@ export default class MapScreen extends React.Component {
                         }
                     </ScrollView>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        45cm이하 : {this.state.keeper.bag_cnt} 개
+                        45cm以下 : {this.state.keeper.bag_cnt} 個
                     </Text>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        45cm이상 : {this.state.keeper.car_cnt} 개
+                        45cm以上 : {this.state.keeper.car_cnt} 個
                     </Text>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        주소 : {this.state.keeper.keeper_store_address}
+                    住所 : {this.state.keeper.keeper_store_address}
                     </Text>
                     <Text style={{fontSize:20,marginTop:20,marginBottom:50}}>
-                        가게 명 : {this.state.keeper.keeper_store_name}
+                    店名 : {this.state.keeper.keeper_store_name}
                     </Text>
           
                 </Overlay>
@@ -189,9 +189,9 @@ export default class MapScreen extends React.Component {
                 </MapView>
                 <View style={styles.CButton}>
                     <CustomButton buttonColor={'#BBD4D8'}
-                            titleColor={'#1C1C1C'} title="수락" onPress={this.ok} />
+                            titleColor={'#1C1C1C'} title="承知" onPress={this.ok} />
                     <CustomButton buttonColor={'#BBD4D8'}
-                            titleColor={'#1C1C1C'} title="거절" onPress={()=>this.props.navigation.goBack()} />
+                            titleColor={'#1C1C1C'} title="断り" onPress={()=>this.props.navigation.goBack()} />
                 </View>
               
             </View>

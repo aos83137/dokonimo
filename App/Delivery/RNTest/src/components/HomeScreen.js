@@ -24,7 +24,7 @@ export default class HomeScreen extends React.Component{
 
     }
     _onStateChange(newState){
-        const value = newState?"대기중":"배달안함"
+        const value = newState?"大気中":"配達しません"
         this.setState({toggleText:value})
         
     }
@@ -67,11 +67,11 @@ export default class HomeScreen extends React.Component{
         const {toggleText} = this.state;
         const users = [];
 
-        if(toggleText=="대기중"){
+        if(toggleText=="大気中"){
             if(this.state.data){
                 for(i=0; i<this.state.data.length; i++){
                     const keeper ={
-                        id:this.state.data[i].reservation_id+'번',
+                        id:this.state.data[i].reservation_id+'番',
                         name:this.state.data[i].name,
                         user_latitude: this.state.data[i].user_latitude,
                         user_longitude: this.state.data[i].user_longitude,
@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component{
 
         return(
             <View style={styles.container}>
-                <Text>안전 운전 하세요!</Text>
+                <Text>安全運転をしてください！</Text>
                 <ToggleButton onStateChange={this._onStateChange}/>
                 <View style={styles.footer}>
                 {this.state.data?

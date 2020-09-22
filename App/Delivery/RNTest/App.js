@@ -229,14 +229,14 @@ _listenForNotifications=async()=>{
             <Stack.Navigator>
               <Stack.Screen name="딜리버리" component={TabScreen} 
               options={{
-                title:'딜리버리', 
+                title:'デリバリー', 
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},
               }}/>
               <Stack.Screen name="Map" component={MapScreen} 
               options={{
-                title:'Map', 
+                title:'地図', 
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},
@@ -252,21 +252,21 @@ _listenForNotifications=async()=>{
               }}/>
               <Stack.Screen name="Geo" component={GeoScreen}
               options={{
-                title:'위치추적', 
+                title:'位置追跡', 
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},
               }}/>
               <Stack.Screen name="Com" component={ComScreen}
               options={{
-                title:'완료', 
+                title:'完了', 
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},
               }}/>
               <Stack.Screen name="Login" component={LoginScreen}
               options={{
-                title:'로그인', 
+                title:'ログイン', 
                 headerStyle:{backgroundColor:'#008388'},
                 headerTintColor:'#fff',
                 headerTitleStyle:{fontWeight:'bold'},

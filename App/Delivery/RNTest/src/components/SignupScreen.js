@@ -126,7 +126,7 @@ const SignupScreen = ({navigation}) => {
         <View style={styles.container}>
             <Text style={styles.text_header}>Sign up To Delivery App</Text>
             <View style={styles.action}>
-                <Text  style={styles.text_email}>Name</Text>
+                <Text  style={styles.text_email}>名前</Text>
                 <FontAwesome 
                     name="user-o"
                     color="#fff"
@@ -149,7 +149,7 @@ const SignupScreen = ({navigation}) => {
             }
             
             <View style={styles.action }>
-                <Text  style={styles.text_pass}>Password</Text>
+                <Text  style={styles.text_pass}>パスワード</Text>
                 <Feather 
                     name="lock"
                     color="#fff"
@@ -170,7 +170,7 @@ const SignupScreen = ({navigation}) => {
             }
 
             <View style={styles.action}>
-                <Text  style={styles.text_email}>Email</Text>
+                <Text  style={styles.text_email}>メール</Text>
                 <Feather 
                     name="mail"
                     color="#fff"
@@ -185,7 +185,7 @@ const SignupScreen = ({navigation}) => {
                 />
             </View>
             <View style={styles.action }>
-                <Text  style={styles.text_phon}>Phonenumber</Text>
+                <Text  style={styles.text_phon}>携帯番号</Text>
                 <Feather 
                     name="phone"
                     color="#fff"
@@ -200,7 +200,7 @@ const SignupScreen = ({navigation}) => {
                 />
             </View>
             <View style={styles.action}>
-                <Text  style={styles.text_pass}>Car_Name</Text>
+                <Text  style={styles.text_pass}>自動車のナンバー</Text>
                 <FontAwesome 
                     name="car"
                     color="#fff"
@@ -217,12 +217,12 @@ const SignupScreen = ({navigation}) => {
 
             
             <View style={styles.button}>
-                <CustomButton title='회원가입' buttonColor={'#BBD4D8'} borderRadius={8}
+                <CustomButton title='会員加入' buttonColor={'#BBD4D8'} borderRadius={8}
                 onPress={()=>{signupbutton()}} />
             </View>
 
             <View style={styles.button}>
-                <CustomButton title='로그인' buttonColor={'#BBD4D8'} borderRadius={8} 
+                <CustomButton title='ログイン' buttonColor={'#BBD4D8'} borderRadius={8} 
                 onPress={()=>navigation.navigate('Login')}/>
             </View>
         </View>

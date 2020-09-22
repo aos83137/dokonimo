@@ -71,9 +71,9 @@ export default class MScreen extends React.Component{
           if(data.reservation_status=='end_delivery'){
             
             const ends ={
-              id:data.reservation_id+'번',
+              id:data.reservation_id+'番',
               name:data.keeper_store_name,
-              state:'배달완료'
+              state:'配達完了'
             }
             to.push(ends);
 

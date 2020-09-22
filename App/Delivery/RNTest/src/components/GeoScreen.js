@@ -122,7 +122,7 @@ export default class GeoScreen extends React.Component {
             
         }).catch(e=>{console.error(e);}
         )
-        alert('수령 완료');
+        alert('受取完了');
         
         this.setState({
             dstate:true,
@@ -148,7 +148,7 @@ export default class GeoScreen extends React.Component {
                 {this.useLayoutEffect()}
 
                 <Overlay isVisible={this.state.visible} onBackdropPress={this.toggleOverlay2}>
-                    <Text style={{fontSize:20,marginTop:100,}}>가방 사진</Text>
+                    <Text style={{fontSize:20,marginTop:100,}}>バッグ写真</Text>
                     <ScrollView horizontal style={{width:250,height:250}}>
                         {
                             this.state.photos.map((image,index)=>(
@@ -162,22 +162,22 @@ export default class GeoScreen extends React.Component {
                         }
                     </ScrollView>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        45cm이하 : {this.state.keeper.bag_cnt} 개
+                        45cm以下 : {this.state.keeper.bag_cnt} 個
                     </Text>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        45cm이상 : {this.state.keeper.car_cnt} 개
+                        45cm以上 : {this.state.keeper.car_cnt} 個
                     </Text>
                     <Text style={{fontSize:20,marginTop:20}}>
-                        주소 : {this.state.keeper.keeper_store_address}
+                    住所 : {this.state.keeper.keeper_store_address}
                     </Text>
                     <Text style={{fontSize:20,marginTop:20,marginBottom:50}}>
-                        가게 명 : {this.state.keeper.keeper_store_name}
+                    店名 : {this.state.keeper.keeper_store_name}
                     </Text>
                 </Overlay>
 
                 {dstate ? (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
-                            titleColor={'#1C1C1C'} title="짐 배달 완료" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
-                            titleColor={'#1C1C1C'} title="짐 수령" onPress={this.take}/></View>)}
+                            titleColor={'#1C1C1C'} title="配達完了" onPress={()=>this.props.navigation.navigate('Com',{reservation_id:reservation_id,user_name:user_name})}/></View>): (<View style={styles.CButton}><CustomButton buttonColor={'#BBD4D8'}
+                            titleColor={'#1C1C1C'} title="受取" onPress={this.take}/></View>)}
         
                 <MapView
                     provider={PROVIDER_GOOGLE}

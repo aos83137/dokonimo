@@ -52,12 +52,12 @@ export default class ComScreen extends React.Component{
                     "to":"/topics/tourist",
                     "priority":"high",
                     "notification":{
-                        "body":"키퍼에게 짐 전달을 완료했습니다.",
-                        "title":"딜리버리 도착"
+                        "body":"キーパーに渡すのを完了しました。",
+                        "title":"デリバリー到着"
                     }, 
                     "data":{
-                        "title": "딜리버리 도착",
-                        "message":"키퍼에게 짐 전달을 완료했습니다."
+                        "title": "デリバリー到着",
+                        "message":"キーパに渡すのを完了しました。"
                     }
                 }
             )
@@ -74,11 +74,11 @@ export default class ComScreen extends React.Component{
         name = user_name;
         return(
             <View style={styles.container}>
-                <Text style={styles.text}>배달 완료했습니다!</Text>
+                <Text style={styles.text}>配達完了しました!</Text>
                 {this.push()}
                 <View style={styles.CButton}>
                     <CustomButton buttonColor={'#008388'}
-                            titleColor={'#fff'} title = "홈" 
+                            titleColor={'#fff'} title = "ホーム" 
                     onPress={this.end} />
                 </View>
             </View>

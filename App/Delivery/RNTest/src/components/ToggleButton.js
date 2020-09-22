@@ -17,7 +17,7 @@ export default class ToggleButton extends React.Component{
     }
     render(){
     const {toggle} = this.state;
-    const textValue = toggle?"대기중":"배달안함";
+    const textValue = toggle?"大気中":"配達しません";
         return(
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity 
