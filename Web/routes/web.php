@@ -21,7 +21,7 @@ Route::get('/{any}', function () {
     return view('welcome');
 })->where('any','.*');
 
-Route::resource('user','SibalController');
+
 
 Route::resource('tourists','TouristController');
 Route::resource('keeperx','KeeperxController');
